@@ -1,0 +1,1494 @@
+<div
+  class="main-header"
+  [ngClass]="{
+    'main-header-four':
+      base === 'index-2' || base === 'index-4' || base === 'index-6'
+  }"
+>
+  <!-- Header Topbar-->
+  <div
+    [hidden]="
+      base === 'index-2' ||
+      base === 'index-3' ||
+      base === 'index-4' ||
+      base === 'index-5' ||
+      base === 'index-6' ||
+      page === 'index-rtl'
+    "
+    class="header-topbar text-center bg-transparent"
+  >
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between flex-wrap">
+        <p class="d-flex align-items-center fw-medium fs-14 mb-2">
+          <i class="isax isax-call5 me-2"></i>Helpline : +91 9633926023
+        </p>
+        <div class="d-flex align-items-center">
+          <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14">
+            <i class="isax isax-message-text-15 me-2"></i>Email :
+            mail&#64;ota24hours.com
+          </p>
+          <div class="fav-dropdown mb-2">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="page === 'index-rtl'"
+    class="header-topbar text-center bg-transparent"
+  >
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between flex-wrap">
+        <p class="d-flex align-items-center fw-medium fs-14 mb-2">
+          <i class="isax isax-call5 me-2"></i>Helpline : +91 9633926023
+        </p>
+        <div class="d-flex align-items-center">
+          <p class="mb-2 ms-3 d-flex align-items-center fw-medium fs-14">
+            <i class="isax isax-message-text-15 ms-2"></i>Email :
+            mail&#64;ota24hours.com
+          </p>
+          <div class="dropdown flag-dropdown mb-2 ms-3">
+            <a
+              href="javascript:void(0);"
+              class="dropdown-toggle d-inline-flex align-items-center"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="assets/img/flags/us-flag.svg"
+                class="ms-2"
+                alt="flag"
+              />ENG
+            </a>
+            <ul class="dropdown-menu p-2 mt-2">
+              <li>
+                <a
+                  class="dropdown-item rounded d-flex align-items-center"
+                  href="javascript:void(0);"
+                >
+                  <img
+                    src="assets/img/flags/us-flag.svg"
+                    class="ms-2"
+                    alt="flag"
+                  />ENG
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item rounded d-flex align-items-center"
+                  href="javascript:void(0);"
+                >
+                  <img
+                    src="assets/img/flags/arab-flag.svg"
+                    class="ms-2"
+                    alt="flag"
+                  />ARA
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item rounded d-flex align-items-center"
+                  href="javascript:void(0);"
+                >
+                  <img
+                    src="assets/img/flags/france-flag.svg"
+                    class="ms-2"
+                    alt="flag"
+                  />FRE
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="dropdown mb-2 ms-3">
+            <a
+              href="javascript:void(0);"
+              class="dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              USD
+            </a>
+            <ul class="dropdown-menu p-2 mt-2">
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >USD</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >YEN</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >EURO</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="fav-dropdown mb-2">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="base === 'index-4'"
+    class="header-topbar topbar-four text-center bg-transparent"
+  >
+    <div class="container-fluid">
+      <div class="d-flex align-items-center justify-content-between flex-wrap">
+        <div class="d-flex align-items-center flex-wrap">
+          <p class="d-flex align-items-center fs-14 mb-2 me-3">
+            <i class="isax isax-call5 me-2"></i>Helpline : +91 9633926023
+          </p>
+          <p class="mb-2 d-flex align-items-center fs-14">
+            <i class="isax isax-message-text-15 me-2"></i>Email :
+            mail&#64;ota24hours.com
+          </p>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="dropdown flag-dropdown mb-2 me-3">
+            <a
+              href="javascript:void(0);"
+              class="dropdown-toggle d-inline-flex align-items-center"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="assets/img/flags/us-flag.svg"
+                class="me-2"
+                alt="flag"
+              />ENG
+            </a>
+            <ul class="dropdown-menu p-2 mt-2">
+              <li>
+                <a
+                  class="dropdown-item rounded d-flex align-items-center"
+                  href="javascript:void(0);"
+                >
+                  <img
+                    src="assets/img/flags/us-flag.svg"
+                    class="me-2"
+                    alt="flag"
+                  />ENG
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item rounded d-flex align-items-center"
+                  href="javascript:void(0);"
+                >
+                  <img
+                    src="assets/img/flags/arab-flag.svg"
+                    class="me-2"
+                    alt="flag"
+                  />ARA
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item rounded d-flex align-items-center"
+                  href="javascript:void(0);"
+                >
+                  <img
+                    src="assets/img/flags/france-flag.svg"
+                    class="me-2"
+                    alt="flag"
+                  />FRA
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="dropdown mb-2">
+            <a
+              href="javascript:void(0);"
+              class="dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              USD
+            </a>
+            <ul class="dropdown-menu p-2 mt-2">
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >USD</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >YEN</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >EURO</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="base === 'index-6'"
+    class="header-topbar header-top-six text-center bg-transparent"
+  >
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between flex-wrap">
+        <div class="d-flex align-items-center flex-wrap">
+          <p class="d-flex align-items-center fs-14 mb-2 me-3">
+            <i class="isax isax-call5 me-2"></i>Helpline : +91 9633926023
+          </p>
+          <p class="mb-2 d-flex align-items-center fs-14">
+            <i class="isax isax-message-text-15 me-2"></i>Email :
+            mail&#64;ota24hours.com
+          </p>
+        </div>
+        <div class="navbar-logo mb-2">
+          <a class="logo-dark header-logo"   [routerLink]="userType === 'vendor' ? '/agent/agent-dashboard' : routes.index">
+            <img style="height: 35px !important;" src="assets/img/logo-2.jpg" class="logo" alt="Logo" />
+          </a>
+          <a class="logo-white header-logo"   [routerLink]="userType === 'vendor' ? '/agent/agent-dashboard' : routes.index">
+            <img style="height: 35px !important;" src="assets/img/logo-2.jpg" class="logo" alt="Logo" />
+          </a>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="dropdown mb-2 me-3">
+            <a
+              href="javascript:void(0);"
+              class="dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              USD
+            </a>
+            <ul class="dropdown-menu p-2 mt-2">
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >USD</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >YEN</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >EURO</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="me-3 mb-2">
+            <a
+              href="javascript:void(0);"
+              id="dark-mode-toggle"
+              class="theme-toggle"
+              [ngClass]="{ activate: isdark }"
+              (click)="darkMode()"
+              (click)="settings.changeThemeColor('1')"
+            >
+              <i class="isax isax-moon"></i>
+            </a>
+            <a
+              href="javascript:void(0);"
+              id="light-mode-toggle"
+              class="theme-toggle"
+              [ngClass]="{ activate: islight }"
+              (click)="darkMode()"
+              (click)="settings.changeThemeColor('2')"
+            >
+              <i class="isax isax-sun-1"></i>
+            </a>
+          </div>
+          <div class="fav-dropdown mb-2 me-3">
+            <a [routerLink]="routes.wishlist" class="position-relative">
+              <i class="isax isax-heart"></i
+              ><span class="count-icon bg-secondary text-gray-9">0</span>
+            </a>
+          </div>
+          <div>
+            <a
+              href="javascript:void(0);"
+              class="text-white btn btn-dark w-100 mb-2"
+              data-bs-toggle="modal"
+              data-bs-target="#login-modal"
+              >Sign In</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Header Topbar-->
+
+  <header
+    [ngClass]="{
+      'header-three': base === 'index-3',
+      'header-four': base === 'index-4' || base === 'index-2',
+      'header-five': base === 'index-5',
+      'header-six': base === 'index-6',
+      fixed: isFixed
+    }"
+  >
+    <div [ngClass]="base === 'index-4' ? 'container-fluid' : 'container'">
+      <div class="offcanvas-info" [ngClass]="{ show: show }">
+        <div class="offcanvas-wrap">
+          <div class="offcanvas-detail">
+            <div class="offcanvas-head">
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <a   [routerLink]="userType === 'vendor' ? '/agent/agent-dashboard' : routes.index" class="black-logo-responsive">
+                  <img style="height: 35px !important;" src="assets/img/logo-2.jpg" alt="logo-img" />
+                </a>
+                <a   [routerLink]="userType === 'vendor' ? '/agent/agent-dashboard' : routes.index" class="white-logo-responsive">
+                  <img style="height: 35px !important;" src="assets/img/logo-1.png" alt="logo-img" />
+                </a>
+                <div class="offcanvas-close" (click)="closeMenu()">
+                  <i class="ti ti-x"></i>
+                </div>
+              </div>
+              <div
+                class="wishlist-info d-flex justify-content-between align-items-center"
+              >
+              </div>
+            </div>
+            <div
+              class="mobile-menu fix mb-3"
+              [ngClass]="{ 'mean-container': isMobileMenu }"
+            >
+              <div class="mean-bar">
+                <a
+                  href="#nav"
+                  class="meanmenu-reveal"
+                  style="right: 0px; left: auto; display: inline"
+                >
+                  <span
+                    ><span> <span></span> </span
+                  ></span>
+                </a>
+                <nav class="mean-nav">
+                  <ul
+                    class="main-nav"
+                    style="display: none"
+                    [ngClass]="{ active: isDropdownOpen }"
+                  >
+                    <ng-container
+                      *ngFor="
+                        let mainMenus of header | slice : 0 : 6;
+                        let i = index
+                      "
+                    >
+                      <ng-container *ngIf="mainMenus.separateRoute === true">
+                        <li
+                          class="has-submenu megamenu active"
+                          [ngClass]="{ 'dropdown-opened': isDropdownOpen }"
+                        >
+                          <a [routerLink]="mainMenus.route">
+                            {{ mainMenus.tittle }}
+                            <!-- <i class="fa-solid fa-plus"></i> -->
+                          </a>
+                        </li>
+                      </ng-container>
+                      <ng-container *ngIf="mainMenus.separateRoute === false">
+                        <li
+                          class="has-submenu mega-innermenu"
+                          [class.active]="
+                            base === mainMenus.base || page === mainMenus.base
+                          "
+                          [ngClass]="{
+                            'dropdown-opened': openDropdownIndex === i
+                          }"
+                        >
+                          <a [routerLink]="mainMenus.route"
+                            >{{ mainMenus.tittle }}
+                            <!-- <i class="fa-solid fa-plus"></i> -->
+                          </a>
+                        </li>
+                      </ng-container>
+                      
+                    </ng-container>
+                    <li>
+                      <div *ngIf="!isLoggedIn">
+                        <a
+                          href="javascript:void(0);"
+                          class="me-3"
+                          data-bs-toggle="modal"
+                          data-bs-target="#login-modal"
+                          >Sign In</a
+                        >
+                      </div>
+                      <div *ngIf="!isLoggedIn">
+                        <a
+                          href="javascript:void(0);"
+                          class="me-0"
+                          data-bs-toggle="modal"
+                          data-bs-target="#login-modal-vendor"
+                          >Become A Partner</a
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="offcanvas-overlay"
+        [ngClass]="{ 'overlay-open': show }"
+        (click)="closeMenu()"
+      ></div>
+      <div class="header-nav">
+        <div class="main-menu-wrapper">
+          <div class="navbar-logo">
+            <a class="logo-white header-logo"   [routerLink]="userType === 'vendor' ? '/agent/agent-dashboard' : routes.index">
+              <img
+                [src]="
+                  base === 'index-2' ||
+                  base === 'index-3' ||
+                  base === 'index-4' ||
+                  base === 'index-5'
+                    ? 'assets/img/logo-2.jpg'
+                    : 'assets/img/logo-2.jpg'
+                "
+                style="height: 45px !important;"
+                class="logo"
+                alt="Logo"
+              />
+            </a>
+            <a
+              [hidden]="base === 'index-6'"
+              class="logo-dark header-logo"
+              [routerLink]="userType === 'vendor' ? '/agent/agent-dashboard' : routes.index"
+              >
+              <img style="height: 35px !important;" src="assets/img/logo-2.jpg" class="logo" alt="Logo" />
+            </a>
+          </div>
+          <nav id="mobile-menu">
+            <ul class="main-nav" [ngClass]="{ active: isHovered }">
+              <ng-container *ngFor="let mainMenus of header">
+                <ng-container *ngIf="mainMenus.separateRoute === true">
+                  <li *ngIf="userType !== 'vendor'"
+                    class="has-submenu megamenu"
+                    [class.active]="
+                      base === mainMenus.base ||
+                      base === mainMenus.base1 ||
+                      base === mainMenus.base2 ||
+                      base === mainMenus.base3 ||
+                      base === mainMenus.base4 ||
+                      base === mainMenus.base5 ||
+                      base === mainMenus.base6
+                    "
+                    (mouseenter)="isHovered = true"
+                    (mouseleave)="isHovered = false"
+                  >
+                    <a href="/index;">{{ mainMenus.tittle }} </a>
+                  </li>
+                </ng-container>
+                <ng-container *ngIf="mainMenus.separateRoute === false">
+                  <ng-container *ngIf="mainMenus.twoTitle === false">
+                    <li *ngIf="userType !== 'vendor'"
+                      class="has-submenu mega-innermenu"
+                      [class.active]="navLocation === mainMenus.navLocation"
+                    >
+                      <a [routerLink]="mainMenus.route" [queryParams]="{ mainCat: mainMenus.navLocation }"
+                        >{{ mainMenus.tittle }}
+                      </a>
+                    </li>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ul>
+          </nav>
+          <span
+            *ngIf="
+              [
+                'index-2',
+                'index-3',
+                'index-4',
+                'index-5',
+                'index-6',
+                'pages'
+              ].includes(base);
+              else defaultheader
+            "
+          >
+            
+          </span>
+          <div
+              class="header-btn d-flex align-items-center"
+            >
+              <div class="me-3" *ngIf="!isLoggedIn">
+                <a
+                  href="javascript:void(0);"
+                  id="dark-mode-toggle"
+                  class="theme-toggle"
+                  [ngClass]="{ activate: isdark }"
+                  (click)="darkMode()"
+                  (click)="settings.changeThemeColor('1')"
+                >
+                  <i class="isax isax-moon"></i>
+                </a>
+                <a
+                  href="javascript:void(0);"
+                  id="light-mode-toggle"
+                  class="theme-toggle"
+                  [ngClass]="{ activate: islight }"
+                  (click)="darkMode()"
+                  (click)="settings.changeThemeColor('2')"
+                >
+                  <i class="isax isax-sun-1"></i>
+                </a>
+              </div>
+              <div *ngIf="!isLoggedIn">
+                <a
+                  href="javascript:void(0);"
+                  class="btn btn-white me-3"
+                  data-bs-toggle="modal"
+                  data-bs-target="#login-modal"
+                  >Sign In</a
+                >
+              </div>
+              <div *ngIf="!isLoggedIn">
+                <a
+                  href="javascript:void(0);"
+                  class="btn btn-primary me-0"
+                  data-bs-toggle="modal"
+                  data-bs-target="#login-modal-vendor"
+                  >Become A Partner</a
+                >
+              </div>
+              <div class="header__hamburger d-xl-none my-auto"  *ngIf="!isLoggedIn">
+                <div class="sidebar-menu" (click)="addmenu()">
+                  <i class="isax isax-menu5"></i>
+                </div>
+              </div>
+            </div>
+            <div
+              *ngIf="page === 'index-rtl'"
+              class="header-btn d-flex align-items-center"
+            >
+              <div class="me-3">
+                <a
+                  href="javascript:void(0);"
+                  id="dark-mode-toggle"
+                  class="theme-toggle"
+                  [ngClass]="{ activate: isdark }"
+                  (click)="darkMode()"
+                  (click)="settings.changeThemeColor('1')"
+                >
+                  <i class="isax isax-moon"></i>
+                </a>
+                <a
+                  href="javascript:void(0);"
+                  id="light-mode-toggle"
+                  class="theme-toggle"
+                  [ngClass]="{ activate: islight }"
+                  (click)="darkMode()"
+                  (click)="settings.changeThemeColor('2')"
+                >
+                  <i class="isax isax-sun-1"></i>
+                </a>
+              </div>
+              <div class="btn btn-white ms-3">
+                <a
+                  href="javascript:void(0);"
+                  data-bs-toggle="modal"
+                  data-bs-target="#login-modal"
+                  >Sign In</a
+                >
+                /
+                <a
+                  href="javascript:void(0);"
+                  data-bs-toggle="modal"
+                  data-bs-target="#register-modal"
+                  >Sign Up</a
+                >
+              </div>
+              <a
+                [routerLink]="routes.becomeAnExpert"
+                class="btn btn-primary me-0"
+                >Become Expert</a
+              >
+              <div class="header__hamburger d-xl-none my-auto" *ngIf="isLoggedIn">
+                <div class="sidebar-menu" (click)="addmenu()">
+                  <i class="isax isax-menu5"></i>
+                </div>
+              </div>
+            </div>
+          <ng-template #defaultheader>
+            <div
+              *ngIf="base === 'index' || page !== 'index-rtl'"
+              class="header-btn d-flex align-items-center justify-content-end"
+              [ngClass]="{'w-75': userType === 'vendor'}"
+            >
+              <div class="me-3" *ngIf="isLoggedIn">
+                <a
+                  href="javascript:void(0);"
+                  id="dark-mode-toggle"
+                  class="theme-toggle"
+                  [ngClass]="{ activate: isdark }"
+                  (click)="darkMode()"
+                  (click)="settings.changeThemeColor('1')"
+                >
+                  <i class="isax isax-moon"></i>
+                </a>
+                <a
+                  href="javascript:void(0);"
+                  id="light-mode-toggle"
+                  class="theme-toggle"
+                  [ngClass]="{ activate: islight }"
+                  (click)="darkMode()"
+                  (click)="settings.changeThemeColor('2')"
+                >
+                  <i class="isax isax-sun-1"></i>
+                </a>
+              </div>
+              <div class="dropdown profile-dropdown" *ngIf="isLoggedIn">
+                <a class="card border my-auto" href="javascript:void(0);" data-bs-toggle="dropdown">
+                  <div class="card-body py-0 px-1" >
+                    <a
+                      href="javascript:void(0);"
+                      class="d-flex align-items-center"
+                    >
+                      <span class="avatar avatar-lg me-2">
+                        <img
+                          [src]="userProfile?.profile_url" onerror="this.onerror=null;this.src='assets/img/default-user.svg'"
+                          alt="Img"
+                          class="img-fluid rounded-circle border border-white border-4"
+                        />
+                        
+                      </span>
+                      <div class="user-info text-start lh-sm py-1">
+                        <h6 class="fw-normal mb-0 pe-2" style="font-size: 16px;">{{userProfile?.name}}</h6>
+                        <small class="text-muted" style="font-size: 12px; margin-top: 0; padding-top: 0;">{{userProfile?.email}}</small> 
+                      </div>
+                    </a>
+                  </div>
+                </a>
+                
+                <ul class="dropdown-menu dropdown-menu-end p-3">
+                  <li>
+                    <span class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2">Welcome {{userProfile?.name}}</span>
+                    
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="userType === 'vendor' ? routes.agentDashboard : routes.userDashboard"
+                      >Dashboard</a
+                    >
+                  </li>
+                  <li>
+                    <a *ngIf="userType === 'vendor'"
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="'/agent/services'"
+                      >Services</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="userType === 'vendor' ? '/agent/booking' : routes.customerHotelBooking"
+                      >My Booking</a
+                    >
+                  </li>
+                  <li>
+                    <a *ngIf="userType !== 'vendor'"
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="routes.myProfile"
+                      >My Profile</a
+                    >
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider my-2" />
+                  </li>
+                  <li>
+                    <a *ngIf="userType !== 'vendor'"
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="routes.profileSettings"
+                      >Settings</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      href="javascript:void(0);"
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirm-modal"
+                      >Logout</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="header__hamburger d-xl-none my-auto"  *ngIf="isLoggedIn">
+                <div class="sidebar-menu" (click)="addmenu()">
+                  <i class="isax isax-menu5"></i>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="login-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-end pb-0 border-0"
+      >
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"
+          ><i class="ti ti-x fs-20"></i
+        ></a>
+      </div>
+      <div class="modal-body p-4 pt-0">
+        <form [formGroup]="loginForm">
+          <div class="text-center mb-3">
+            <h5 class="mb-1">Sign In</h5>
+            <p>Sign in to your Account</p>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Phone Number</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-message"></i>
+              </span>
+              <input
+                type="phone"
+                formControlName="phone"
+                class="form-control form-control-lg"
+                placeholder="Enter Phone"
+              />
+              <div
+                *ngIf="
+                  loginForm.get('phone')?.touched &&
+                  loginForm.get('phone')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                <div *ngIf="loginForm.get('phone')?.errors?.['required']">
+                  Phone number is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-2" *ngIf="otpGenerated">
+            <label class="form-label">OTP</label>
+            <div class="pass-group input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-lock"></i>
+              </span>
+              <input
+                formControlName="otp"
+                class="pass-input form-control"
+                placeholder="Enter OTP"
+              />
+
+              <div
+                *ngIf="
+                  loginForm.get('otp')?.touched && loginForm.get('otp')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                <div *ngIf="loginForm.get('otp')?.errors?.['required']">
+                  otp is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 mb-3">
+            <div
+              class="d-flex align-items-center justify-content-between flex-wrap row-gap-2"
+            >
+              <a
+                href="javascript:void(0);"
+                class="link-primary fw-medium fs-14 mb-2"
+                data-bs-toggle="modal"
+                data-bs-target="#forgot-modal"
+                >Reset OTP</a
+              >
+            </div>
+          </div>
+          <div class="mb-3">
+            <button
+              type="submit"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              [disabled]="isSubmitting"
+              *ngIf="!otpGenerated"
+              (click)="loginVendor()"
+            >
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Login<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+            <button
+              type="submit"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              [disabled]="isSubmitting"
+              *ngIf="otpGenerated"
+              (click)="verifyOtp()"
+            >
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Verify OTP<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+          </div>
+          <div class="login-or mb-3">
+            <span class="span-or">Or</span>
+          </div>
+          <div class="d-flex justify-content-center">
+            <p class="fs-14">
+              Don't you have an account?
+              <a
+                href="javascript:void(0);"
+                class="link-primary fw-medium"
+                data-bs-toggle="modal"
+                data-bs-target="#register-modal"
+                >Sign up</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Login Modal -->
+
+<!-- Login Modal vendor-->
+<div class="modal fade" id="login-modal-vendor">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-end pb-0 border-0"
+      >
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"
+          ><i class="ti ti-x fs-20"></i
+        ></a>
+      </div>
+      <div class="modal-body p-4 pt-0">
+        <form [formGroup]="loginForm">
+          <div class="text-center mb-3">
+            <h5 class="mb-1">Sign In</h5>
+            <p>Sign in to your partner Account</p>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Phone Number</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-message"></i>
+              </span>
+              <input
+                type="phone"
+                formControlName="phone"
+                class="form-control form-control-lg"
+                placeholder="Enter Phone"
+              />
+              <div
+                *ngIf="
+                  loginForm.get('phone')?.touched &&
+                  loginForm.get('phone')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                <div *ngIf="loginForm.get('phone')?.errors?.['required']">
+                  Phone number is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-2" *ngIf="otpGenerated">
+            <label class="form-label">OTP</label>
+            <div class="pass-group input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-lock"></i>
+              </span>
+              <input
+                formControlName="otp"
+                class="pass-input form-control"
+                placeholder="Enter OTP"
+              />
+
+              <div
+                *ngIf="
+                  loginForm.get('otp')?.touched && loginForm.get('otp')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                <div *ngIf="loginForm.get('otp')?.errors?.['required']">
+                  otp is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 mb-3">
+            <div
+              class="d-flex align-items-center justify-content-between flex-wrap row-gap-2"
+            >
+              <a
+                href="javascript:void(0);"
+                class="link-primary fw-medium fs-14 mb-2"
+                data-bs-toggle="modal"
+                data-bs-target="#forgot-modal"
+                >Reset OTP</a
+              >
+            </div>
+          </div>
+          <div class="mb-3">
+            <button
+              type="submit"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              [disabled]="isSubmitting"
+              *ngIf="!otpGenerated"
+              (click)="loginVendor()"
+            >
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Login<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+            <button
+              type="submit"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              [disabled]="isSubmitting"
+              *ngIf="otpGenerated"
+              (click)="verifyOtp()"
+            >
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Verify OTP<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+          </div>
+          <div class="login-or mb-3">
+            <span class="span-or">Or</span>
+          </div>
+          <div class="d-flex justify-content-center">
+            <p class="fs-14">
+              Don't you have an account?
+              <a
+                href="javascript:void(0);"
+                class="link-primary fw-medium"
+                data-bs-toggle="modal"
+                data-bs-target="#register-modal-vendor"
+                >Sign up</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Login Modal vendor-->
+
+<!-- Register Modal -->
+<div class="modal fade" id="register-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-end pb-0 border-0"
+      >
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"
+          ><i class="ti ti-x fs-20"></i
+        ></a>
+      </div>
+      <div class="modal-body p-4 pt-0">
+        <form [formGroup]="createVendorForm">
+          <div class="text-center border-bottom mb-3">
+            <h5 class="mb-1">Sign Up</h5>
+            <p class="mb-3">Create your Account</p>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Name</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-user"></i>
+              </span>
+              <input
+                type="text"
+                formControlName="name"
+                class="form-control form-control-lg"
+                placeholder="Enter Full Name"
+              />
+              <div
+                *ngIf="
+                  createVendorForm.get('name')?.touched &&
+                  createVendorForm.get('name')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Email</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-message"></i>
+              </span>
+              <input
+                type="email"
+                formControlName="email"
+                class="form-control form-control-lg"
+                placeholder="Enter Email"
+              />
+              
+            </div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Phone</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-message"></i>
+              </span>
+              <input
+                type="text"
+                formControlName="phone"
+                class="form-control form-control-lg"
+                placeholder="Enter Phone Number"
+              />
+              <div
+                *ngIf="
+                  createVendorForm.get('phone')?.touched &&
+                  createVendorForm.get('phone')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                Phone number is required.
+              </div>
+            </div>
+          </div>
+          <div class="mb-2" *ngIf="otpGeneratedSignup">
+            <label class="form-label">OTP</label>
+            <div class="pass-group input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-lock"></i>
+              </span>
+              <input
+                formControlName="otp"
+                class="pass-input form-control"
+                placeholder="Enter OTP"
+              />
+
+              <div
+                *ngIf="
+                  loginForm.get('otp')?.touched && loginForm.get('otp')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                <div *ngIf="loginForm.get('otp')?.errors?.['required']">
+                  otp is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <button
+              type="submit"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              [disabled]="isSubmitting"
+               *ngIf="!otpGeneratedSignup"
+              (click)="createUser()"
+            >
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Register<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+
+             <button
+              type="submit"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              [disabled]="isSubmitting"
+              *ngIf="otpGeneratedSignup"
+              (click)="verifyOtpSignUp()"
+            >
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Verify OTP<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+          </div>
+          <div class="login-or mb-3">
+            <span class="span-or">Or</span>
+          </div>
+          <div class="d-flex justify-content-center">
+            <p class="fs-14">
+              Already have an account?
+              <a
+                href="javascript:void(0);"
+                class="link-primary fw-medium"
+                data-bs-toggle="modal"
+                data-bs-target="#login-modal"
+                >Sign In</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Register Modal -->
+
+<!-- Register Modal - Vendor-->
+
+<div class="modal fade" id="register-modal-vendor">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-end pb-0 border-0"
+      >
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"
+          ><i class="ti ti-x fs-20"></i
+        ></a>
+      </div>
+      <div class="modal-body p-4 pt-0">
+        <form [formGroup]="createVendorForm">
+          <div class="text-center border-bottom mb-3">
+            <h5 class="mb-1">Sign Up</h5>
+            <p class="mb-3">Create your partner Account</p>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Name</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-user"></i>
+              </span>
+              <input
+                type="text"
+                formControlName="name"
+                class="form-control form-control-lg"
+                placeholder="Enter Full Name"
+              />
+              <div
+                *ngIf="
+                  createVendorForm.get('name')?.touched &&
+                  createVendorForm.get('name')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Email</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-message"></i>
+              </span>
+              <input
+                type="email"
+                formControlName="email"
+                class="form-control form-control-lg"
+                placeholder="Enter Email"
+              />
+              
+            </div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Phone</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-message"></i>
+              </span>
+              <input
+                type="text"
+                formControlName="phone"
+                class="form-control form-control-lg"
+                placeholder="Enter Phone Number"
+              />
+              <div
+                *ngIf="
+                  createVendorForm.get('phone')?.touched &&
+                  createVendorForm.get('phone')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                Phone number is required.
+              </div>
+            </div>
+          </div>
+          <div class="mb-2" *ngIf="otpGeneratedSignup">
+            <label class="form-label">OTP</label>
+            <div class="pass-group input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-lock"></i>
+              </span>
+              <input
+                formControlName="otp"
+                class="pass-input form-control"
+                placeholder="Enter OTP"
+              />
+
+              <div
+                *ngIf="
+                  loginForm.get('otp')?.touched && loginForm.get('otp')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                <div *ngIf="loginForm.get('otp')?.errors?.['required']">
+                  otp is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <button
+              type="submit"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              [disabled]="isSubmitting"
+               *ngIf="!otpGeneratedSignup"
+              (click)="createVendor()"
+            >
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Register<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+
+             <button
+              type="submit"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              [disabled]="isSubmitting"
+              *ngIf="otpGeneratedSignup"
+              (click)="verifyOtpSignUp()"
+            >
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Verify OTP<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+          </div>
+          <div class="login-or mb-3">
+            <span class="span-or">Or</span>
+          </div>
+          <div class="d-flex justify-content-center">
+            <p class="fs-14">
+              Already have an account?
+              <a
+                href="javascript:void(0);"
+                class="link-primary fw-medium"
+                data-bs-toggle="modal"
+                data-bs-target="#login-modal-vendor"
+                >Sign In</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Register Modal - Vendor-->
+
+<!-- Change Password -->
+<div class="modal fade" id="change-password">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-end pb-0 border-0"
+      >
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"
+          ><i class="ti ti-x fs-20"></i
+        ></a>
+      </div>
+      <div class="modal-body p-4 pt-0">
+        <form action="#">
+          <div class="text-center border-bottom mb-3">
+            <h5 class="mb-1">Change Password</h5>
+            <p class="mb-3">Enter Details to Change Password</p>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Password</label>
+            <div class="pass-group input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-lock"></i>
+              </span>
+              <input
+                [type]="password[3] ? 'text' : 'password'"
+                class="pass-input form-control"
+                placeholder="Enter Password"
+              />
+              <span
+                class="isax toggle-password"
+                [ngClass]="password[3] ? 'isax-eye' : 'isax-eye-slash'"
+                (click)="togglePassword(3)"
+                (keydown.enter)="togglePassword(3)"
+                tabindex="0"
+              ></span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Confirm Password</label>
+            <div class="pass-group input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-lock"></i>
+              </span>
+              <input
+                [type]="password[4] ? 'text' : 'password'"
+                class="pass-input form-control"
+                placeholder="Enter Password"
+              />
+              <span
+                class="isax toggle-password"
+                [ngClass]="password[4] ? 'isax-eye' : 'isax-eye-slash'"
+                (click)="togglePassword(4)"
+                (keydown.enter)="togglePassword(4)"
+                tabindex="0"
+              ></span>
+            </div>
+          </div>
+          <div class="mb-0">
+            <button
+              type="button"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              data-bs-toggle="modal"
+              data-bs-target="#login-password"
+            >
+              Change Password<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Change Password -->
+
+<!-- Forgot Password -->
+<div class="modal fade" id="forgot-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-end pb-0 border-0"
+      >
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"
+          ><i class="ti ti-x fs-20"></i
+        ></a>
+      </div>
+      <div class="modal-body p-4 pt-0">
+        <form action="#">
+          <div class="text-center border-bottom mb-3">
+            <h5 class="mb-1">Forgot Password</h5>
+            <p>Reset Your DreamsTour Password</p>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Email</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-message"></i>
+              </span>
+              <input
+                type="email"
+                class="form-control form-control-lg"
+                placeholder="Enter Email"
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <button
+              type="button"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              data-bs-toggle="modal"
+              data-bs-target="#change-password"
+            >
+              Reset Password<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+          </div>
+          <div class="d-flex justify-content-center">
+            <p class="fs-14">
+              Remember Password ?
+              <a
+                href="javascript:void(0);"
+                class="link-primary fw-medium"
+                data-bs-toggle="modal"
+                data-bs-target="#login-modal"
+                >Sign In</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Forgot Password -->
+
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirm-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-end pb-0 border-0"
+      >
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"
+          ><i class="ti ti-x fs-20"></i
+        ></a>
+      </div>
+      <div class="modal-body p-4 pt-0">
+        <div class="text-center border-bottom mb-3">
+          <h5 class="mb-1">Are you sure!</h5>
+        </div>
+        <div class="mb-4">
+          <p>Are you sure you want to log out
+          </p>
+        </div>
+        <div class="mb-3 d-flex ">
+          <button
+            type="button"
+            class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-75 me-2"
+            data-bs-dismiss="modal" aria-label="Close"
+          >
+            Cancel
+          </button>
+          <button class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-75" (click)="logOut()">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Confirmation Modal -->

@@ -1,0 +1,1016 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar breadcrumb-bg-03 text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-12">
+        <h2 class="breadcrumb-title mb-2">Add A Service</h2>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item">
+              <a [routerLink]="routes.index"><i class="isax isax-home5"></i></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Add Service
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Breadcrumb -->
+
+<!-- Page Wrapper -->
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-3">
+        <div class="card border-0 mb-4 mb-lg-0 theiaStickySidebar">
+          <div class="card-body">
+            <div>
+              <h5 class="mb-3">Add Service</h5>
+              <ul class="add-tab-list">
+                <li *ngFor="let tab of tabs">
+                  <a href="javascript:void(0);" [class.active]="activeTab === tab.id" (click)="scrollTo(tab.id)">
+                    {{ tab.label }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Sidebar -->
+
+      <!-- Add Car -->
+      <div class="col-lg-9">
+        <form [formGroup]="addServiceInfo"
+          (ngSubmit)="propertySaved ? editServiceInformation() : addServiceInformation()" #validate1="ngForm"
+          >
+
+
+
+          <!-- /Gallery -->
+
+          <!-- Basic Info -->
+          <div class="card shadow-none" id="service_info">
+            <div class="card-header">
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fs-18">Service Info</h6>
+              </div>
+            </div>
+            <div class="card-body pb-1">
+              <div class="row">
+                <div class="col-xl-6 col-md-6">
+                  <div class="mb-6">
+                    <label class="form-label">Main Service</label>
+                    <mat-select class="custom-mat-select select" placeholder="Select"
+                      (selectionChange)="onCategoryChange($event.value)" formControlName="propertyType">
+                      <mat-option *ngFor="let option of mainServiceOptions" [value]="option.value">
+                        {{ option.label }}
+                      </mat-option>
+
+                    </mat-select>
+
+                    <div *ngIf="addServiceInfo.get('propertyType')?.touched && addServiceInfo.get('propertyType')?.invalid"
+                        class="text-danger mt-1 fs-13">
+                        Select a Service.
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Service</label>
+                    <mat-select class="custom-mat-select select" placeholder="Select" formControlName="category">
+                      <mat-option value="" disabled selected>Select category</mat-option>
+                      <mat-option *ngFor="let cat of category" [value]="cat.id">
+                        {{ cat.name }}
+                      </mat-option>
+                    </mat-select>
+                    <div *ngIf="addServiceInfo.get('category')?.touched && addServiceInfo.get('category')?.invalid"
+                        class="text-danger mt-1 fs-13">
+                        Select a Category.
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Basic Info -->
+
+          <!-- Gallery -->
+          <div class="card shadow-none" id="thumbnail">
+            <div class="card-header">
+              <h5 class="fs-18">Property Image</h5>
+            </div>
+            <div class="card-body">
+
+              <div class="form-group">
+                <label for="thumbnailInput" class="form-label">Choose Image</label>
+                <div class="d-flex align-items-center">
+                  <input type="file" class="form-control w-auto" id="thumbnailInput" accept="image/*"
+                    (change)="onThumbnailSelected($event)" />
+                  <div class="ms-3" *ngIf="thumbnailPreviewUrl">
+                    <img [src]="thumbnailPreviewUrl" alt="Preview"
+                      style="width: 80px; height: auto; border-radius: 4px;" />
+                    <button class="btn btn-sm btn-outline-danger ms-2" (click)="removeThumbnail()">
+                      <i class="isax isax-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Preview -->
+
+            </div>
+          </div>
+
+          <!-- Specifications -->
+          <div class="card shadow-none" id="basic_info">
+            <div class="card-header">
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fs-18">Basic Info</h6>
+              </div>
+            </div>
+
+            <div class="card-body pb-1">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" formControlName="name" />
+                    <div *ngIf="addServiceInfo.get('name')?.touched && addServiceInfo.get('name')?.invalid"
+                        class="text-danger mt-1 fs-13">
+                        Name is required.
+                      </div>
+                  </div>
+                </div>
+
+                 <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Trade Name</label>
+                    <input type="text" class="form-control" formControlName="trade_name" />
+                    <!-- <div *ngIf="addServiceInfo.get('trade_name')?.touched && addServiceInfo.get('trade_name')?.invalid"
+                        class="text-danger mt-1 fs-13">
+                        Trade Name is required.
+                      </div> -->
+                  </div>
+                </div>
+               
+
+
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Place</label>
+                    <input type="text" class="form-control" formControlName="place" />
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">District</label>
+                    <input type="text" class="form-control" formControlName="district" />
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">State</label>
+                    <input type="text" class="form-control" formControlName="state" />
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Pin code</label>
+                    <input type="text" class="form-control" formControlName="pincode" />
+                  </div>
+                </div>
+
+                <!-- <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Rate</label>
+                    <input type="text" class="form-control" formControlName="rate" />
+                  </div>
+                </div> -->
+
+                <!-- <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Capacity</label>
+                    <input type="text" class="form-control" formControlName="capacity" />
+                  </div>
+                </div> -->
+
+                <!-- <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Percentage</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="percentage"
+                    />
+                  </div>
+                </div> -->
+                <!-- <div class="col-lg-4 col-md-6" *ngIf="propertyType == 'NOTHING'">
+                  <div class="mb-3">
+                    <label class="form-label">Total Units</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="totalUnits"
+                    />
+                  </div>
+                </div> -->
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Latitude</label>
+                    <input type="text" class="form-control" formControlName="latitude" />
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Longitude</label>
+                    <input type="text" class="form-control" formControlName="longitude" />
+                  </div>
+                </div>
+
+                 <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Details</label>
+                    <!-- <input type="text" class="form-control" formControlName="description" /> -->
+
+                     <textarea
+    class="form-control"
+    rows="4"
+    formControlName="description"
+    placeholder="Enter details here"
+  ></textarea>
+                     <!-- <div *ngIf="addServiceInfo.get('description')?.touched && addServiceInfo.get('description')?.invalid"
+                        class="text-danger mt-1 fs-13">
+                        Details is required.
+                      </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--  <div class="card-body pb-1" *ngIf="propertyType == 'BACK_WATERS'"> 
+               <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Boat Name</label>
+                    <input type="text" class="form-control" formControlName="boatName" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Reg Number</label>
+                    <input type="text" class="form-control" formControlName="boatRegistrationNo" />
+                  </div>
+                </div> 
+               <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> Dining Yes/No</label>
+
+                    <mat-select class="custom-mat-select select" placeholder="Select Yes / No"
+                      formControlName="hasDiningFacility">
+                      <mat-option [value]="true">Yes</mat-option>
+                      <mat-option [value]="false">No</mat-option>
+
+                    </mat-select>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <!--   <div class="card-body pb-1" *ngIf="propertyType == 'ACCOMODATION'">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Room Number</label>
+                    <input type="text" class="form-control" formControlName="roomNumber" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Bed</label>
+                    <input type="text" class="form-control" formControlName="bedCount" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> Amenities</label>
+                    <input type="text" class="form-control" formControlName="amenities" />
+                  </div>
+                </div> 
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> Breakfast Included</label>
+
+                    <mat-select class="custom-mat-select select" placeholder="Select Yes / No"
+                      formControlName="hasBreakfastIncluded">
+                      <mat-option [value]="true">Yes</mat-option>
+                      <mat-option [value]="false">No</mat-option>
+
+                    </mat-select>
+                  </div>
+                </div>
+              </div>
+            </div>-->
+
+            <!-- <div class="card-body pb-1" *ngIf="propertyType == 'TRANSPORTATION'">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Make</label>
+                    <input type="text" class="form-control" formControlName="make" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Model</label>
+                    <input type="text" class="form-control" formControlName="model" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> Registration Number</label>
+                    <input type="text" class="form-control" formControlName="registrationNumber" />
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> Transmission</label>
+                    <input type="text" class="form-control" formControlName="transmission" />
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <!-- <div class="card-body pb-1" *ngIf="propertyType == 'SPECIAL_EVENTS'">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> Event Start Date </label>
+                    <input type="date" class="form-control" formControlName="eventStartDate" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Event End Date</label>
+                    <input type="date" class="form-control" formControlName="eventEndDate" />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> Event Location</label>
+                    <input type="text" class="form-control" formControlName="eventLocation" />
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+          <!-- /Specifications -->
+
+
+          <div class="d-flex align-items-center justify-content-center">
+            <button type="submit" class="btn btn-primary">
+              <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status"
+                aria-hidden="true"></span>
+              {{ propertySaved ? 'Edit' : 'Save' }}
+            </button>
+          </div>
+        </form>
+
+        <!-- variant  -->
+        <div class="col-lg-12 mt-3" *ngIf="propertyId">
+          <!-- Saved Variants -->
+          <div class="card shadow-none" *ngIf="savedVariants?.length">
+            <div class="card-header">
+              <h5 class="fs-18">Saved Variants</h5>
+            </div>
+            <div class="card-body">
+              <div *ngFor="let item of savedVariants; let variantIndex = index" class="card mb-3">
+                <div class="card-header d-flex justify-content-between">
+                  <strong>{{
+                    item.form.value.name || "Variant " + (variantIndex + 1)
+                    }}</strong>
+                  <button class="btn btn-sm btn-outline-primary" (click)="item.expanded = !item.expanded">
+                    {{ item.expanded ? "Hide" : "Edit" }}
+                  </button>
+                </div>
+
+                <div class="card-body" *ngIf="item.expanded">
+
+                    <div class="col-lg-12 mt-3" *ngIf="item?.propertyImgs?.length">
+            <div class="card shadow-none">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="fs-18 mb-0">Uploaded Images</h5>
+                <button class="btn btn-sm btn-outline-secondary" (click)="imageGalleryExpanded = !imageGalleryExpanded">
+                  {{ imageGalleryExpanded ? "Hide" : "Show" }} Gallery
+                </button>
+              </div>
+
+              <div class="card-body" *ngIf="imageGalleryExpanded">
+                <div class="row">
+                  <div class="col-md-3 mb-3" *ngFor="let image of item.propertyImgs">
+                    <div class="position-relative image-wrapper">
+                      <img [src]="image.img_url" class="img-fluid rounded" alt="Property Image"
+                        style="width: 100%; height: 180px; object-fit: cover" />
+                      <!-- Delete button on hover -->
+                      <!-- <button
+              type="button"
+              class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 delete-btn"
+              (click)="deleteImage(image.id)"
+              title="Delete Image"
+            >
+              <i class="isax isax-trash"></i>
+            </button> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gallery -->
+          <div class="card shadow-none" id="thumbnail">
+            <div class="card-header">
+              <h5 class="fs-18">Variant Images</h5>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="thumbnailInput" class="form-label">Choose Variant Image</label>
+              </div>
+              <div class="d-flex align-items-center w-100">
+                <!-- File input -->
+                <input type="file" class="form-control w-auto" id="thumbnailInput" accept="image/*"
+                  (change)="onPropertImgSelected($event)" />
+
+                <!-- Image preview + remove -->
+                <div class="ms-3 d-flex align-items-center" *ngIf="propertyPreviewUrl">
+                  <img [src]="propertyPreviewUrl" alt="Preview" style="width: 80px; height: auto; border-radius: 4px" />
+                  <button class="btn btn-sm btn-outline-danger ms-2" (click)="removePropertyImg()">
+                    <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status"
+                      aria-hidden="true"></span>
+                    <i class="isax isax-trash"></i>
+                  </button>
+                </div>
+
+                <!-- Add button aligned to right -->
+                <div class="ms-auto">
+                  <button type="button" class="btn btn-primary" (click)="createPropertyImg(item.id)">
+                    <i class="isax isax-add-circle me-1"></i>
+                    <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status"
+                      aria-hidden="true"></span>
+                    Add Image
+                  </button>
+                </div>
+              </div>
+
+              <!-- Preview -->
+            </div>
+          </div>
+
+          <!-- /Gallery -->
+                  <form [formGroup]="item.form">
+                    <div class="row">
+                      <div class="col-md-4 mb-3">
+                        <label class="form-label">Name</label>
+                        <input formControlName="name" type="text" class="form-control" />
+                      </div>
+                      
+                      <!-- <div class="col-md-4 mb-3">
+                        <label class="form-label">Rate</label>
+                        <input formControlName="rate" type="number" class="form-control" />
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label class="form-label">Tax</label>
+                        <input formControlName="tax" type="number" class="form-control" />
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label class="form-label">Max Guest</label>
+                        <input formControlName="max_person" type="number" class="form-control" />
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label class="form-label">Allowed Guest</label>
+                        <input formControlName="person_allowed" type="number" class="form-control" />
+                      </div> -->
+
+                      <!-- <div class="col-md-4 mb-3">
+                        <label class="form-label">Total Units</label>
+                        <input formControlName="total_units_available" type="number" class="form-control" />
+                      </div> -->
+
+                      <div class="col-md-4 mb-3">
+                        <label class="form-label">Child Count</label>
+                        <input formControlName="child_count" type="number" class="form-control" />
+                      </div>
+
+                      <div class="card-body pb-1" *ngIf="propertyType == 'BACK_WATERS'">
+                        <div class="row">
+                          <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label"> Number of Capacity </label>
+                              <input type="text" class="form-control" formControlName="capacity" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label">Number of Staff</label>
+                              <input type="text" class="form-control" formControlName="staff" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label"> Life Boys</label>
+                              <input type="text" class="form-control" formControlName="lifeBoys" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label"> Life Jacket</label>
+                              <input type="text" class="form-control" formControlName="lifeJacket" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label"> Boat Material</label>
+                              <input type="text" class="form-control" formControlName="boat_material" />
+                            </div>
+                          </div>
+
+                          <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                              <label class="form-label"> Fire & Safety</label>
+                              <input type="text" class="form-control" formControlName="fire_safety" />
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+
+                      <!-- <div class="col-md-4 mb-3">
+                        <label class="form-label">Waiting Rate</label>
+                        <input formControlName="waiting_rate" type="number" class="form-control" />
+                      </div>
+
+                      <div class="col-md-4 mb-3">
+                        <label class="form-label">Daily Rate</label>
+                        <input formControlName="daily_rate" type="number" class="form-control" />
+                      </div>
+
+                      <div class="col-md-4 mb-3" *ngIf="propertyType == 'ACCOMODATION'">
+                        <label class="form-label">Extra Bed Available</label>
+                        <mat-select class="custom-mat-select select" formControlName="extra_bed_available"
+                          placeholder="Select">
+                          <mat-option [value]="true">Yes</mat-option>
+                          <mat-option [value]="false">No</mat-option>
+                        </mat-select>
+                      </div>
+                      <div class="col-md-4 mb-3" *ngIf="propertyType == 'ACCOMODATION'">
+                        <label class="form-label">Extra Bed Rate</label>
+                        <input formControlName="rate_for_extra_bed" type="number" class="form-control" />
+                      </div> -->
+
+
+                      <!-- <div *ngIf="item.customizations?.length" class="mt-3 mb-3">
+                        <h6 class="fw-semibold mb-2">Customizations:</h6>
+                        <ul class="mb-0 ps-3">
+                          <li *ngFor="let c of item.customizations">
+                            <strong>{{ c.key }}:</strong> {{ c.value }}
+                          </li>
+                        </ul>
+                      </div> -->
+
+                      <!-- <div formArrayName="customizations" class="mt-3 mb-3">
+                        <h6 class="fw-semibold mb-2">Customizations:</h6>
+
+                        <div *ngFor="
+                            let group of getCustomizationsUpdate(item.form)
+                              .controls;
+                            let i = index
+                          " [formGroupName]="i" class="mb-2 row align-items-end">
+                          <div class="col-md-5">
+                            <mat-select class="form-control" formControlName="key" placeholder="Customization Key">
+                              <mat-option *ngFor="let option of customizedData" [value]="option.name">
+                                <img [src]="option.icon_url" width="20" height="20" class="me-2" alt="icon" />
+                                {{ option.name }}
+                              </mat-option>
+                            </mat-select>
+                          </div>
+                          <div class="col-md-5">
+                      
+
+                            <mat-select class="custom-mat-select select" placeholder="Select Yes / No"
+                              formControlName="value">
+                              <mat-option [value]="true">Yes</mat-option>
+                              <mat-option [value]="false">No</mat-option>
+                            </mat-select>
+
+                          </div>
+                          <div class="col-md-2 d-flex justify-content-end">
+                            <button type="button" class="btn btn-danger" (click)="
+                                removeCustomizationsUpdate(variantIndex, i)
+                              ">
+                              <i class="isax isax-trash"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                        <button class="btn btn-outline-danger btn-sm" type="button"
+                          (click)="addCustomizationsUpdate(variantIndex)">
+                          <i class="isax isax-add-circle"></i> Add Customization
+                        </button>
+                      </div> -->
+                    </div>
+
+                    <button class="btn btn-success btn-sm" type="button" (click)="updateVariant(variantIndex)">
+                      Update Variant
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Form -->
+          <form [formGroup]="addVariantForm" (ngSubmit)="addVariant()">
+            <div class="card shadow-none">
+              <div class="card-header">
+                <h5 class="fs-18">Add Variant</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-4 col-md-6 mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" formControlName="name" />
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 mb-3">
+                    <label class="form-label">Child Count</label>
+                    <input type="number" class="form-control" formControlName="child_count" />
+                  </div>
+
+
+                  <div class="card-body pb-1" *ngIf="propertyType == 'BACK_WATERS'">
+                    <div class="row">
+                      <div class="col-lg-4 col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label"> Number of Capacity </label>
+                          <input type="text" class="form-control" formControlName="capacity" />
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label">Number of Staff</label>
+                          <input type="text" class="form-control" formControlName="staff" />
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label"> Life Boys</label>
+                          <input type="text" class="form-control" formControlName="lifeBoys" />
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label"> Life Jacket</label>
+                          <input type="text" class="form-control" formControlName="lifeJacket" />
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label"> Boat Material</label>
+                          <input type="text" class="form-control" formControlName="boat_material" />
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 col-md-6">
+                        <div class="mb-3">
+                          <label class="form-label"> Fire & Safety</label>
+                          <input type="text" class="form-control" formControlName="fire_safety" />
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-lg-4 col-md-6 mb-3">
+                    <label class="form-label">Rate</label>
+                    <input type="number" class="form-control" formControlName="rate" />
+                  </div> -->
+
+                  <!-- <div class="col-lg-4 col-md-6 mb-3">
+                    <label class="form-label">Minimum Rate</label>
+                    <input type="number" class="form-control" formControlName="min_rate" />
+                  </div> -->
+
+                  <!-- <div class="col-lg-4 col-md-6 mb-3">
+                    <label class="form-label">GST</label>
+                    <input type="number" class="form-control" formControlName="tax" />
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 mb-3">
+                    <label class="form-label">Maximum Guest</label>
+                    <input type="number" class="form-control" formControlName="max_person" />
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 mb-3">
+                    <label class="form-label">Allowed Guest</label>
+                    <input type="number" class="form-control" formControlName="person_allowed" />
+                  </div> -->
+
+                  <!-- <div class="col-lg-4 col-md-6 mb-3">
+                    <label class="form-label">Total Units</label>
+                    <input type="number" class="form-control" formControlName="total_units_available" />
+                  </div> -->
+
+
+                  <!-- 
+                  <div class="col-lg-4 col-md-6 mb-3" *ngIf="propertyType == 'TRANSPORTATION'">
+                    <label class="form-label">Waiting Rate</label>
+                    <input type="number" class="form-control" formControlName="waiting_rate" />
+                  </div> -->
+
+                  <!-- <div class="col-lg-4 col-md-6 mb-3" *ngIf="propertyType == 'TRANSPORTATION'">
+                    <label class="form-label">Daily Rate</label>
+                    <input type="number" class="form-control" formControlName="daily_rate" />
+                  </div> -->
+
+
+                  <!-- <div class="col-lg-4 col-md-6 mb-3" *ngIf="propertyType == 'ACCOMODATION'">
+                    <label class="form-label">Extra Bed Available</label>
+                    <mat-select class="custom-mat-select select" placeholder="Select Yes / No"
+                      formControlName="extra_bed_available">
+                      <mat-option [value]="true">Yes</mat-option>
+                      <mat-option [value]="false">No</mat-option>
+                    </mat-select>
+                  </div> -->
+
+                  <!-- <div class="col-lg-4 col-md-6 mb-3" *ngIf="propertyType == 'ACCOMODATION'">
+                    <label class="form-label">Extra Bed Rate</label>
+                    <input type="number" class="form-control" formControlName="rate_for_extra_bed" />
+                  </div> -->
+
+
+                </div>
+                <!-- 
+                <div class="card shadow-none">
+                  <div class="card-header">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <h5 class="fs-18">Services</h5>
+                    </div>
+                  </div>
+                  <div class="card-body pb-1">
+                    <div class="row">
+
+                      <div class="col-lg-2 col-md-3 mb-3">
+
+                        <mat-select class="custom-mat-select select" placeholder="Select"
+                          (selectionChange)="onGroupChange($event.value)">
+
+                          <mat-option value="">Select</mat-option>
+                          <mat-option *ngFor="let option of groupOptions" [value]="option.value">
+                            {{ option.label }}
+                          </mat-option>
+                        </mat-select>
+
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-12 col-md-6">
+                        <div class="mb-3">
+                          <div class="row">
+                            <div class="col-lg-4 col-md-6 mb-2" *ngFor="let option of customizedData; let idx = index">
+                              <div class="form-check d-flex align-items-center ps-0">
+                                <input class="form-check-input ms-0 mt-0" type="checkbox" [id]="'custom-opt-' + idx"
+                                  [value]="option" (change)="onCheckboxChange($event, option)" />
+                                <label class="form-check-label ms-2" [for]="'custom-opt-' + idx">
+                                  <img *ngIf="option.icon_url" [src]="option.icon_url" width="20" height="20"
+                                    class="me-2" />
+                                  {{ option.name }}
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 d-flex align-items-end mt-2">
+                          <button type="button" class="btn btn-success btn-sm" (click)="onAdd()">
+                            <i class="isax isax-add-circle me-1"></i> Add
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div> -->
+                <!-- Outer Single Card -->
+                <div class="card shadow-none mb-3">
+                  <div class="card-header">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <h5 class="fs-18">Amentities</h5>
+                    </div>
+                  </div>
+
+                  <div class="card-body pb-1" formArrayName="customizationBlocks">
+                    <!-- Repeatable Group Blocks -->
+                    <div *ngFor="let block of customizationBlocks.controls; let i = index" [formGroupName]="i"
+                      class="mb-4">
+                      <!-- Group Dropdown -->
+                      <div class="row">
+                        <div class="col-lg-2 col-md-3 mb-3">
+                          <!-- <mat-select class="custom-mat-select select" placeholder="Select Group"
+                            formControlName="mainOptions" (selectionChange)="onGroupChange($event.value, i)">
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let option of groupOptions" [value]="option.value">
+                              {{ option.label }}
+                            </mat-option>
+                          </mat-select> -->
+                          <mat-select class="custom-mat-select select" placeholder="Select Group"
+                            formControlName="mainOptions" [disabled]="readOnlyBlocks[i]"
+                            (selectionChange)="onGroupChange($event.value, i)">
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let option of groupOptions" [value]="option.value">
+                              {{ option.label }}
+                            </mat-option>
+                          </mat-select>
+                        </div>
+                      </div>
+
+                      <!-- Checkbox Grid -->
+                      <div class="row">
+                        <div class="col-lg-12 col-md-6">
+                          <div class="mb-3">
+                            <div class="row">
+                              <div class="col-lg-4 col-md-6 mb-2"
+                                *ngFor="let option of customizedDataArray[i]; let idx = index">
+                                <div class="form-check d-flex align-items-center ps-0">
+                                  <!-- <input class="form-check-input ms-0 mt-0" type="checkbox"
+                                    [id]="'custom-opt-' + i + '-' + idx"
+                                    (change)="onCheckboxChange($event, option, i)" /> -->
+                                  <input class="form-check-input ms-0 mt-0" type="checkbox"
+                                    [disabled]="readOnlyBlocks[i]" [id]="'custom-opt-' + i + '-' + idx"
+                                    (change)="onCheckboxChange($event, option, i)" />
+                                  <label class="form-check-label ms-2" [for]="'custom-opt-' + i + '-' + idx">
+                                    <img *ngIf="option.icon_url" [src]="option.icon_url" width="20" height="20"
+                                      class="me-2" />
+                                    {{ option.name }}
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Add Button -->
+                          <div class="col-lg-3 col-md-3 d-flex align-items-end mt-2">
+                            <button type="button" class="btn btn-success btn-sm" (click)="onAdd(i)">
+                              <i class="isax isax-add-circle me-1"></i> Add
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Button to add new group -->
+                <!-- <button type="button" class="btn btn-outline-primary" (click)="addNewBlock()">
+  Add Another Group
+</button> -->
+
+
+
+                <!-- olddddddddddddd -->
+
+                <!-- <div formArrayName="customizations">
+                  <div *ngFor="let item of customizations.controls; let i = index" [formGroupName]="i"
+                    class="row align-items-end mb-3">
+
+
+                    <div class="col-lg-2 col-md-3">
+
+                      <label class="form-label">Group</label>
+                      <mat-select class="custom-mat-select select" placeholder="Select"
+                        (selectionChange)="onGroupChange($event.value)">
+
+                        <mat-option value="">Select</mat-option>
+                        <mat-option *ngFor="let option of groupOptions" [value]="option.value">
+                          {{ option.label }}
+                        </mat-option>
+                      </mat-select>
+
+
+
+                    </div>
+
+
+                    <div class="col-lg-3 col-md-3">
+                      <label class="form-label">Customization</label>
+
+                      <mat-select class="custom-mat-select select" placeholder="Select Option" formControlName="key"
+                        (selectionChange)="onCustomizationKeyChange(i)" [disabled]="i !== customizations.length - 1">
+                        <mat-option *ngFor="let option of getAvailableOptions(i)" [value]="option.name">
+                          <img [src]="option.icon_url" width="20" height="20" class="me-2" alt="icon" />
+                          {{ option.name }}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3">
+                      <label class="form-label">Value</label>
+                     
+                      <mat-select class="custom-mat-select select" placeholder="Select Yes / No" formControlName="value"
+                        [disabled]="i !== customizations.length - 1">
+                        <mat-option [value]="true">Yes</mat-option>
+                        <mat-option [value]="false">No</mat-option>
+                      </mat-select>
+                    </div>
+
+                    <div class="col-lg-1 col-md-3 d-flex align-items-end">
+                      <button type="button" class="btn btn-danger ms-2" (click)="removeCustomization(i)"
+                        *ngIf="customizations.length > 1">
+                        <i class="isax isax-trash"></i>
+                      </button>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 d-flex align-items-end mt-2" *ngIf="
+                        i === customizations.length - 1 &&
+                        canAddCustomization(i)
+                      ">
+                      <button type="button" class="btn btn-success btn-sm" (click)="addCustomization()">
+                        <i class="isax isax-add-circle me-1"></i> Add
+                      </button>
+                    </div>
+                  </div>
+                </div> -->
+
+                <!-- <div class="d-flex justify-content-end mt-3">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="isax isax-add-circle me-1"></i> Add New Variant
+                  </button>
+                </div> -->
+
+
+                <div class="d-flex align-items-center justify-content-center">
+                  <!-- <button type="button" class="btn btn-light me-2">Reset</button> -->
+                  <button type="submit" class="btn btn-primary">
+                    <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status"
+                      aria-hidden="true"></span>Save Variant
+                  </button>
+                </div>
+
+
+              </div>
+            </div>
+          </form>
+
+          
+        </div>
+
+        <!-- /Variant  -->
+
+      </div>
+      <!-- /Add Car -->
+    </div>
+  </div>
+</div>
+<!-- /Page Wrapper -->
+
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="delete_modal">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form>
+          <div class="text-center">
+            <h5 class="mb-3">Confirm Delete</h5>
+            <p class="mb-3">Are you sure you want to delete this item?</p>
+            <div class="d-flex align-items-center justify-content-center">
+              <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">No</a>
+              <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">
+                Yes
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Delete Modal -->

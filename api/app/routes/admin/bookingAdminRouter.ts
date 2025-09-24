@@ -1,0 +1,10 @@
+import * as express from "express";
+import { AdminAuthValidator } from "../../middleware/admin_validator";
+import { listAdminBookings } from "../../controller/admin/booking/list";
+import { updateBookingAdminStatus } from "../../controller/admin/booking/change_booking_status";
+import { getAdminBookingById } from "../../controller/admin/booking/view";
+const bookingAdminRouter = express.Router();
+bookingAdminRouter.get("/list/:page", AdminAuthValidator, listAdminBookings);
+bookingAdminRouter.post("/change_status_admin", AdminAuthValidator, updateBookingAdminStatus);
+bookingAdminRouter.get("/view/:id", AdminAuthValidator, getAdminBookingById);
+export default bookingAdminRouter;

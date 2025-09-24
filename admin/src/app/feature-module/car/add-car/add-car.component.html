@@ -1,0 +1,454 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar breadcrumb-bg-03 text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-12">
+        <h2 class="breadcrumb-title mb-2">Add A Service</h2>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center mb-0">
+            <li class="breadcrumb-item">
+              <a [routerLink]="routes.index"><i class="isax isax-home5"></i></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Add Service
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Breadcrumb -->
+
+<!-- Page Wrapper -->
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-3">
+        <div class="card border-0 mb-4 mb-lg-0 theiaStickySidebar">
+          <div class="card-body">
+            <div>
+              <h5 class="mb-3">Add Service</h5>
+              <ul class="add-tab-list">
+                <li *ngFor="let tab of tabs">
+                  <a
+                    href="javascript:void(0);"
+                    [class.active]="activeTab === tab.id"
+                    (click)="scrollTo(tab.id)"
+                  >
+                    {{ tab.label }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Sidebar -->
+
+      <!-- Add Car -->
+      <div class="col-lg-9">
+        <form
+          [formGroup]="addServiceInfo"
+          (ngSubmit)="addServiceInformation()"
+          #validate1="ngForm"
+        >
+
+  <!-- Gallery -->
+                   <div class="card shadow-none" id="thumbnail">
+  <div class="card-header">
+    <h5 class="fs-18">Thumbnail</h5>
+  </div>
+  <div class="card-body">
+    <div
+      class="file-upload drag-file w-100 d-flex align-items-center justify-content-center flex-column mb-2"
+    >
+      <span class="upload-img d-block mb-2">
+        <i class="isax isax-document-upload fs-24"></i>
+      </span>
+      <h6 class="mb-1">Upload Thumbnail Image</h6>
+      <p class="mb-0">Upload Thumbnail Image, Image size should be below 5MB</p>
+    <input
+  type="file"
+  accept="image/jpeg,image/jpg,image/png"
+  (change)="onThumbnailSelected($event)"
+  style="cursor: pointer; position: relative; z-index: 1;"
+/>
+
+    </div>
+
+    <!-- Preview -->
+    <div class="d-flex align-items-center mt-3" *ngIf="thumbnailPreviewUrl">
+      <div class="gallery-upload-img me-2">
+        <img
+          [src]="thumbnailPreviewUrl"
+          alt="Preview"
+          class="img-fluid"
+          style="max-width: 100px; height: auto; border-radius: 4px"
+        />
+        <span
+          class="trash-icon d-flex align-items-center justify-content-center text-danger gallery-trash"
+          (click)="removeThumbnail()"
+        >
+          <i class="isax isax-trash"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+                        <!-- /Gallery -->
+
+          <!-- Basic Info -->
+          <div class="card shadow-none" id="service_info">
+            <div class="card-header">
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fs-18">Service Info</h6>
+              </div>
+            </div>
+            <div class="card-body pb-1">
+              <div class="row">
+                <div class="col-xl-6 col-md-6">
+                  <div class="mb-6">
+                    <label class="form-label">Main Service</label>
+                    <mat-select
+                      class="custom-mat-select select"
+                      placeholder="Select"
+                      (selectionChange)="onCategoryChange($event.value)"
+                      formControlName="propertyType"
+                    >
+                      <mat-option value="">Select</mat-option>
+                      <mat-option value="BACK_WATERS">BOAT CRUISE</mat-option>
+                      <mat-option value="ACCOMODATION">ACCOMODATION</mat-option>
+                      <mat-option value="TRANSPORTATION"
+                        >TRANSPORTATION</mat-option
+                      >
+                      <mat-option value="SPECIAL_EVENTS"
+                        >SPECIAL EVENTS</mat-option
+                      >
+                    </mat-select>
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Service</label>
+                    <mat-select
+                      class="custom-mat-select select"
+                      placeholder="Select"
+                      formControlName="category"
+                    >
+                      <mat-option value="" disabled selected
+                        >Select service</mat-option
+                      >
+                      <mat-option *ngFor="let cat of category" [value]="cat.id">
+                        {{ cat.name }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Basic Info -->
+
+          <!-- Specifications -->
+          <div class="card shadow-none" id="basic_info">
+            <div class="card-header">
+              <div class="d-flex align-items-center justify-content-between">
+                <h6 class="fs-18">Basic Info</h6>
+              </div>
+            </div>
+
+            <div class="card-body pb-1">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="name"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="description"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Rate</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="rate"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Capacity</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="capacity"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Percentage</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="percentage"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Total Units</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="totalUnits"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body pb-1" *ngIf="propertyType == 'BACK_WATERS'">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Boat Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="boatName"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Reg Number</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="boatRegistrationNo"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> Dining Yes/No</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="hasDiningFacility"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body pb-1" *ngIf="propertyType == 'ACCOMODATION'">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">roomNumber</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="roomNumber"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">bedCount</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="bedCount"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> amenities</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="amenities"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> hasBreakfastIncluded</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="hasBreakfastIncluded"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="card-body pb-1"
+              *ngIf="propertyType == 'TRANSPORTATION'"
+            >
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Make</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="make"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Model</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="model"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> RegistrationNumber</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="registrationNumber"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> Transmission</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="transmission"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="card-body pb-1"
+              *ngIf="propertyType == 'SPECIAL_EVENTS'"
+            >
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> eventStartDate </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="      eventStartDate"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">eventEndDate</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="eventEndDate"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label"> eventLocation</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="eventLocation"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Specifications -->
+
+
+          <div class="d-flex align-items-center justify-content-center">
+            <button type="button" class="btn btn-light me-2">Reset</button>
+            <button type="submit" class="btn btn-primary">
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span
+              >Add New Service
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- /Add Car -->
+    </div>
+  </div>
+</div>
+<!-- /Page Wrapper -->
+
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="delete_modal">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form>
+          <div class="text-center">
+            <h5 class="mb-3">Confirm Delete</h5>
+            <p class="mb-3">Are you sure you want to delete this item?</p>
+            <div class="d-flex align-items-center justify-content-center">
+              <a
+                href="javascript:void(0);"
+                class="btn btn-light me-2"
+                data-bs-dismiss="modal"
+                >No</a
+              >
+              <button
+                type="submit"
+                data-bs-dismiss="modal"
+                class="btn btn-primary"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Delete Modal -->

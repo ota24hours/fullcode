@@ -1,0 +1,254 @@
+<div
+  class="d-flex align-items-center justify-content-between flex-wrap row-gap-3"
+>
+  <div class="place-nav listing-nav">
+   <ul class="nav mb-2">
+    <li class="me-2" (click)="onTabClick('ALL')">
+    <a href="javascript:void(0);" class="nav-link active" [class.active]="selectedType === 'ALL'">ALL</a>
+  </li>
+  <li
+    class="me-2"
+    *ngFor="let tab of mainServiceOptions"
+  (click)="onTabClick(tab.value)"
+  >
+    <a
+      href="javascript:void(0);"
+      class="nav-link"
+      [class.active]="selectedType === tab.value"
+    >
+      {{ tab.label }}
+    </a>
+  </li>
+</ul>
+  </div>
+  <!-- <div class="dropdown mb-4">
+        <a href="javascript:void(0);" class="dropdown-toggle text-gray-6 btn  rounded border d-inline-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
+            All Listing
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end p-3">
+            <li>
+                <a href="javascript:void(0);" class="dropdown-item rounded-1">Active</a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="dropdown-item rounded-1">Inactive</a>
+            </li>
+        </ul>
+    </div> -->
+</div>
+<div class="card border-0">
+  <div
+    class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-2"
+  >
+    <div>
+      <h5 class="mb-1">Category List</h5>
+      <!-- <p>No of Listings : 20</p> -->
+    </div>
+    <div>
+      <a
+        href="javascript:void(0);"
+        data-bs-toggle="modal"
+        data-bs-target="#customize-add-modal"
+        class="btn btn-primary d-inline-flex align-items-center me-0"
+        ><i class="isax isax-add me-1 fs-16"></i>Add Category</a
+      >
+    </div>
+  </div>
+</div>
+
+<div class="tab-pane fade active show">
+  <!-- Cars List -->
+  <app-cat-listing
+    [propertyType]="selectedType"
+
+    (editClicked)="onEditProperty($event)"
+  ></app-cat-listing>
+
+  <!-- /Cars List -->
+</div>
+
+<!-- Inactive Modal -->
+<div class="modal fade" id="inactive_list" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="text-center">
+          <h5 class="mb-3">Inactive Listing</h5>
+          <p class="mb-3">
+            Are you sure you want to mark this listing as inactive and keep it
+            unavailable
+          </p>
+          <div class="d-flex align-items-center justify-content-center">
+            <a href="javascript:void(0);" class="btn btn-light me-2">No</a>
+            <a
+              href="javascript:void(0);"
+              data-bs-dismiss="modal"
+              class="btn btn-primary"
+              >Yes</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Inactive Modal -->
+
+<!-- Active Modal -->
+<div class="modal fade" id="active_list" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="text-center">
+          <h5 class="mb-3">Active Listing</h5>
+          <p class="mb-3">
+            Are you sure you want to mark this listing as active and keep it
+            available?
+          </p>
+          <div class="d-flex align-items-center justify-content-center">
+            <a href="javascript:void(0);" class="btn btn-light me-2">No</a>
+            <a
+              href="javascript:void(0);"
+              data-bs-dismiss="modal"
+              class="btn btn-primary"
+              >Yes</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Active Modal -->
+
+<!-- Delete Modal -->
+<div class="modal fade" id="delete-list" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="text-center">
+          <h5 class="mb-3">Delete Listing</h5>
+          <p class="mb-3">Are you sure you want to delete this listing?</p>
+          <div class="d-flex align-items-center justify-content-center">
+            <a href="javascript:void(0);" class="btn btn-light me-2">No</a>
+            <a
+              href="javascript:void(0);"
+              data-bs-dismiss="modal"
+              class="btn btn-primary"
+              >Yes, Delete</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  Delete Modal -->
+
+<!-- customize-add Modal -->
+<div class="modal fade" id="customize-add-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-end pb-0 border-0"
+      >
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"
+          ><i class="ti ti-x fs-20"></i
+        ></a>
+      </div>
+      <div class="modal-body p-4 pt-0">
+        <form [formGroup]="createCustomForm" (ngSubmit)="createCategory()">
+          
+          <div class="text-center mb-3">
+         <h5 class="mb-1">Category</h5>
+            <p>Create Category</p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label d-block mb-1">Active</label>
+            <mat-slide-toggle formControlName="isActive" color="primary">
+            </mat-slide-toggle>
+          </div>
+          <div class="mb-2 mt-2" *ngIf="!isEditMode">
+
+            <label class="form-label">Main Service</label>
+            <mat-select
+              class="custom-mat-select select"
+              placeholder="Select"
+              formControlName="propertyType"
+            >
+              <mat-option value="">Select</mat-option>
+              <mat-option
+                *ngFor="let option of mainServiceOptions"
+                [value]="option.value"
+              >
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Name</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-message"></i>
+              </span>
+              <input
+                type="text"
+                formControlName="name"
+                class="form-control form-control-lg"
+                placeholder="Enter Name"
+              />
+              <div
+                *ngIf="
+                  createCustomForm.get('name')?.touched &&
+                  createCustomForm.get('name')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                <div *ngIf="createCustomForm.get('name')?.errors?.['required']">
+                  Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+           <!-- Image Upload -->
+          <div class="mb-3">
+            <label class="form-label">Upload Image</label>
+            <input
+              type="file"
+              (change)="onImageChange($event)"
+              class="form-control form-control-lg"
+              formControlName="img"
+            />
+            <!-- Image Preview -->
+            <div *ngIf="imagePreviewUrl" class="mt-2">
+              <img
+                [src]="imagePreviewUrl"
+                alt="Preview"
+                class="img-thumbnail"
+                style="max-height: 150px"
+              />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <button
+              type="submit"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              [disabled]="isSubmitting"
+            >
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              {{ isEditMode ? "Edit" : "Create" }}
+              <i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /customize-add Modal -->

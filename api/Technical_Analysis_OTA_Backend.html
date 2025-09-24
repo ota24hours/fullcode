@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Backend - Complete Technical Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --danger-color: #dc2626;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .tech-analysis-footer {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-top: 3px solid #007bff;
+            padding: 2rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #495057;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .footer-container {
+            max-width: 100%;
+        }
+
+        /* Disclaimer Section */
+        .disclaimer {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #ffc107;
+        }
+
+        .disclaimer-text {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #856404;
+        }
+
+        /* Verification Section */
+        .verification-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dee2e6;
+        }
+
+        .verified-title {
+            margin: 0 0 1rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #343a40;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .verifier-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .verifier-name {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 0.25rem;
+        }
+
+        .verifier-title {
+            margin: 0;
+            font-size: 1rem;
+            color: #6c757d;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Information */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .contact-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            display: inline-block;
+        }
+
+        .contact-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .contact-text {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .phone {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .contact-info {
+                flex-direction: row;
+                gap: 2rem;
+            }
+            
+            .contact-item {
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .verification-section {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .tech-analysis-footer {
+                padding: 1.5rem;
+            }
+            
+            .disclaimer {
+                padding: 0.75rem 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .disclaimer-text {
+                font-size: 0.85rem;
+            }
+            
+            .verification-section {
+                padding: 1rem;
+            }
+            
+            .verifier-name {
+                font-size: 1.1rem;
+            }
+            
+            .contact-item {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .tech-analysis-footer {
+                background: white !important;
+                box-shadow: none !important;
+                border-top: 2px solid #000 !important;
+                border-radius: 0 !important;
+            }
+            
+            .contact-link {
+                color: #000 !important;
+                text-decoration: underline !important;
+            }
+            
+            .disclaimer {
+                background-color: #f5f5f5 !important;
+                border: 1px solid #ccc !important;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav {
+            background: var(--secondary-color);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 120px;
+        }
+
+        .section-header {
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .risk-critical {
+            border-left: 4px solid var(--danger-color);
+            background: #fef2f2;
+        }
+
+        .risk-high {
+            border-left: 4px solid var(--warning-color);
+            background: #fffbeb;
+        }
+
+        .risk-medium {
+            border-left: 4px solid #3b82f6;
+            background: #eff6ff;
+        }
+
+        .risk-low {
+            border-left: 4px solid var(--success-color);
+            background: #f0fdf4;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-current {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-error {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .tech-item {
+            background: var(--secondary-color);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .tech-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.875em;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--secondary-color);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist li:before {
+            content: '☐';
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .architecture-diagram {
+            background: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 12px;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .warning-box h4 {
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .info-box h4 {
+            color: #1d4ed8;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .nav {
+                padding: 0.5rem 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tech-stack {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-70 { width: 70%; background: var(--warning-color); }
+        .progress-80 { width: 80%; background: var(--success-color); }
+        .progress-95 { width: 95%; background: var(--success-color); }
+        .progress-98 { width: 98%; background: var(--success-color); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Travel Backend Platform</h1>
+            <p>Comprehensive Technical Documentation & Analysis</p>
+        </header>
+
+        <nav class="nav">
+            <div class="nav-links">
+                <a href="#executive-summary" class="nav-link">Executive Summary</a>
+                <a href="#architecture" class="nav-link">Architecture</a>
+                <a href="#installation" class="nav-link">Installation</a>
+                <a href="#technical-analysis" class="nav-link">Technical Analysis</a>
+                <a href="#quick-reference" class="nav-link">Quick Reference</a>
+            </div>
+        </nav>
+
+        <main class="content">
+            <!-- Executive Summary Section -->
+            <section id="executive-summary" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Executive Summary</h2>
+                    <p class="section-subtitle">High-level overview and business impact assessment</p>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Application Overview</h3>
+                    <p>The Travel Backend is a comprehensive REST API for a tourism booking platform that enables:</p>
+                    <ul>
+                        <li><strong>Multi-service Booking</strong>: Transportation, accommodation, houseboats, and special events</li>
+                        <li><strong>Vendor Management</strong>: Service provider onboarding with verification workflows</li>
+                        <li><strong>User Management</strong>: Customer accounts with profile and preference management</li>
+                        <li><strong>Payment Processing</strong>: Integrated Razorpay payment gateway for secure transactions</li>
+                        <li><strong>Admin Dashboard</strong>: Complete administrative control over bookings, users, and content</li>
+                        <li><strong>Dynamic Pricing</strong>: Flexible pricing models with variants and customizations</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Technology Stack</h3>
+                    <div class="tech-stack">
+                        <div class="tech-item">
+                            <h4>Runtime</h4>
+                            <p>Node.js v22.15.0 <span class="status-badge status-current">Current</span></p>
+                        </div>
+                        <div class="tech-item">
+                            <h4>Language</h4>
+                            <p>TypeScript v5.5.4 <span class="status-badge status-current">Current</span></p>
+                        </div>
+                        <div class="tech-item">
+                            <h4>Framework</h4>
+                            <p>Express.js v4.19.2 <span class="status-badge status-current">Current</span></p>
+                        </div>
+                        <div class="tech-item">
+                            <h4>Database</h4>
+                            <p>MySQL v8.x <span class="status-badge status-current">Compatible</span></p>
+                        </div>
+                        <div class="tech-item">
+                            <h4>ORM</h4>
+                            <p>TypeORM v0.3.20 <span class="status-badge status-current">Current</span></p>
+                        </div>
+                        <div class="tech-item">
+                            <h4>Authentication</h4>
+                            <p>JWT v9.0.2 <span class="status-badge status-current">Current</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card risk-critical">
+                    <h3 class="card-title">🔴 URGENT RISKS (Fix Immediately)</h3>
+                    <div class="warning-box">
+                        <h4>1. Security Vulnerabilities</h4>
+                        <p><strong>Impact:</strong> Application compromise, data breach</p>
+                        <p><strong>Details:</strong> 6 npm vulnerabilities (2 critical, 2 high)</p>
+                        <p><strong>Action:</strong> <code>npm audit fix</code> + dependency updates</p>
+                        <p><strong>Timeline:</strong> 1-2 hours</p>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <h4>2. Hardcoded Secrets</h4>
+                        <p><strong>Impact:</strong> Complete system compromise if code is exposed</p>
+                        <p><strong>Details:</strong> JWT secret and database password in source code</p>
+                        <p><strong>Action:</strong> Move to environment variables immediately</p>
+                        <p><strong>Timeline:</strong> 2-3 hours</p>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <h4>3. Production Database Risk</h4>
+                        <p><strong>Impact:</strong> Data loss, schema corruption</p>
+                        <p><strong>Details:</strong> TypeORM auto-sync enabled (<code>synchronize: true</code>)</p>
+                        <p><strong>Action:</strong> Implement proper migrations before production</p>
+                        <p><strong>Timeline:</strong> 4-6 hours</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Business Impact Assessment</h3>
+                    
+                    <h4>Current Capabilities ✅</h4>
+                    <ul>
+                        <li><strong>Functional MVP:</strong> Core booking functionality works</li>
+                        <li><strong>Multi-tenant:</strong> Supports both customers and vendors</li>
+                        <li><strong>Payment Ready:</strong> Razorpay integration implemented</li>
+                        <li><strong>File Management:</strong> Image uploads and static serving</li>
+                        <li><strong>Admin Controls:</strong> Complete administrative functionality</li>
+                    </ul>
+
+                    <h4>Business Readiness</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-70"></div>
+                    </div>
+                    <p>70% - Functional but needs hardening</p>
+
+                    <h4>Success Metrics</h4>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Target</th>
+                                    <th>Current Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Security</td>
+                                    <td>Zero critical vulnerabilities</td>
+                                    <td><span class="status-badge status-error">6 vulnerabilities</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Performance</td>
+                                    <td>&lt;500ms API response time</td>
+                                    <td><span class="status-badge status-warning">Not measured</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Availability</td>
+                                    <td>99.9% uptime</td>
+                                    <td><span class="status-badge status-warning">Not monitored</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Test Coverage</td>
+                                    <td>&gt;80% code coverage</td>
+                                    <td><span class="status-badge status-error">0% coverage</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture Section -->
+            <section id="architecture" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">System Architecture</h2>
+                    <p class="section-subtitle">Architectural overview and design patterns</p>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">High-Level Architecture</h3>
+                    <div class="architecture-diagram">TRAVEL BOOKING PLATFORM BACKEND
+                    (Node.js + TypeScript)
+
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    CLIENT LAYER                                         │
+├─────────────────────┬─────────────────────┬─────────────────────┬─────────────────────┤
+│   Web Applications  │   Mobile Apps       │   Admin Dashboard   │   Partner APIs      │
+│   (React/Angular)   │   (iOS/Android)     │   (Admin Panel)     │   (Third Party)     │
+└─────────────────────┴─────────────────────┴─────────────────────┴─────────────────────┘
+                                              │
+                                              ▼ HTTP/HTTPS (Port 80/443)
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                                  LOAD BALANCER/PROXY                                    │
+│                               Nginx (Recommended)                                      │
+│                          • SSL Termination                                             │
+│                          • Static File Serving                                         │
+│                          • Rate Limiting                                               │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+                                              │
+                                              ▼ HTTP (Port 5000)
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                                  APPLICATION SERVER                                     │
+│                                Node.js + Express.js                                    │
+│                                                                                         │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐   │
+│  │   MIDDLEWARE    │  │    ROUTES       │  │  CONTROLLERS    │  │   UTILITIES     │   │
+│  │                 │  │                 │  │                 │  │                 │   │
+│  │ • CORS          │  │ • /user/*       │  │ • User Mgmt     │  │ • JWT Utils     │   │
+│  │ • Auth Validation│  │ • /admin/*      │  │ • Property Mgmt │  │ • File Upload   │   │
+│  │ • File Upload   │  │ • /booking/*    │  │ • Booking Mgmt  │  │ • Password Hash │   │
+│  │ • Body Parser   │  │ • /category/*   │  │ • Payment Mgmt  │  │ • Validation    │   │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────────┘   │
+│                                                                                         │
+│                              ▼ TypeORM (Database Abstraction)                          │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+                                              │
+                                              ▼ MySQL Connection
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   DATA LAYER                                            │
+│                                  MySQL Database                                         │
+│                                                                                         │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐   │
+│  │   USER DATA     │  │ PROPERTY DATA   │  │  BOOKING DATA   │  │ FINANCIAL DATA  │   │
+│  │                 │  │                 │  │                 │  │                 │   │
+│  │ • users         │  │ • properties    │  │ • bookings      │  │ • vendor_payment│   │
+│  │ • admin         │  │ • property_imgs │  │ • booking_req   │  │ • commission    │   │
+│  │ • user_docs     │  │ • variants      │  │ • booking_disp  │  │ • transactions  │   │
+│  │ • categories    │  │ • pricing       │  │ • reviews       │  │                 │   │
+│  └─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────────┘   │
+└─────────────────────────────────────────────────────────────────────────────────────────┘</div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Entity Relationships</h3>
+                    <div class="architecture-diagram">                                CORE ENTITY RELATIONSHIPS
+
+    User ──────┐                                         ┌────── Admin
+               │                                         │
+               ▼                                         ▼
+    ┌─────────────────┐                        ┌─────────────────┐
+    │      USER       │                        │      ADMIN      │ 
+    │                 │                        │                 │
+    │ • Profile Data  │                        │ • Credentials   │
+    │ • Verification  │                        │ • Permissions   │  
+    │ • Bank Details  │                        │ • Super Admin   │
+    └─────────────────┘                        └─────────────────┘
+               │                                         │
+               ├─── Creates ────┐                       │ 
+               │                ▼                       │ Manages
+               │     ┌─────────────────┐                │
+               │     │    PROPERTY     │◄───────────────┘
+               │     │                 │
+               │     │ • Multi-type    │ ┌─── Has Many ────┐
+               │     │ • Variants      │ │                 ▼
+               │     │ • Pricing       │ │    ┌─────────────────┐
+               │     └─────────────────┘ │    │ PROPERTY_IMGS   │
+               │                │        │    │ VARIANTS        │
+               │ Books           │        │    │ PRICING         │  
+               ▼                │        └────┤ CUSTOMIZABLE    │
+    ┌─────────────────┐         │             └─────────────────┘
+    │     BOOKING     │         │
+    │                 │         │ Belongs To
+    │ • Dates         │◄────────┘ 
+    │ • Payment Info  │
+    │ • Status        │         ┌─── Related To ─────┐
+    │ • Calculations  │         │                    ▼
+    └─────────────────┘         │         ┌─────────────────┐
+               │                │         │    CATEGORY     │
+               │ Can Have       │         │  SUB_CATEGORY   │
+               ▼                │         │                 │
+    ┌─────────────────┐         │         │ • Hierarchical  │
+    │ BOOKING_DISPUTE │         │         │ • Customizable  │
+    │ REVIEWS         │         │         └─────────────────┘
+    │ COMMISSION      │         │                    │
+    │ VENDOR_PAYMENT  │         └────────────────────┘
+    └─────────────────┘</div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Data Flow - Booking Process</h3>
+                    <div class="architecture-diagram">                                  TYPICAL BOOKING FLOW
+
+         User/Vendor                                                     Admin Panel
+              │                                                              │
+              ▼                                                              ▼
+    ┌─────────────────┐                                           ┌─────────────────┐
+    │  Authentication │                                           │ Admin Login     │
+    │  POST /user     │                                           │ POST /admin     │
+    └─────────────────┘                                           └─────────────────┘
+              │                                                              │
+              ▼                                                              ▼
+    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐   ┌─────────────────┐
+    │ Browse Properties│    │ Check Availability│   │ Create Booking │   │ Manage Bookings │
+    │ GET /properties │    │ POST /booking/   │    │ POST /booking   │   │ GET /admin/     │
+    │                 │    │ check_availability│   │ create_booking  │   │ booking/list    │
+    └─────────────────┘    └─────────────────┘    └─────────────────┘   └─────────────────┘
+              │                      │                       │                       │
+              ▼                      ▼                       ▼                       ▼
+    ┌─────────────────────────────────────────────────────────────────────────────────────────┐
+    │                               DATABASE OPERATIONS                                        │
+    │                                                                                         │
+    │ SELECT properties    SELECT availability     INSERT booking      UPDATE booking_status  │  
+    │ JOIN categories   ──▶ JOIN variants      ──▶ INSERT payment  ──▶ UPDATE vendor_payment │
+    │ WHERE active=1       WHERE dates avail     INSERT commission   SELECT booking details │
+    └─────────────────────────────────────────────────────────────────────────────────────────┘</div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Risk Mitigation Strategy</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Risk Category</th>
+                                    <th>Current State</th>
+                                    <th>Target State</th>
+                                    <th>Timeline</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Security</strong></td>
+                                    <td>High Risk</td>
+                                    <td>Low Risk</td>
+                                    <td>2 weeks</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Stability</strong></td>
+                                    <td>Medium Risk</td>
+                                    <td>Low Risk</td>
+                                    <td>4 weeks</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Performance</strong></td>
+                                    <td>Medium Risk</td>
+                                    <td>Optimized</td>
+                                    <td>8 weeks</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Scalability</strong></td>
+                                    <td>Limited</td>
+                                    <td>Cloud Ready</td>
+                                    <td>12 weeks</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Maintainability</strong></td>
+                                    <td>Difficult</td>
+                                    <td>Well Documented</td>
+                                    <td>6 weeks</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Installation Section -->
+            <section id="installation" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Installation & Setup Guide</h2>
+                    <p class="section-subtitle">Step-by-step setup checklist for development and production</p>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Pre-Installation Requirements</h3>
+                    
+                    <h4>System Requirements</h4>
+                    <ul class="checklist">
+                        <li><strong>Node.js</strong>: v18.x or v20.x LTS (Current: v22.15.0 detected)</li>
+                        <li><strong>npm</strong>: v9.x+ (Current: v10.9.2 detected)</li>
+                        <li><strong>MySQL</strong>: v8.0+ or v5.7.8+ with JSON support</li>
+                        <li><strong>Git</strong>: For source code management</li>
+                        <li><strong>PM2</strong>: <code>npm install -g pm2</code> (for production)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Critical Security Configuration</h3>
+                    
+                    <div class="warning-box">
+                        <h4>Environment Variables (CRITICAL)</h4>
+                        <p>Move all secrets from source code to environment variables:</p>
+                        <pre><code># .env file configuration
+# Database
+DB_USERNAME=travel_log
+DB_PASSWORD=your_secure_password
+DB_DATABASE=travel_log
+
+# Security  
+JWT_SECRET=your_32plus_character_secret
+
+# Payment
+RAZOR_KEY_ID=your_razorpay_key
+RAZOR_KEY_SECRET=your_razorpay_secret
+
+# File Storage
+IMAGE_BASE_URL=https://yourdomain.com/img</code></pre>
+                    </div>
+
+                    <h4>Security Hardening Steps</h4>
+                    <ul class="checklist">
+                        <li>Move JWT Secret from <code>utils/jwt_utls.ts</code></li>
+                        <li>Move Database Credentials from <code>src/data_source/data_source.ts</code></li>
+                        <li>Disable TypeORM Auto-Sync for Production</li>
+                        <li>Fix security vulnerabilities: <code>npm audit fix</code></li>
+                        <li>Update vulnerable packages: <code>npm update</code></li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Installation Steps</h3>
+                    
+                    <h4>1. Database Setup</h4>
+                    <pre><code>-- Create database
+CREATE DATABASE travel_log CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Create user (replace with secure password)
+CREATE USER 'travel_log'@'localhost' IDENTIFIED BY 'your_secure_password';
+GRANT ALL PRIVILEGES ON travel_log.* TO 'travel_log'@'localhost';
+FLUSH PRIVILEGES;</code></pre>
+
+                    <h4>2. Application Installation</h4>
+                    <pre><code># Install dependencies
+npm install
+
+# Fix security vulnerabilities
+npm audit fix
+
+# Initialize default admin (one-time only)
+curl http://localhost:5000/init
+
+# Start development server
+npm run dev
+
+# Or start production with PM2
+pm2 start ecosystem.config.ts</code></pre>
+
+                    <h4>3. Production Deployment</h4>
+                    <pre><code># Build application
+npm run build
+
+# Start with PM2
+pm2 start ecosystem.config.ts
+pm2 save
+pm2 startup
+
+# Configure Nginx reverse proxy
+# Set up SSL certificates with certbot
+# Configure monitoring and logging</code></pre>
+                </div>
+
+                <div class="card risk-high">
+                    <h3 class="card-title">Post-Installation Security Checklist</h3>
+                    <ul class="checklist">
+                        <li>No hardcoded secrets in source code</li>
+                        <li>All .env files excluded from version control</li>
+                        <li>Database user has minimum required permissions</li>
+                        <li>JWT secret is cryptographically secure (32+ characters)</li>
+                        <li>File upload directory is not executable</li>
+                        <li>Error messages don't leak sensitive information</li>
+                        <li>Firewall configured to allow only necessary ports</li>
+                        <li>Database port 3306 not exposed to external networks</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Technical Analysis Section -->
+            <section id="technical-analysis" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Comprehensive Technical Analysis</h2>
+                    <p class="section-subtitle">Detailed technical assessment and code analysis</p>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Application Metadata</h3>
+                    <div class="table-container">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Repository</strong></td>
+                                    <td>Local development at <code>e:\OTA24Hours\travel-backend-main</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Application Name</strong></td>
+                                    <td>back-end-call-connect</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primary Language</strong></td>
+                                    <td>TypeScript (99%)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Package Manager</strong></td>
+                                    <td>npm 10.9.2</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Development Status</strong></td>
+                                    <td>Active development</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Database Schema Overview</h3>
+                    <p><strong>21 Core Entities</strong> organized into logical groups:</p>
+                    
+                    <div class="tech-stack">
+                        <div class="tech-item">
+                            <h4>User Management</h4>
+                            <ul>
+                                <li>Admin - System administrators</li>
+                                <li>User - End users with vendor capabilities</li>
+                                <li>UserSelectCategories - Service preferences</li>
+                                <li>UserSupportingDocuments - KYC documents</li>
+                            </ul>
+                        </div>
+                        <div class="tech-item">
+                            <h4>Property System</h4>
+                            <ul>
+                                <li>Property - Main property entity</li>
+                                <li>PropertyImgs - Image gallery</li>
+                                <li>PropertyVariants - Different configurations</li>
+                                <li>PropertyPricingVariants - Dynamic pricing</li>
+                            </ul>
+                        </div>
+                        <div class="tech-item">
+                            <h4>Booking System</h4>
+                            <ul>
+                                <li>Booking - Main booking records</li>
+                                <li>BookingRequest - Booking workflow</li>
+                                <li>BookingDispute - Dispute management</li>
+                                <li>DisputeReply - Resolution communications</li>
+                            </ul>
+                        </div>
+                        <div class="tech-item">
+                            <h4>Financial System</h4>
+                            <ul>
+                                <li>CommissionPayment - Platform commission</li>
+                                <li>VendorPayment - Vendor payouts</li>
+                                <li>Review - User ratings system</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Key Dependencies Analysis</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Package</th>
+                                    <th>Version</th>
+                                    <th>Purpose</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>express</td>
+                                    <td>v4.19.2</td>
+                                    <td>Web framework</td>
+                                    <td><span class="status-badge status-current">Current</span></td>
+                                </tr>
+                                <tr>
+                                    <td>typeorm</td>
+                                    <td>v0.3.20</td>
+                                    <td>Database ORM</td>
+                                    <td><span class="status-badge status-current">Current</span></td>
+                                </tr>
+                                <tr>
+                                    <td>mysql2</td>
+                                    <td>v3.11.0</td>
+                                    <td>MySQL driver</td>
+                                    <td><span class="status-badge status-current">Current</span></td>
+                                </tr>
+                                <tr>
+                                    <td>jsonwebtoken</td>
+                                    <td>v9.0.2</td>
+                                    <td>JWT handling</td>
+                                    <td><span class="status-badge status-current">Current</span></td>
+                                </tr>
+                                <tr>
+                                    <td>razorpay</td>
+                                    <td>v2.9.6</td>
+                                    <td>Payment gateway</td>
+                                    <td><span class="status-badge status-current">Current</span></td>
+                                </tr>
+                                <tr>
+                                    <td>firebase-admin</td>
+                                    <td>v13.0.2</td>
+                                    <td>Push notifications</td>
+                                    <td><span class="status-badge status-current">Current</span></td>
+                                </tr>
+                                <tr>
+                                    <td>moment</td>
+                                    <td>v2.30.1</td>
+                                    <td>Date manipulation</td>
+                                    <td><span class="status-badge status-warning">Consider day.js</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card risk-critical">
+                    <h3 class="card-title">Critical Code Quality Issues</h3>
+                    
+                    <h4>1. Inconsistent Error Handling</h4>
+                    <pre><code>// Mixed error handling patterns found
+try {
+  // Some methods use try-catch
+} catch (error: any) {
+  return errorResponse(res, error);
+}
+
+// Others use basic throws
+if (!user) {
+  throw new Error("User not found");
+}</code></pre>
+
+                    <h4>2. Hardcoded Values in Source</h4>
+                    <pre><code>// JWT Secret exposed in utils/jwt_utls.ts
+const tokenKey = "EmSpNpS1D#LEe4x7*L0MBU4nkQFS@9MwGlwAZa6zQ*eujxbBMFpfiY";
+
+// Database credentials in src/data_source/data_source.ts  
+username: "travel_log",
+password: "FjCLBRrhB2F2KnSa",</code></pre>
+
+                    <h4>3. TypeORM Production Risk</h4>
+                    <pre><code>// Dangerous auto-sync in production
+synchronize: true, // Will auto-modify database schema</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Performance Characteristics</h3>
+                    
+                    <h4>Potential Bottlenecks Identified</h4>
+                    <ul>
+                        <li><strong>Database Queries</strong>: Heavy JOINs in booking listings may cause N+1 problems</li>
+                        <li><strong>File Processing</strong>: Synchronous file uploads without background processing</li>
+                        <li><strong>No Caching Layer</strong>: Every request hits database</li>
+                        <li><strong>Static File Serving</strong>: Express serving files instead of CDN/Nginx</li>
+                    </ul>
+
+                    <h4>Recommended Optimizations</h4>
+                    <ul class="checklist">
+                        <li>Implement Redis caching for frequent queries</li>
+                        <li>Add database connection pooling configuration</li>
+                        <li>Move static assets to CDN</li>
+                        <li>Implement query optimization for heavy JOINs</li>
+                        <li>Add response compression middleware</li>
+                        <li>Implement request rate limiting</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Testing & Quality Assessment</h3>
+                    
+                    <div class="warning-box">
+                        <h4>No Testing Framework Found</h4>
+                        <ul>
+                            <li>No test files (*.test.*, *.spec.*)</li>
+                            <li>No test directories (/test, /tests, /__tests__)</li>
+                            <li>No testing dependencies in package.json</li>
+                            <li>No CI/CD pipeline configuration</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>Recommended Testing Setup</h4>
+                        <pre><code># Install testing framework
+npm install --save-dev jest @types/jest supertest @types/supertest
+
+# Install code quality tools  
+npm install --save-dev eslint @typescript-eslint/parser prettier
+
+# Add test scripts to package.json
+{
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .ts"
+  }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Security Vulnerability Details</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Package</th>
+                                    <th>Vulnerability</th>
+                                    <th>Severity</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>form-data</td>
+                                    <td>Unsafe random function</td>
+                                    <td><span class="status-badge status-error">CRITICAL</span></td>
+                                    <td>Predictable random number generation</td>
+                                </tr>
+                                <tr>
+                                    <td>sha.js</td>
+                                    <td>Missing type checks</td>
+                                    <td><span class="status-badge status-error">CRITICAL</span></td>
+                                    <td>Type confusion vulnerability</td>
+                                </tr>
+                                <tr>
+                                    <td>xlsx</td>
+                                    <td>Prototype Pollution</td>
+                                    <td><span class="status-badge status-warning">HIGH</span></td>
+                                    <td>Object prototype manipulation</td>
+                                </tr>
+                                <tr>
+                                    <td>tmp</td>
+                                    <td>Arbitrary file write</td>
+                                    <td><span class="status-badge status-warning">HIGH</span></td>
+                                    <td>Symlink vulnerability</td>
+                                </tr>
+                                <tr>
+                                    <td>brace-expansion</td>
+                                    <td>RegEx DoS</td>
+                                    <td><span class="status-badge status-current">LOW</span></td>
+                                    <td>Regular expression DoS</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Reference Section -->
+            <section id="quick-reference" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Quick Reference Guide</h2>
+                    <p class="section-subtitle">Essential commands and API endpoints for daily operations</p>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Essential Commands</h3>
+                    
+                    <h4>Development Commands</h4>
+                    <pre><code># Start development server
+npm run dev
+
+# Build application  
+npm run build
+
+# Start production
+npm start
+
+# Initialize default admin (one-time)
+curl http://localhost:5000/init</code></pre>
+
+                    <h4>Production Management</h4>
+                    <pre><code># PM2 Process Management
+pm2 status              # Check application status
+pm2 logs               # View logs
+pm2 restart all        # Restart all processes
+pm2 stop all          # Stop all processes
+
+# Database Operations
+mysql -u travel_log -p travel_log    # Connect to database
+SHOW TABLES;                         # List all tables
+SELECT * FROM admin;                 # Check admin users</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Core API Endpoints</h3>
+                    
+                    <h4>User Authentication</h4>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Endpoint</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>POST</td>
+                                    <td>/user/login</td>
+                                    <td>User login</td>
+                                </tr>
+                                <tr>
+                                    <td>POST</td>
+                                    <td>/user/signup</td>
+                                    <td>User registration</td>
+                                </tr>
+                                <tr>
+                                    <td>POST</td>
+                                    <td>/user/verify</td>
+                                    <td>OTP verification</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>Property Management</h4>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Endpoint</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>GET</td>
+                                    <td>/user/properties/list/:page</td>
+                                    <td>Browse properties</td>
+                                </tr>
+                                <tr>
+                                    <td>POST</td>
+                                    <td>/user/properties/create</td>
+                                    <td>Add property (vendors)</td>
+                                </tr>
+                                <tr>
+                                    <td>GET</td>
+                                    <td>/user/properties/view/:id</td>
+                                    <td>Property details</td>
+                                </tr>
+                                <tr>
+                                    <td>POST</td>
+                                    <td>/user/properties/edit</td>
+                                    <td>Update property</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>Booking System</h4>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Endpoint</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>POST</td>
+                                    <td>/user/booking/check_availability</td>
+                                    <td>Check dates available</td>
+                                </tr>
+                                <tr>
+                                    <td>POST</td>
+                                    <td>/user/booking/create_booking</td>
+                                    <td>Create new booking</td>
+                                </tr>
+                                <tr>
+                                    <td>GET</td>
+                                    <td>/user/booking/list/:page</td>
+                                    <td>User's bookings</td>
+                                </tr>
+                                <tr>
+                                    <td>GET</td>
+                                    <td>/user/booking/view/:id</td>
+                                    <td>Booking details</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>Admin Operations</h4>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Endpoint</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>GET</td>
+                                    <td>/admin/user/list/:page</td>
+                                    <td>User management</td>
+                                </tr>
+                                <tr>
+                                    <td>GET</td>
+                                    <td>/admin/booking/list/:page</td>
+                                    <td>All bookings</td>
+                                </tr>
+                                <tr>
+                                    <td>POST</td>
+                                    <td>/admin/booking/change_status</td>
+                                    <td>Update booking status</td>
+                                </tr>
+                                <tr>
+                                    <td>GET</td>
+                                    <td>/admin/property/list/:page</td>
+                                    <td>Property management</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Environment Configuration Quick Reference</h3>
+                    <pre><code># Critical Environment Variables
+PORT=5000
+NODE_ENV=production
+
+# Database Configuration
+DB_HOST=localhost
+DB_USERNAME=travel_log
+DB_PASSWORD=your_secure_password
+DB_DATABASE=travel_log
+
+# Security
+JWT_SECRET=your_32plus_character_secret
+
+# Payment Gateway
+RAZOR_KEY_ID=your_razorpay_key
+RAZOR_KEY_SECRET=your_razorpay_secret
+
+# File Storage
+IMAGE_BASE_URL=https://yourdomain.com/img
+BASE_URL=https://yourdomain.com</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Troubleshooting Guide</h3>
+                    
+                    <h4>Common Issues & Solutions</h4>
+                    
+                    <div class="info-box">
+                        <h4>Database Connection Failed</h4>
+                        <pre><code># Check MySQL service status
+sudo systemctl status mysql
+
+# Test manual connection
+mysql -u travel_log -p -h localhost travel_log
+
+# Check firewall settings
+sudo ufw status</code></pre>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>PM2 Process Issues</h4>
+                        <pre><code># Check PM2 logs for errors
+pm2 logs
+
+# Restart specific process
+pm2 restart 0
+
+# Delete and recreate if needed
+pm2 delete all
+pm2 start ecosystem.config.ts</code></pre>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>High Memory Usage</h4>
+                        <pre><code># Monitor memory usage
+pm2 monit
+
+# Check for memory leaks
+ps aux | grep node
+free -h
+
+# Check database connections
+SHOW PROCESSLIST; -- In MySQL</code></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Development Best Practices</h3>
+                    
+                    <h4>Code Structure Guidelines</h4>
+                    <pre><code>// Controller pattern example
+export const controllerFunction = async (req: Request, res: Response) => {
+  try {
+    // 1. Validate input
+    // 2. Business logic  
+    // 3. Database operations
+    // 4. Return response
+    return toJson(res, { data: result });
+  } catch (error) {
+    return errorResponse(res, error);
+  }
+};</code></pre>
+
+                    <h4>Error Handling Best Practices</h4>
+                    <pre><code>// Standardized error responses
+class AppError extends Error {
+  statusCode: number;
+  constructor(message: string, statusCode: number = 400) {
+    super(message);
+    this.statusCode = statusCode;
+  }
+}
+
+// Global error handler middleware
+app.use((error: AppError, req: Request, res: Response, next: NextFunction) => {
+  const { statusCode = 500, message } = error;
+  res.status(statusCode).json({
+    success: false,
+    message,
+    ...(process.env.NODE_ENV === 'development' && { stack: error.stack })
+  });
+});</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Resource Requirements Summary</h3>
+                    
+                    <h4>Minimum Production Requirements</h4>
+                    <ul>
+                        <li><strong>CPU</strong>: 4+ vCPUs</li>
+                        <li><strong>RAM</strong>: 4GB+</li>
+                        <li><strong>Storage</strong>: 50GB+ SSD</li>
+                        <li><strong>Network</strong>: 100Mbps+</li>
+                        <li><strong>OS</strong>: Ubuntu 22.04 LTS</li>
+                    </ul>
+
+                    <h4>Development Team Requirements</h4>
+                    <ul>
+                        <li><strong>Senior Node.js Developer</strong> (1 FTE): Architecture and core development</li>
+                        <li><strong>DevOps Engineer</strong> (0.5 FTE): Deployment and infrastructure</li>
+                        <li><strong>QA Engineer</strong> (0.5 FTE): Testing and quality assurance</li>
+                        <li><strong>Security Consultant</strong> (0.2 FTE): Security review and hardening</li>
+                    </ul>
+
+                    <h4>Infrastructure Investment</h4>
+                    <ul>
+                        <li><strong>Development Environment</strong>: $200-500/month</li>
+                        <li><strong>Staging Environment</strong>: $300-800/month</li>
+                        <li><strong>Production Environment</strong>: $500-2000/month</li>
+                        <li><strong>Monitoring Tools</strong>: $100-500/month</li>
+                        <li><strong>Security Tools</strong>: $200-1000/month</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Conclusion & Next Steps</h2>
+                    <p class="section-subtitle">Summary and recommended action plan</p>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Final Assessment</h3>
+                    <p>The Travel Backend application represents a <strong>solid functional foundation</strong> for a tourism booking platform with comprehensive functionality for property management, user management, and booking systems. However, <strong>immediate security attention</strong> is required before production deployment.</p>
+                    
+                    <div class="table-container">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Risk Level</strong></td>
+                                    <td><span class="status-badge status-warning">MEDIUM-HIGH</span> (primarily due to security issues)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Business Readiness</strong></td>
+                                    <td>
+                                        <div class="progress-bar">
+                                            <div class="progress-fill progress-70"></div>
+                                        </div>
+                                        70% (functional but needs hardening)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Technical Debt</strong></td>
+                                    <td><span class="status-badge status-error">HIGH</span> (testing, documentation, security)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Recommended Priority Timeline</h3>
+                    
+                    <h4>Immediate (Week 1-2) - $3,000-5,000 effort</h4>
+                    <ul class="checklist">
+                        <li><strong>Security Hardening</strong>: Fix vulnerabilities and secrets exposure</li>
+                        <li><strong>Stability Improvements</strong>: Error handling and validation</li>
+                        <li><strong>Basic Monitoring</strong>: Health checks and logging</li>
+                    </ul>
+
+                    <h4>Short-term (Month 1) - $8,000-12,000 effort</h4>
+                    <ul class="checklist">
+                        <li><strong>Testing Implementation</strong>: Comprehensive test suite</li>
+                        <li><strong>Performance Optimization</strong>: Caching and query optimization</li>
+                        <li><strong>Documentation</strong>: API docs and deployment guides</li>
+                    </ul>
+
+                    <h4>Medium-term (Month 2-3) - $15,000-25,000 effort</h4>
+                    <ul class="checklist">
+                        <li><strong>Advanced Security</strong>: Enhanced authentication and authorization</li>
+                        <li><strong>Scalability Preparation</strong>: Database optimization and caching</li>
+                        <li><strong>Monitoring & Analytics</strong>: Full observability stack</li>
+                    </ul>
+
+                    <h4>Long-term (Month 4-6) - $30,000+ effort</h4>
+                    <ul class="checklist">
+                        <li><strong>Microservices Migration</strong>: Service decomposition</li>
+                        <li><strong>Cloud Native</strong>: Container deployment and auto-scaling</li>
+                        <li><strong>Advanced Features</strong>: ML recommendations, advanced analytics</li>
+                    </ul>
+                </div>
+
+                <div class="card risk-critical">
+                    <h3 class="card-title">Executive Recommendation</h3>
+                    <p><strong>Proceed with cautious optimism</strong> - the application shows strong business potential but requires systematic technical improvements to ensure scalable, secure operation.</p>
+                    
+                    <h4>Next Steps:</h4>
+                    <ol>
+                        <li><strong>Immediate</strong>: Execute security fixes (1-2 days)</li>
+                        <li><strong>Week 1</strong>: Stabilization and basic monitoring</li>
+                        <li><strong>Month 1</strong>: Testing and performance optimization</li>
+                        <li><strong>Ongoing</strong>: Incremental improvements based on business needs</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Document Information</h3>
+                    <div class="table-container">
+                        <table>><strong>Operating System</strong>: Ubuntu 20.04+ / Windows Server 2019+ / macOS 12+</li>
+                        <li><strong>CPU</strong>: Minimum 2 vCPUs, Recommended 4+ vCPUs</li>
+                        <li><strong>Memory</strong>: Minimum 2GB RAM, Recommended 4GB+ RAM</li>
+                        <li><strong>Storage</strong>: Minimum 10GB, Recommended 50GB+ SSD</li>
+                        <li><strong>Network</strong>: Stable internet connection for external API calls</li>
+                    </ul>
+
+                    <h4>Required Software</h4>
+                    <ul class="checklist">
+                        <li><strong>Node.js</strong>: v18.x or v20.x LTS (Current: v22.15.0 detected)</li>
+                        <li><strong>npm</strong>: v9.x+ (Current: v10.9.2 detected)</li>
+                        <li><strong>MySQL</strong>: v8.0+ or v5.7.8+ with JSON support</li>
+                        <li><strong>Git</strong>: For source code management</li>
+                        <li><strong>PM2</strong>: <code>npm install -g pm2</code> (for production)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Database Setup</h3>
+                    <pre><code>-- Create database
+CREATE DATABASE travel_log CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Create user (replace with secure password)
+CREATE USER 'travel_log'@'localhost' IDENTIFIED BY 'your_secure_password';
+GRANT ALL PRIVILEGES ON travel_log.* TO 'travel_log'@'localhost';
+FLUSH PRIVILEGES;
+
+-- Test connection
+mysql -u travel_log -p travel_log</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Troubleshooting Common Issues</h3>
+                    
+                    <h4>Application Not Starting</h4>
+                    <pre><code># Check Node.js version
+node -v                 # Should be v18+ or v20+
+
+# Check port availability  
+netstat -an | find ":5000"
+
+# Check PM2 process status
+pm2 status
+pm2 logs</code></pre>
+
+                    <h4>Database Connection Issues</h4>
+                    <pre><code># Test database connection
+mysql -u travel_log -p -h localhost travel_log
+
+# Check MySQL service (Windows)
+# services.msc -> MySQL80
+
+# Check MySQL service (Linux)
+sudo systemctl status mysql</code></pre>
+
+                    <h4>File Upload Issues</h4>
+                    <pre><code># Check directory permissions
+ls -la public/
+ls -la excels/  
+ls -la pdfs/
+
+# Fix permissions if needed
+chmod 755 public excels pdfs</code></pre>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Emergency Contacts & Resources</h3>
+                    
+                    <h4>External Service Support</h4>
+                    <ul>
+                        <li><strong>Razorpay Support</strong>: <a href="https://razorpay.com/support/">https://razorpay.com/support/</a></li>
+                        <li><strong>Firebase Support</strong>: <a href="https://firebase.google.com/support/">https://firebase.google.com/support/</a></li>
+                        <li><strong>MySQL Community</strong>: <a href="https://mysql.com/support/">https://mysql.com/support/</a></li>
+                    </ul>
+
+                    <h4>Useful Development Resources</h4>
+                    <ul>
+                        <li><strong>TypeORM Documentation</strong>: <a href="https://typeorm.io/">https://typeorm.io/</a></li>
+                        <li><strong>Express.js Guide</strong>: <a href="https://expressjs.com/">https://expressjs.com/</a></li>
+                        <li><strong>Node.js Best Practices</strong>: <a href="https://github.com/goldbergyoni/nodebestpractices">Node.js Best Practices Guide</a></li>
+                        <li><strong>MySQL Performance Tuning</strong>: <a href="https://dev.mysql.com/doc/refman/8.0/en/optimization.html">MySQL Optimization Manual</a></li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- Enhanced Footer -->
+        <footer class="tech-analysis-footer">
+            <div class="footer-container">
+                <div class="disclaimer">
+                    <p class="disclaimer-text">
+                        <strong>Important Notice:</strong> This comprehensive technical analysis was generated through automated code inspection and documentation synthesis. While every effort has been made to ensure accuracy and completeness, this report should be validated by qualified technical personnel before making critical business or infrastructure decisions. The analysis includes security assessments, performance evaluations, and architectural recommendations based on industry best practices and the current state of the codebase as of August 29, 2025.
+                    </p>
+                </div>
+
+                <div class="verification-section">
+                    <h3 class="verified-title">✓ Verified & Analyzed</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <span class="contact-text">Analysis Engine: </span>
+                            <span class="contact-text">Multi-model AI Architecture Analysis</span>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon">🔍</span>
+                            <span class="contact-text">Code Inspection: </span>
+                            <span class="contact-text">Complete Repository Scan & Pattern Recognition</span>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon">⚡</span>
+                            <span class="contact-text">Generated: </span>
+                            <span class="contact-text">August 29, 2025 | Version 1.0</span>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon">🛡️</span>
+                            <span class="contact-text">Security Scan: </span>
+                            <span class="contact-text">6 Vulnerabilities Detected & Documented</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <footer class="tech-analysis-footer">
+                <div class="footer-container">
+                    <div class="disclaimer">
+                        <p class="disclaimer-text">
+                            <em>This technical analysis was generated on August 29, 2025. The findings and recommendations should be validated with the current development team.</em>
+                        </p>
+                    </div>
+                    
+                    <div class="verification-section">
+                        <h3 class="verified-title">By:</h3>
+                        <div class="verifier-info">
+                            <h4 class="verifier-name">Jipin Kumar M</h4>
+                            <p class="verifier-title">Freelance Full-Stack Engineering Leader</p>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <span class="contact-icon">📧</span>
+                                    <a href="mailto:jipinm@gmail.com" class="contact-link email">jipinm@gmail.com</a>
+                                </div>
+                                <div class="contact-item">
+                                    <span class="contact-icon">📱</span>
+                                    <span class="contact-text phone">+91 8129 83 6080</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add active state to navigation
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Print functionality
+        function printDocument() {
+            window.print();
+        }
+
+        // Copy code functionality
+        document.querySelectorAll('pre').forEach(pre => {
+            const button = document.createElement('button');
+            button.textContent = 'Copy';
+            button.style.cssText = 'position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.25rem 0.5rem; background: #475569; color: white; border: none; border-radius: 4px; font-size: 0.75rem; cursor: pointer; opacity: 0; transition: opacity 0.2s;';
+            
+            pre.style.position = 'relative';
+            pre.appendChild(button);
+            
+            pre.addEventListener('mouseenter', () => button.style.opacity = '1');
+            pre.addEventListener('mouseleave', () => button.style.opacity = '0');
+            
+            button.addEventListener('click', () => {
+                const code = pre.querySelector('code');
+                navigator.clipboard.writeText(code ? code.textContent : pre.textContent);
+                button.textContent = 'Copied!';
+                setTimeout(() => button.textContent = 'Copy', 2000);
+            });
+        });
+
+        // Add CSS for active navigation
+        const style = document.createElement('style');
+        style.textContent = `
+            .nav-link.active {
+                background: var(--primary-color);
+                color: white;
+                transform: translateY(-1px);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

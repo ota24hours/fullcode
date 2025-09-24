@@ -1,0 +1,120 @@
+import { Request, Response } from "express";
+import {
+  cToBooleanSafe,
+  DeleteLocalServerFile,
+  errorResponse,
+  hasData,
+  toJson,
+} from "node_custom_utils";
+import { AppDataSource } from "../../../../src/data_source/data_source";
+import { Property } from "../../../../src/entity/properties";
+import { Category } from "../../../../src/entity/category";
+import { Sub_Category } from "../../../../src/entity/sub_category";
+import { USER_TYPE } from "../../../../src/entity/enum";
+
+type ExtraItem = {
+  key: string;
+  value: any;
+  icon_url?: string;
+  mainOptions: string;
+};
+function groupByMainOptions(items: ExtraItem[] = []): Record<string, ExtraItem[]> {
+  return items.reduce((acc, item) => {
+    const groupKey = item.mainOptions || "default";
+    if (!acc[groupKey]) acc[groupKey] = [];
+    acc[groupKey].push(item);
+    return acc;
+  }, {} as Record<string, ExtraItem[]>);
+}
+
+export const viewProperty = async (req: Request, res: Response) => {
+  try {
+    const idParam = req.params.id;
+    const idQuery = req.query.id as string | undefined;
+    const id = idParam || idQuery;
+    if (!hasData(id)) {
+      throw new Error("Property `id` parameter is required.");
+    }
+
+    const qb = AppDataSource
+      .getRepository(Property)
+      .createQueryBuilder("property");  // ← add this
+
+    const prop = await qb
+      // join categories & subcategories
+      .leftJoinAndSelect("property.cat_id", "category")
+      .leftJoinAndSelect("property.sub_cat_id", "subCategory")
+
+      // join variants & their images/pricing
+      .leftJoinAndSelect("property.property_variants", "variant")
+      .leftJoinAndSelect("variant.propertyImgs", "propertyImgs")
+      .leftJoinAndSelect("variant.propertyPricing", "propertyPricing")
+
+      // join the user relation—but only select the four fields
+      .leftJoin("property.user_id", "user")
+      .addSelect([
+        "user.id",
+        "user.name",
+        "user.phone",
+        "user.email",
+      ])
+
+      // filter by property id
+      .where("property.id = :id", { id: String(id) })
+
+      .getOne();
+
+    if (!prop) {
+      return res.status(404).json({ success: false, message: "Property not found." });
+    }
+
+    // Base URL for images
+    const baseUrl = (process.env.IMAGE_BASE_URL || "").replace(/\/+$/, "");
+    const now = new Date();
+
+    // Prefix main property image
+    if (hasData(prop.image)) {
+      prop.image = `${baseUrl}${prop.image.startsWith("/") ? "" : "/"}${prop.image}`;
+    }
+
+    // Process each variant
+    prop.property_variants?.forEach((variant) => {
+      // Override rate based on active pricing
+      const activePrice = variant.propertyPricing?.find((pr) =>
+        pr.isActive &&
+        new Date(pr.startDate) <= now &&
+        now <= new Date(pr.endDate)
+      );
+      if (activePrice) {
+        (variant as any).rate = Number(activePrice.rate);
+      }
+
+      // Prefix variant images
+      variant.propertyImgs?.forEach((pi) => {
+        if (hasData(pi.img_url)) {
+          pi.img_url = `${baseUrl}${pi.img_url.startsWith("/") ? "" : "/"}${pi.img_url}`;
+        }
+      });
+
+      // Group extraData/detailsData for end-users
+      if (req?.user?.user_type === USER_TYPE.USER) {
+        if (Array.isArray(variant.extraData)) {
+          (variant as any).extraData = groupByMainOptions(
+            variant.extraData as ExtraItem[]
+          );
+        }
+        if (Array.isArray(variant.detailsData)) {
+          (variant as any).detailsData = groupByMainOptions(
+            variant.detailsData as ExtraItem[]
+          );
+        }
+      }
+    });
+
+    // Return transformed property
+    return toJson(res, { data: prop });
+  } catch (error: any) {
+    return errorResponse(res, error.message ?? error);
+  }
+};
+

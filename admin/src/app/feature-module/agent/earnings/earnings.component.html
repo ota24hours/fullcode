@@ -1,0 +1,239 @@
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center">
+      <!-- Left: Export to Excel -->
+      <button class="btn btn-outline-success d-flex align-items-center" (click)="getExcel()">
+        <span *ngIf="isLoading">
+          <i class="spinner-border spinner-border-sm me-2"></i>
+        </span>
+        <i class="bi bi-file-earmark-excel-fill me-2"></i> Export to Excel
+      </button>
+
+      <!-- Right: Create Payment -->
+      <a
+        href="javascript:void(0);"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#create_payment"
+      >
+        Create Payment
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <div class="dropdown mb-4">
+          <a href="javascript:void(0);"
+            class="dropdown-toggle text-gray-6 btn rounded border d-inline-flex align-items-center"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Vendor: {{ selectedVendorName || 'All' }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end p-3">
+
+            <li>
+              <a href="javascript:void(0);" class="dropdown-item" (click)="onVendorChange('')">All</a>
+            </li>
+           
+            <li *ngFor="let user of users">
+              <a href="javascript:void(0);" class="dropdown-item" (click)="onVendorChange(user)">
+                {{ user.name }}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+
+
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card earning-box bg-primary">
+            <div class="card-body">
+                <div class="text-center">
+                    <span class="avatar avatar-md rounded-circle mb-2"><i class="isax isax-graph5 fs-24"></i></span>
+                    <p class="text-white mb-1">Total Due</p>
+                    <h3 class="text-white mb-1">{{summary?.totalDue}}</h3>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="card earning-box bg-success">
+            <div class="card-body">
+                <div class="text-center">
+                    <span class="avatar avatar-md rounded-circle mb-2"><i class="isax isax-graph5 fs-24"></i></span>
+                    <p class="text-white mb-1">Total Paid</p>
+                    <h3 class="text-white mb-1">{{summary?.totalPaid}}</h3>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="card earning-box bg-warning">
+            <div class="card-body">
+                <div class="text-center">
+                    <span class="avatar avatar-md rounded-circle mb-2"><i class="isax isax-graph5 fs-24"></i></span>
+                    <p class="text-white mb-1">Balance</p>
+                    <h3 class="text-white mb-1">{{summary?.outstanding}}</h3>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="place-nav listing-nav">
+    <ul class="nav mb-2">
+        <li class="me-2">
+            <a href="javascript:void(0);" class="nav-link active" data-bs-toggle="tab" data-bs-target="#earning-list">
+                Payments
+            </a>
+        </li>
+        <!-- <li class="me-2">
+            <a href="javascript:void(0);" class="nav-link" data-bs-toggle="tab" data-bs-target="#withdraw-list">
+                Completed
+            </a>
+        </li> -->
+    </ul>
+</div>
+<div class="tab-content">
+    <div class="tab-pane fade active show" id="earning-list">
+        <app-earnings-table [tableData]="allTransanction" [vendorId]="selectedVendorId"></app-earnings-table>
+        <!-- <app-earnings-table></app-earnings-table> -->
+
+    </div>
+    <div class="tab-pane fade" id="withdraw-list">
+        <!-- <app-earnings-table [tableData]="allPayment"></app-earnings-table> -->
+    </div>
+</div>
+
+
+<div class="mt-5">
+    <div class="place-nav listing-nav">
+        <ul class="nav mb-2">
+            <li class="me-2">
+                <a href="javascript:void(0);" class="nav-link active" data-bs-toggle="tab">
+                    Payment History
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <app-transaction-table></app-transaction-table>
+</div>
+
+
+
+
+
+
+<!-- Withdraw Payment Modal -->
+<div class="modal fade" id="create_payment" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-md w-500">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Create Payment</h5>
+                <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn-close text-dark"></a>
+            </div>
+            <form [formGroup]="createTransactionForm" (ngSubmit)="createTransaction()">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Selector Vendor <span class="text-danger"> *</span></label>
+                      <mat-select class="custom-mat-select select" placeholder="Select" formControlName="vendorId">
+              <mat-option value="">Select</mat-option>
+              <mat-option *ngFor="let option of users" [value]="option.id">
+                {{ option.name }}
+              </mat-option>
+            </mat-select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Enter Amount <span class="text-danger"> *</span></label>
+                        <input type="number" class="form-control"      formControlName="amount"
+>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Note <span class="text-danger"> *</span></label>
+                        <input type="text" class="form-control"  formControlName="note">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="m-0">
+                        <button class="btn btn-primary btn-sm" type="submit" data-bs-dismiss="modal">Create</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Withdraw Payment Modal -->
+
+
+
+
+
+
+
+
+<!-- <div class="col-xl-9">
+        <div class="card card-detail shadow-none">
+            <div class="card-body">
+                <h5 class="mb-3">Card Details</h5>
+                <div class="row g-4">
+                    <div class="col-xl col-md-3 col-sm-6">
+                        <div>
+                            <h6 class="fs-14 fw-medium mb-1">Bank Name</h6>
+                            <p class="fs-14">Citi Bank Inc</p>
+                        </div>
+                    </div>
+                    <div class="col-xl col-md-3 col-sm-6">
+                        <div>
+                            <h6 class="fs-14 fw-medium mb-1">Branch Name</h6>
+                            <p class="fs-14">London</p>
+                        </div>
+                    </div>
+                    <div class="col-xl col-md-4 col-sm-6">
+                        <div>
+                            <h6 class="fs-14 fw-medium mb-1">Account Number</h6>
+                            <p class="fs-14">5396 5250 1908 XXXX</p>
+                        </div>
+                    </div>
+                    <div class="col-xl col-md-2 col-sm-6">
+                        <div>
+                            <h6 class="fs-14 fw-medium mb-1">Account Name</h6>
+                            <p class="fs-14">Darren</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between pt-3 mt-3 border-top">
+                    <div class="d-flex align-items-center">
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#withdraw_payment" class="text-primary text-decoration-underline me-2">Edit Card</a>
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_card" class="text-primary text-decoration-underline">Add New Card</a>
+                    </div>
+                    <div>
+
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#saved_card" class="text-decoration-underline">View Saved Cards</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->

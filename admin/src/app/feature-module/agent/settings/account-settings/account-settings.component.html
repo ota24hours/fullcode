@@ -1,0 +1,123 @@
+<div class="card settings mb-0">
+  <div class="card-header">
+    <h6>Settings</h6>
+  </div>
+  <div class="card-body pb-3">
+    <div class="settings-link d-flex align-items-center flex-wrap">
+      <a [routerLink]="routes.agentSettings"
+        ><i class="isax isax-user-octagon me-2"></i>Edit Profile</a
+      >
+      <a [routerLink]="routes.agentAccountSettings" class="active"
+        ><i class="isax isax-wallet-money me-2"></i>Service Settings</a
+      >
+      <a [routerLink]="routes.agentSecuritySettings"
+        ><i class="isax isax-shield-tick me-2"></i>Security</a
+      >
+      <a [routerLink]="routes.agentPlansSettings"
+        ><i class="isax isax-star me-2"></i>Plans & Billing</a
+      >
+    </div>
+    <!-- Settings Content -->
+    <form
+      [formGroup]="addServiceInfo"
+      (ngSubmit)="addServiceInformation()"
+      #validate1="ngForm"
+    >
+      <div class="settings-content mb-3">
+        <h6 class="fs-16 mb-2">Services</h6>
+        <div class="row gy-2">
+          <div class="col-lg-8">
+            <div>
+              <label class="form-label">Select Service</label>
+              <mat-select
+                class="custom-mat-select select"
+                placeholder="Select"
+                formControlName="category"
+                (selectionChange)="onCategoryChange($event.value)"
+              >
+                <mat-option value="" disabled selected
+                  >Select Service</mat-option
+                >
+                <mat-option *ngFor="let cat of category" [value]="cat.id">
+                  {{ cat.name }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="settings-content mb-3">
+        <div class="row gy-2">
+          <div class="col-lg-8">
+            <div>
+              <label class="form-label">Add service details</label>
+              <mat-select
+                class="custom-mat-select select"
+                placeholder="Select"
+                formControlName="sub_category"
+                
+              >
+                <mat-option value="" disabled selected
+                  >Select sub service</mat-option
+                >
+                <mat-option *ngFor="let cat of subCategory" [value]="cat.id">
+                  {{ cat.name }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div>
+              <label class="form-label"> Name</label>
+              <input type="text" class="form-control" formControlName="name" />
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div>
+              <label class="form-label">Place</label>
+              <input type="text" class="form-control" formControlName="place" />
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div>
+              <label class="form-label"> Licence Number</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="license_no"
+              />
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div>
+              <label class="form-label"> Vehicle Number</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="vehicle_no"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-end mt-3">
+        <!-- <a href="javascript:void(0);" class="btn btn-light me-2">Cancel</a> -->
+        <button type="submit" class="btn btn-primary">
+          <span
+            *ngIf="isSubmitting"
+            class="spinner-border spinner-border-sm me-1"
+            role="status"
+            aria-hidden="true"
+          ></span
+          >Save
+        </button>
+      </div>
+    </form>
+    <!-- /Settings Content-->
+  </div>
+</div>

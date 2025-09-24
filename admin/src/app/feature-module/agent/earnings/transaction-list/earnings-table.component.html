@@ -1,0 +1,172 @@
+<!-- Earning List -->
+<div class="card hotel-list">
+    <div class="card-body p-0">
+        <div class="list-header d-flex align-items-center justify-content-between flex-wrap">
+            <!-- <h6 class="">Invoices</h6> -->
+            <div class="d-flex align-items-center flex-wrap">
+                <!-- <div class="input-icon-start  me-2 position-relative">
+                    <span class="icon-addon">
+                        <i class="isax isax-search-normal-1 fs-14"></i>
+                    </span>
+                    <input [(ngModel)]="searchDataValue" name="search" (ngModelChange)="searchData(searchDataValue)"
+                        type="search" class="form-control form-control-sm" placeholder="Search" />
+                </div> -->
+                <!-- <div class="dropdown me-3">
+                    <a href="javascript:void(0);"
+                        class="dropdown-toggle text-gray-6 btn  rounded border d-inline-flex align-items-center"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Status
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end p-3">
+                        <li>
+                            <a href="javascript:void(0);" class="dropdown-item rounded-1">Paid</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="dropdown-item rounded-1">Pending</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="dropdown-item rounded-1">Cancelled</a>
+                        </li>
+                    </ul>
+                </div> -->
+                <div class="dropdown me-3">
+                    <a href="javascript:void(0);"
+                        class="dropdown-toggle text-gray-6 btn rounded border d-inline-flex align-items-center"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Vendor: {{ selectedVendorName || 'All' }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end p-3">
+                        <li>
+                            <a href="javascript:void(0);" class="dropdown-item" (click)="onVendorChange('')">All</a>
+                        </li>
+                        <li *ngFor="let user of users">
+                            <a href="javascript:void(0);" class="dropdown-item" (click)="onVendorChange(user)">
+                                {{ user.name }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="d-flex align-items-center flex-wrap">
+                    <div class="input-icon-start position-relative">
+                        <span class="icon-addon">
+                            <i class="isax isax-calendar-edit fs-14"></i>
+                        </span>
+                        <app-date-range-picker />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="custom-datatable-filter table-responsive">
+            <table class="table datatable">
+                <thead class="thead-light" matSort (matSortChange)="sortData($event)">
+                    <tr>
+                        <th mat-sort-header="ID">ID</th>
+                        <th mat-sort-header="vendor_name">Vendor Name</th>
+                        <th mat-sort-header="amount">Amount</th>
+                        <th mat-sort-header="note">Note</th>
+                        <th mat-sort-header="vendor_phone">Vendor Phone</th>
+                        <th mat-sort-header="invoice">Invoice</th>
+                        <th mat-sort-header="edit">Edit</th>
+
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (data of tableData; track data; let i = $index) {
+                    <tr>
+                        <td><a href="javascript:void(0);" class="link-primary fw-medium" data-bs-toggle="modal"
+                                data-bs-target="#earning_invoice">{{data.id}}</a></td>
+                        <td>
+                            <p class="text-dark mb-0 fw-medium fs-14">{{data.vendor?.name}}</p>
+                        </td>
+                        <td>
+                            {{data.amount}}
+                        </td>
+                        <td>
+                            {{data.note}}
+                        </td>
+                        <td>{{data.vendor?.phone}}</td>
+                        <td>
+                            <a href="javascript:void(0);" (click)="downloadPDF(data)" class="text-danger"
+                                title="Download PDF">
+                                <i class="isax isax-document-text me-1"></i> Download
+                            </a>
+                        </td>
+
+
+
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#update_payment"
+                                    (click)="openEditModal(data)">
+                                    <i class="isax isax-edit"></i>
+                                </a>
+
+                            </div>
+                        </td>
+
+
+                    </tr>
+                    }
+                    @if (tableData.length === 0) {
+                    <tr>
+                        <td colspan="10">
+                            <h5 style="text-align: center">No data found</h5>
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /Earning List -->
+
+
+
+
+<!-- Withdraw Payment Modal -->
+<div class="modal fade" id="update_payment" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-md w-500">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Edit Payment</h5>
+                <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn-close text-dark"></a>
+            </div>
+            <form [formGroup]="createTransactionForm" (ngSubmit)="createTransaction()">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Selector Vendor <span class="text-danger"> *</span></label>
+                        <mat-select class="custom-mat-select select" placeholder="Select" formControlName="vendorId">
+                            <mat-option value="">Select</mat-option>
+                            <mat-option *ngFor="let option of users" [value]="option.id">
+                                {{ option.name }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Enter Amount <span class="text-danger"> *</span></label>
+                        <input type="number" class="form-control" formControlName="amount">
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Note <span class="text-danger"> *</span></label>
+                        <input type="text" class="form-control" formControlName="note">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="m-0">
+                        <button class="btn btn-primary btn-sm" type="submit" data-bs-dismiss="modal">Updates</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Withdraw Payment Modal -->

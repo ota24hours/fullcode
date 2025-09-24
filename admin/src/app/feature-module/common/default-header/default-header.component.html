@@ -1,0 +1,443 @@
+<div
+  class="main-header"
+  [ngClass]="{
+    'main-header-four':
+      base === 'index-2' || base === 'index-4' || base === 'index-6'
+  }"
+>
+  <!-- Header Topbar-->
+  <div
+    *ngIf="base === 'index-6'"
+    class="header-topbar header-top-six text-center bg-transparent"
+  >
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between flex-wrap">
+        <div class="d-flex align-items-center flex-wrap">
+          <p class="d-flex align-items-center fs-14 mb-2 me-3">
+            <i class="isax isax-call5 me-2"></i>Toll Free : +1 56565 56594
+          </p>
+          <p class="mb-2 d-flex align-items-center fs-14">
+            <i class="isax isax-message-text-15 me-2"></i>Email :
+            info&#64;example.com
+          </p>
+        </div>
+        <div class="navbar-logo mb-2">
+          <a class="logo-dark header-logo" [routerLink]="routes.index">
+            <img style="height: 35px !important;" src="assets/img/logo-2.jpg" class="logo" alt="Logo" />
+          </a>
+          <a class="logo-white header-logo" [routerLink]="routes.index">
+            <img style="height: 35px !important;" src="assets/img/logo-2.jpg" class="logo" alt="Logo" />
+          </a>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="dropdown mb-2 me-3">
+            <a
+              href="javascript:void(0);"
+              class="dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              USD
+            </a>
+            <ul class="dropdown-menu p-2 mt-2">
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >USD</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >YEN</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item rounded" href="javascript:void(0);"
+                  >EURO</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="me-3 mb-2">
+            <a
+              href="javascript:void(0);"
+              id="dark-mode-toggle"
+              class="theme-toggle"
+              [ngClass]="{ activate: isdark }"
+              (click)="darkMode()"
+              (click)="settings.changeThemeColor('1')"
+            >
+              <i class="isax isax-moon"></i>
+            </a>
+            <a
+              href="javascript:void(0);"
+              id="light-mode-toggle"
+              class="theme-toggle"
+              [ngClass]="{ activate: islight }"
+              (click)="darkMode()"
+              (click)="settings.changeThemeColor('2')"
+            >
+              <i class="isax isax-sun-1"></i>
+            </a>
+          </div>
+          <div class="fav-dropdown mb-2 me-3">
+            <a [routerLink]="routes.wishlist" class="position-relative">
+              <i class="isax isax-heart"></i
+              ><span class="count-icon bg-secondary text-gray-9">0</span>
+            </a>
+          </div>
+          <div>
+            <a
+              href="javascript:void(0);"
+              class="text-white btn btn-dark w-100 mb-2"
+              data-bs-toggle="modal"
+              data-bs-target="#login-modal"
+              >Sign In</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+ 
+  <!-- /Header Topbar-->
+
+  <header
+    [ngClass]="{
+      'header-three': base === 'index-3',
+      'header-four': base === 'index-4' || base === 'index-2',
+      'header-five': base === 'index-5',
+      'header-six': base === 'index-6',
+      fixed: isFixed
+    }"
+  >
+    <div [ngClass]="base === 'index-4' ? 'container-fluid' : 'container'">
+      <div class="offcanvas-info" [ngClass]="{ show: show }">
+        <div class="offcanvas-wrap">
+          <div class="offcanvas-detail">
+            <div class="offcanvas-head">
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                 <a [routerLink]="routes.index" class="black-logo-responsive">
+                  <img style="height: 35px !important;" src="assets/img/logo-2.jpg" alt="logo-img" />
+                </a>
+                <a [routerLink]="routes.index" class="white-logo-responsive">
+                  <img style="height: 35px !important;" src="assets/img/logo-1.png" alt="logo-img" />
+                </a>
+                <div class="offcanvas-close" (click)="closeMenu()">
+                  <i class="ti ti-x"></i>
+                </div>
+              </div>
+              <div
+                class="wishlist-info d-flex justify-content-between align-items-center"
+              >
+                <h6 class="fs-16 fw-medium">Wishlist</h6>
+                <div class="d-flex align-items-center">
+                  <div class="fav-dropdown">
+                    <a [routerLink]="routes.wishlist" class="position-relative">
+                      <i class="isax isax-heart"></i
+                      ><span class="count-icon bg-secondary text-gray-9"
+                        >0</span
+                      >
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="mobile-menu fix mb-3"
+              [ngClass]="{ 'mean-container': isMobileMenu }"
+            >
+              <div class="mean-bar">
+                <a
+                  href="#nav"
+                  class="meanmenu-reveal"
+                  style="right: 0px; left: auto; display: inline"
+                >
+                  <span
+                    ><span> <span></span> </span
+                  ></span>
+                </a>
+                <nav class="mean-nav">
+                  <ul
+                    class="main-nav"
+                    style="display: none"
+                    [ngClass]="{ active: isDropdownOpen }"
+                  >
+                    <ng-container
+                      *ngFor="
+                        let mainMenus of header | slice : 0 : 6;
+                        let i = index
+                      "
+                    >
+                      <ng-container *ngIf="mainMenus.separateRoute === true">
+                        <li
+                          class="has-submenu megamenu active"
+                          [ngClass]="{ 'dropdown-opened': isDropdownOpen }"
+                        >
+                          <a [routerLink]="mainMenus.route">
+                            {{ mainMenus.tittle }}
+                            <!-- <i class="fa-solid fa-plus"></i> -->
+                          </a>
+                          
+                        </li>
+                      </ng-container>
+                      <ng-container *ngIf="mainMenus.separateRoute === false">
+                        <li
+                          class="has-submenu mega-innermenu"
+                          [class.active]="
+                            base === mainMenus.base || page === mainMenus.base
+                          "
+                          [ngClass]="{
+                            'dropdown-opened': openDropdownIndex === i
+                          }"
+                        >
+                          <a [routerLink]="mainMenus.route"
+                            >{{ mainMenus.tittle }}
+                            <!-- <i class="fa-solid fa-plus"></i> -->
+                          </a>
+                      
+                        </li>
+                      </ng-container>
+                    </ng-container>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+      <div
+        class="offcanvas-overlay"
+        [ngClass]="{ 'overlay-open': show }"
+        (click)="closeMenu()"
+      ></div>
+      <div class="header-nav">
+        <div class="main-menu-wrapper">
+          <div class="navbar-logo">
+            <a class="logo-white header-logo" [routerLink]="routes.index">
+                               <img style="height: 35px !important;" src="assets/img/logo-2.jpg" alt="logo-img" />
+
+            </a>
+            <a
+              [hidden]="base === 'index-6'"
+              class="logo-dark header-logo"
+              [routerLink]="routes.index"
+            >
+                               <img style="height: 35px !important;" src="assets/img/logo-2.jpg" alt="logo-img" />
+            </a>
+          </div>
+     
+    
+          <span
+            *ngIf="
+              [
+                'index',
+                'index-2',
+                'index-3',
+                'index-4',
+                'index-5',
+                'index-6',
+                'pages'
+              ].includes(base);
+              else defaultheader
+            "
+          >
+          
+          </span>
+          <ng-template #defaultheader>
+            <div
+              *ngIf="base !== 'index' || page !== 'index-rtl'"
+              class="header-btn d-flex align-items-center"
+            >
+              <div class="me-3">
+                <a
+                  href="javascript:void(0);"
+                  id="dark-mode-toggle"
+                  class="theme-toggle"
+                  [ngClass]="{ activate: isdark }"
+                  (click)="darkMode()"
+                  (click)="settings.changeThemeColor('1')"
+                >
+                  <i class="isax isax-moon"></i>
+                </a>
+                <a
+                  href="javascript:void(0);"
+                  id="light-mode-toggle"
+                  class="theme-toggle"
+                  [ngClass]="{ activate: islight }"
+                  (click)="darkMode()"
+                  (click)="settings.changeThemeColor('2')"
+                >
+                  <i class="isax isax-sun-1"></i>
+                </a>
+              </div>
+
+              <div class="me-3">
+                  <a
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="routes.login"
+                      >Logout</a
+                    >
+              
+              </div>
+             
+              <!-- <div class="dropdown profile-dropdown">
+                <a
+                  href="javascript:void(0);"
+                  class="d-flex align-items-center"
+                  data-bs-toggle="dropdown"
+                >
+                  <span class="avatar avatar-md">
+                    <img
+                      src="assets/img/users/user-05.jpg"
+                      alt="Img"
+                      class="img-fluid rounded-circle border border-white border-4"
+                    />
+                  </span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-3">
+                  <li>
+                    <a
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="routes.userDashboard"
+                      >Dashboard</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="routes.customerHotelBooking"
+                      >My Booking</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="routes.myProfile"
+                      >My Profile</a
+                    >
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider my-2" />
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="routes.profileSettings"
+                      >Settings</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                      [routerLink]="routes.login"
+                      >Logout</a
+                    >
+                  </li>
+                </ul>
+              </div> -->
+            
+          
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="login-modal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-end pb-0 border-0"
+      >
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"
+          ><i class="ti ti-x fs-20"></i
+        ></a>
+      </div>
+      <div class="modal-body p-4 pt-0">
+        <form [formGroup]="loginForm">
+          <div class="text-center mb-3">
+            <h5 class="mb-1">Sign In</h5>
+            <p>Sign in to your Account</p>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">User Name</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-message"></i>
+              </span>
+              <input
+                type="username"
+                formControlName="username"
+                class="form-control form-control-lg"
+                placeholder="Enter Username"
+              />
+              <div
+                *ngIf="
+                  loginForm.get('username')?.touched &&
+                  loginForm.get('username')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                <div *ngIf="loginForm.get('username')?.errors?.['required']">
+                  Username is required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Password</label>
+            <div class="input-icon">
+              <span class="input-icon-addon">
+                <i class="isax isax-message"></i>
+              </span>
+              <input
+                type="password"
+                formControlName="password"
+                class="form-control form-control-lg"
+                placeholder="Enter Password"
+              />
+              <div
+                *ngIf="
+                  loginForm.get('password')?.touched &&
+                  loginForm.get('password')?.invalid
+                "
+                class="text-danger mt-1 fs-13"
+              >
+                <div *ngIf="loginForm.get('password')?.errors?.['required']">
+                  Password is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <button
+              type="submit"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              [disabled]="isSubmitting"
+              (click)="loginVendor()"
+            >
+              <span
+                *ngIf="isSubmitting"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Login<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Login Modal -->
+

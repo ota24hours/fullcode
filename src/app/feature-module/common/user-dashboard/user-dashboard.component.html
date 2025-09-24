@@ -1,0 +1,108 @@
+    <!-- Sidebar -->
+    
+        <div class="card user-sidebar mb-4 mb-lg-0 theiaStickySidebar">
+            <div class="card-header user-sidebar-header">
+                <div class="profile-content rounded-pill">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class=" d-flex align-items-center justify-content-center">
+                            <img [src]="profileDetails.profile_url" onerror="this.onerror=null;this.src='assets/img/default-user.svg'" alt="image" class="img-fluid avatar avatar-lg rounded-circle me-1">
+                            <div>
+                                <h6 class="fs-16">{{profileDetails.name}}</h6>
+                                <span class="fs-14 text-gray-6">{{profileDetails.phone}}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <a [href]="routes.profileSettings" class="p-1 rounded-circle btn btn-primary d-flex align-items-center justify-content-center"><i class="isax isax-edit-2 fs-14"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body user-sidebar-body">
+                <ul>
+                    @for (mainTittle of sideBar2; track mainTittle) {
+                        <li>
+                            <span class="fs-14 text-gray-3 fw-medium mb-2">{{mainTittle.tittle}}</span>
+                        </li>
+                        @for (menu of mainTittle.menu; track menu) {
+                            @if (menu.hasSubRoute === false) {
+                                <li>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a [href]="menu.route" class="d-flex align-items-center" [class.active]="page===menu.base || page===menu.base2 || page===menu.base3 || page===menu.base4 || page===menu.base5"  [ngClass]="{ 'subdrop': menu.showSubRoute === false }" (click)="expandSubMenus(menu)">
+                                            <i class="isax" [class]="menu.icon"></i> {{menu.menuValue}}
+                                        </a>
+                                        <div class="message-content">
+                                            <span *ngIf="menu.count==='1'" class="msg-count rounded-circle">02</span>
+                                            <span *ngIf="menu.count==='2'" class="msg-count bg-purple rounded-circle">05</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            @if (menu.hasSubRoute === true) {
+                                <li class="submenu" >
+                                    <a href="javascript:void(0);" class="d-block" [class.active]="page===menu.base || page===menu.base2 || page===menu.base3 || page===menu.base4 || page===menu.base5"   [ngClass]="{ 'subdrop': menu.showSubRoute === true }" (click)="expandSubMenus(menu)">
+                                        <i class="isax" [class]="menu.icon"></i>
+                                        <span>{{menu.menuValue}}</span><span class="menu-arrow" ></span>
+                                    </a>
+                                    <ul [ngClass]="menu.showSubRoute === true ? 'show-sub-menu' : 'hide-sub-menu'">
+                                        @for (subMenus of menu.subMenus; track subMenus) {
+                                            <li >
+                                                <a [href]="subMenus.route" class="fs-14 d-inline-flex align-items-center" [class.active]="page===subMenus.base" >{{subMenus.menuValue}}</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }                            
+                        }
+                    }
+                    <li class="submenu" >
+                        <a
+                            class="dropdown-item d-inline-flex align-items-center rounded fw-medium p-2"
+                            href="javascript:void(0);"
+                            data-bs-toggle="modal"
+                            data-bs-target="#confirm-modal">
+                            <i class="isax isax-logout5" ></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                    </ul>
+            </div>
+        </div>
+
+    <!-- /Sidebar -->
+
+    <!-- Confirmation Modal -->
+<div class="modal fade" id="confirm-modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div
+          class="modal-header d-flex align-items-center justify-content-end pb-0 border-0"
+        >
+          <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"
+            ><i class="ti ti-x fs-20"></i
+          ></a>
+        </div>
+        <div class="modal-body p-4 pt-0">
+          <div class="text-center border-bottom mb-3">
+            <h5 class="mb-1">Are you sure!</h5>
+          </div>
+          <div class="mb-4">
+            <p>Are you sure you want to log out
+            </p>
+          </div>
+          <div class="mb-3 d-flex ">
+            <button
+              type="button"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-75 me-2"
+              data-bs-dismiss="modal" aria-label="Close"
+            >
+              Cancel
+            </button>
+            <button class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-75" (click)="logOut()">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Confirmation Modal -->

@@ -1,0 +1,685 @@
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar breadcrumb-bg-06 text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-12">
+                    <h2 class="breadcrumb-title mb-2"><span>{{ displayPropertyType }}</span></h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center mb-0">
+                            <li class="breadcrumb-item">
+                                <a [routerLink]="routes.index">
+                                    <i *ngIf="iconClass" [class]="iconClass"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item"><span>{{ displayPropertyType }}</span></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ type | titlecase }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Breadcrumb -->
+
+    <!-- Page Wrapper -->
+    <div class="content">
+        <div class="container">
+
+            <!-- Cruise Search -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="banner-form">
+                        <form class="d-lg-flex" (ngSubmit)="onSubmit()">
+                            <div class="d-flex  form-info">
+                                <div class="form-item dropdown">
+                                    <div data-bs-toggle="dropdown" data-bs-auto-close="outside" #dropdownToggle
+                                        aria-expanded="false" role="menu">
+                                        <label
+                                            class="form-label fs-14 text-default mb-1"> {{ labelMap[mainPropertyType || ''] || 'Select Option' }}</label>
+                                        <input type="text" class="form-control" readonly
+                                            [value]="(selecteItem ? selecteItem?.name : 'Select ' + (labelMap[mainPropertyType || ''] || 'Option')) | titlecase" />
+                                        <p class="fs-12 mb-0">{{ descriptionMap[mainPropertyType || ''] || 'Please make a selection' }}</p>
+                                    </div>
+                                    <div class="dropdown-menu dropdown-md p-0">
+                                        <!-- <div class="input-search p-3 border-bottom">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Search boats" />
+                                                <span
+                                                    class="input-group-text px-2 border-start-0"><i
+                                                        class="isax isax-search-normal"></i></span>
+                                            </div>
+                                        </div> -->
+
+                                        <ul *ngIf="subCatsByType[mainPropertyType]">
+                                            <li *ngFor="
+                                        let sub of subCatsByType[mainPropertyType]
+                                    " class="border-bottom">
+                                                <a class="dropdown-item" href="javascript:void(0);" (click)="selectProperty(sub, dropdownToggle)">
+                                                    <h6 class="fs-16 fw-medium">
+                                                        {{ sub.name }}
+                                                    </h6>
+                                                    <p>{{ sub.name }}</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!--Location-->
+                                <div class="form-item dropdown" *ngIf="mainPropertyType !== 'SPECIAL_EVENTS'">
+                                    <div >
+                                        <label
+                                            class="form-label fs-14 text-default mb-1"><span *ngIf="mainPropertyType === 'TRANSPORTATION'">From</span><span *ngIf="mainPropertyType !== 'TRANSPORTATION'">Location</span></label>
+                                            <div class="search-wrapper position-relative">
+                                                <input
+                                                  #searchBox2
+                                                  type="text"
+                                                  class="form-control px-2 py-2 rounded"
+                                                  [(ngModel)]="selectedLocationName"
+                                                  [ngModelOptions]="{ standalone: true }"
+                                                  placeholder="Search cities, landmarks, beaches..."
+                                                  (input)="onInputChange($event)"
+                                                />
+                                                <ul *ngIf="suggestions.length > 0" class="list-group position-absolute shadow rounded mt-1 dropdown-menu dropdown-md p-0">
+                                                    <li
+                                                      *ngFor="let suggestion of suggestions"
+                                                      class="list-group-item d-flex align-items-start cursor-pointer"
+                                                      (click)="selectPlace(suggestion)"
+                                                    >
+                                                      <i class="bi bi-geo-alt me-2 fs-5 text-primary"></i>
+                                                      <div>
+                                                        <div class="fw-bold">{{ suggestion.name }}</div>
+                                                        <small class="text-muted">{{ suggestion.formatted_address }}</small>
+                                                      </div>
+                                                    </li>
+                                                  </ul>
+                                              </div>
+                                              
+                                        <!-- <input type="text" class="form-control" readonly
+                                            [value]="(selectedLocation ? selectedLocation?.name : 'Select Location') | titlecase" /> -->
+                                        <p class="fs-12 mb-0">select <span *ngIf="mainPropertyType === 'TRANSPORTATION'">from</span> location</p>
+                                    </div>
+                                    
+                                    
+                                </div>
+                                <div class="form-item dropdown" *ngIf="mainPropertyType === 'TRANSPORTATION'">
+                                    <div >
+                                        <label
+                                            class="form-label fs-14 text-default mb-1">To</label>
+                                            <div class="search-wrapper position-relative">
+                                                <input
+                                                  #searchBox2
+                                                  type="text"
+                                                  class="form-control px-2 py-2 rounded"
+                                                  [(ngModel)]="selectedLocationName2"
+                                                  [ngModelOptions]="{ standalone: true }"
+                                                  placeholder="Search cities, landmarks, beaches..."
+                                                  (input)="onInputChange($event)"
+                                                />
+                                                <ul *ngIf="suggestions.length > 0" class="list-group position-absolute shadow rounded mt-1 dropdown-menu dropdown-md p-0">
+                                                    <li
+                                                      *ngFor="let suggestion of suggestions"
+                                                      class="list-group-item d-flex align-items-start cursor-pointer"
+                                                      (click)="selectPlace2(suggestion)"
+                                                    >
+                                                      <i class="bi bi-geo-alt me-2 fs-5 text-primary"></i>
+                                                      <div>
+                                                        <div class="fw-bold">{{ suggestion.name }}</div>
+                                                        <small class="text-muted">{{ suggestion.formatted_address }}</small>
+                                                      </div>
+                                                    </li>
+                                                  </ul>
+                                              </div>
+                                              
+                                        <!-- <input type="text" class="form-control" readonly
+                                            [value]="(selectedLocation ? selectedLocation?.name : 'Select Location') | titlecase" /> -->
+                                        <p class="fs-12 mb-0">select to location</p>
+                                    </div>
+                                    
+                                    <!-- <div class="dropdown-menu dropdown-md p-0">
+                                        <div class="input-search p-3 border-bottom">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Search boats" />
+                                                <span
+                                                    class="input-group-text px-2 border-start-0"><i
+                                                        class="isax isax-search-normal"></i></span>
+                                            </div>
+                                        </div>
+
+                                        <ul >
+                                            <ng-container *ngFor="let district of destination">
+                                                <li *ngFor="
+                                        let location of district.places
+                                    " class="border-bottom">
+                                                <a class="dropdown-item" href="javascript:void(0);" (click)="selectLocation(location)">
+                                                    <h6 class="fs-16 fw-medium">
+                                                        {{ location.name }}
+                                                    </h6>
+                                                    <p>{{ district.district }}</p>
+                                                </a>
+                                            </li>
+                                            </ng-container>
+                                        </ul>
+                                    </div> -->
+                                </div>
+                                <div class="form-item" *ngIf="mainPropertyType === 'TRANSPORTATION'">
+                                    <label class="form-label fs-14 text-default mb-1">Departure Date</label>
+                                    <input
+                                        type="text"
+                                        class="form-control datetimepicker"
+                                        bsDatepicker
+                                        [bsConfig]="{ adaptivePosition: true }"
+                                        placeholder="21-10-2024"
+                                        [bsValue]="date1"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                                        />
+                                    <p class="fs-12 mb-0">{{ date1 | date: 'EEEE' }}</p>
+                                </div>
+                                <div class="form-item" *ngIf="mainPropertyType !== 'TRANSPORTATION'">
+                                    <label class="form-label fs-14 text-default mb-1"><span *ngIf="mainPropertyType === 'SPECIAL_EVENTS'">Start Date</span><span *ngIf="mainPropertyType !== 'SPECIAL_EVENTS'">Check In</span></label>
+                                    <input
+                                        type="text"
+                                        class="form-control datetimepicker"
+                                        bsDatepicker
+                                        [bsConfig]="{ adaptivePosition: true }"
+                                        placeholder="21-10-2024"
+                                        [bsValue]="date1"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                                        />
+                                    <p class="fs-12 mb-0">{{ date1 | date: 'EEEE' }}</p>
+                                </div>
+                                <div class="form-item" *ngIf="mainPropertyType !== 'TRANSPORTATION'">
+                                    <label class="form-label fs-14 text-default mb-1"><span *ngIf="mainPropertyType === 'SPECIAL_EVENTS'">End Date</span><span *ngIf="mainPropertyType !== 'SPECIAL_EVENTS'">Check Out</span></label>
+                                    <input
+                                        type="text"
+                                        class="form-control datetimepicker"
+                                        bsDatepicker
+                                        [bsConfig]="{ adaptivePosition: true }"
+                                        placeholder="21-10-2024"
+                                        [bsValue]="date2"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                                        />
+                                    <p class="fs-12 mb-0">{{ date2 | date: 'EEEE' }}</p>
+                                </div>
+                                <div class="form-item dropdown">
+                                                        
+                                    <div data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                       aria-expanded="false" role="menu">
+                                       <label class="form-label fs-14 text-default mb-1">Travellers
+                                           & Cabin
+                                       </label>
+                                       <h5 class="mb-1">
+                                           {{quantity}} <span class="fw-normal fs-14">Adult<span *ngIf="quantity > 1">s</span></span>&nbsp;&nbsp;&nbsp;
+                                           <span *ngIf="childreCount > 0">{{childreCount}} <span class="fw-normal fs-14">Children<span *ngIf="childreCount > 1">s</span></span></span>
+                                       </h5>
+                                       <!-- <div class="custom-increment w-100">
+                                           <div class="input-group d-flex justify-content-between">
+                                               <span class="input-group-btn float-start">
+                                                   <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementQuantity()">
+                                                   <span><i class="isax isax-minus"></i></span>
+                                               </button>
+                                               </span>
+                                               <input type="text" 
+                                                      name="quantity" 
+                                                      class="input-number" 
+                                                      [(ngModel)]="quantity" 
+                                                      (input)="validateQuantity($event)"
+                                                      pattern="[1-9][0-9]*"
+                                                      autocomplete="off">
+                                               <span class="input-group-btn float-end">
+                                                   <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementQuantity()">
+                                                       <span><i class="isax isax-add"></i></span>
+                                               </button>
+                                               </span>
+                                           </div>
+                                       </div> -->
+                                       <p class="fs-12 mb-0">{{quantity + childreCount | number }} Persons</p>
+                                   </div>
+                                   <div class="dropdown-menu dropdown-menu-end dropdown-xl">
+                                       <h5 class="mb-3">Select Travelers & Class</h5>
+                                       <div class="mb-3 border br-10 info-item pb-1">
+                                           <h6 class="fs-16 fw-medium mb-2">Travellers</h6>
+                                           <div class="row">
+                                               <div class="col-md-6">
+                                                   <div class="mb-3">
+                                                       <label
+                                                           class="form-label text-gray-9 mb-2">Adults
+                                                           <span class="text-default fw-normal">(
+                                                               12+ Yrs )</span></label>
+                                                       <div class="custom-increment w-100">
+                                                           <div class="input-group d-flex justify-content-between">
+                                                               <span class="input-group-btn float-start">
+                                                                   <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementQuantity()">
+                                                                   <span><i class="isax isax-minus"></i></span>
+                                                               </button>
+                                                               </span>
+                                                               <input type="text" 
+                                                                       name="quantity" 
+                                                                       class="input-number" 
+                                                                       [(ngModel)]="quantity" 
+                                                                       (input)="validateQuantity($event)"
+                                                                       pattern="[1-9][0-9]*"
+                                                                       autocomplete="off">
+                                                               <span class="input-group-btn float-end">
+                                                                   <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementQuantity()">
+                                                                       <span><i class="isax isax-add"></i></span>
+                                                               </button>
+                                                               </span>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                               <div class="col-md-6">
+                                                   <div class="mb-3">
+                                                       <label
+                                                           class="form-label text-gray-9 mb-2">Childrens
+                                                           <span class="text-default fw-normal">(
+                                                               2-12 Yrs )</span></label>
+                                                       <div class="custom-increment w-100">
+                                                           <div class="input-group d-flex justify-content-between">
+                                                               <span class="input-group-btn float-start">
+                                                                   <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementChildreCount()">
+                                                                   <span><i class="isax isax-minus"></i></span>
+                                                               </button>
+                                                               </span>
+                                                               <input type="text" 
+                                                                       name="childreCount" 
+                                                                       class="input-number" 
+                                                                       [(ngModel)]="childreCount" 
+                                                                       (input)="validateChildreCount($event)"
+                                                                       pattern="[1-9][0-9]*"
+                                                                       autocomplete="off">
+                                                               <span class="input-group-btn float-end">
+                                                                   <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementChildreCount()">
+                                                                       <span><i class="isax isax-add"></i></span>
+                                                               </button>
+                                                               </span>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div> 
+                               </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary search-btn rounded">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /Cruise Search -->
+
+
+            <div class="row">
+
+                <!-- Sidebar -->
+                <div class="col-xl-3 col-lg-4 ">
+                    <div class="card filter-sidebar mb-4 mb-lg-0 theiaStickySidebar">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h5>Filters</h5>
+                            <a href="javascript:void(0);" class="fs-14 link-primary" (click)="resetFilter()">Reset</a>
+                        </div>
+                        <div class="card-body p-0">
+                            <form>
+                                <!-- <div class="p-3 border-bottom">
+                                    <label class="form-label fs-16">Search by Cruise Type</label>
+                                    <div class="input-icon">
+                                        <span class="input-icon-addon">
+											<i class="isax isax-search-normal"></i>
+										</span>
+                                        <input type="text" class="form-control" placeholder="Search by Cruise Type">
+                                    </div>
+                                </div> -->
+                                <div class="accordion accordion-list">
+                                    <div class="accordion-item border-bottom p-3">
+                                        <div class="accordion-header">
+                                            <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-popular" aria-expanded="true" aria-controls="accordion-popular" role="button">
+                                                <i class="isax isax-coin me-2 text-primary"></i>Price Per Night
+                                            </div>
+                                        </div>
+                                        <div id="accordion-popular" class="accordion-collapse collapse show">
+                                            <div class="accordion-body">
+                                              <div class="d-flex justify-content-between align-items-center">
+                                                <span class="badge badge-xs badge-light text-gray-4">&#8377; {{ minRate }}</span>
+                                                <span class="badge badge-xs badge-light text-gray-4">&#8377; {{ maxRate }}</span>
+                                              </div>
+                                              <div class="filter-range">
+                                                <mat-slider
+                                                  [min]="minRate"
+                                                  [max]="maxRate"
+                                                  step="500"
+                                                  showTickMarks
+                                                  discrete
+                                                  [displayWith]="formatLabel1"
+                                                >
+                                                  <!-- <input matSliderStartThumb [(ngModel)]="startValue" />
+                                                  <input matSliderEndThumb [(ngModel)]="endValue" /> -->
+                                                  <input
+                                                    matSliderStartThumb
+                                                    [(ngModel)]="startValue"
+                                                    name="startValue"
+                                                    />
+                                                  <input
+                                                    matSliderEndThumb
+                                                    [(ngModel)]="endValue"
+                                                    name="endValue"
+                                                    />
+
+                                                </mat-slider>
+                                              </div>
+                                              <div class="filter-range-amount">
+                                                <p class="fs-14">
+                                                  Range :
+                                                  <span class="text-gray-9 fw-medium">&#8377; {{ formatNumber(startValue) }} - &#8377; {{ formatNumber(endValue) }}</span>
+                                                </p>
+                                              </div>
+                                              <div class="d-flex justify-content-end">
+                                                <button
+                                                  class="btn btn-primary btn-sm mt-2"
+                                                  type="button"
+                                                  [disabled]="startValue === minRate && endValue === maxRate"
+                                                  (click)="onRangeChange()"
+                                                >
+                                                  Apply
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          
+                                    </div>
+                                    <div class="accordion-item border-bottom p-3 pb-2">
+                                        <div class="accordion-header">
+                                            <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-guests" aria-expanded="true" aria-controls="accordion-guests" role="button">
+                                                <i class="isax isax-timer me-2 text-primary"></i>Guests
+                                            </div>
+                                        </div>
+                                        <div id="accordion-guests" class="accordion-collapse collapse show">
+                                            <div class="accordion-body">
+                                                <div *ngFor="let option of guestOptions">
+                                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                                    <input
+                                                    class="form-check-input ms-0 mt-0"
+                                                    type="checkbox"
+                                                    [id]="option.id"
+                                                    [checked]="selectedGuestOption === option"
+                                                    (change)="onGuestOptionChange(option)"
+                                                    />
+                                                    <label class="form-check-label ms-2" [for]="option.id">
+                                                    {{ option.label }}
+                                                    </label>
+                                                </div>
+                                                </div>
+                                            
+                                                <div class="d-flex justify-content-end">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-primary btn-sm mt-2"
+                                                    (click)="applyGuestFilter()"
+                                                    [disabled]="!selectedGuestOption"
+                                                >
+                                                    Apply
+                                                </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="accordion-item border-bottom p-3">
+                                        <div class="accordion-header">
+                                          <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-brand" aria-expanded="true" aria-controls="accordion-brand" role="button">
+                                            <i class="isax isax-discount-shape me-2 text-primary"></i>Reviews
+                                          </div>
+                                        </div>
+                                        <div id="accordion-brand" class="accordion-collapse collapse show">
+                                          <div class="accordion-body">
+                                      
+                                            <div *ngFor="let option of reviewOptions">
+                                              <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                                <input
+                                                  class="form-check-input ms-0 mt-0"
+                                                  type="checkbox"
+                                                  [id]="option.id"
+                                                  [checked]="selectedReviewOption === option"
+                                                  (change)="onReviewOptionChange(option)"
+                                                />
+                                                <label class="form-check-label ms-2" [for]="option.id">
+                                                  <span class="rating d-flex align-items-center">
+                                                    <ng-container *ngFor="let star of getStars(option.value)">
+                                                      <i class="fas fa-star filled text-primary me-1"></i>
+                                                    </ng-container>
+                                                    <span class="ms-2">{{ option.value }} Star</span>
+                                                  </span>
+                                                </label>
+                                              </div>
+                                            </div>
+                                      
+                                            <div class="d-flex justify-content-end">
+                                              <button
+                                                type="button"
+                                                class="btn btn-primary btn-sm mt-2"
+                                                (click)="applyReviewFilter()"
+                                                [disabled]="!selectedReviewOption"
+                                              >
+                                                Apply
+                                              </button>
+                                            </div>
+                                      
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                    <div class="accordion-item border-bottom p-3">
+                                        <div class="accordion-header">
+                                            <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-brand" aria-expanded="true" aria-controls="accordion-brand" role="button">
+                                                <i class="isax isax-discount-shape me-2 text-primary"></i>Reviews
+                                            </div>
+                                        </div>
+                                        <div id="accordion-brand" class="accordion-collapse collapse show">
+                                            <div class="accordion-body">
+                                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                                    <input class="form-check-input ms-0 mt-0" name="review1" type="checkbox" id="review1">
+                                                    <label class="form-check-label ms-2" for="review1">
+                                                        <span class="rating d-flex align-items-center">
+                                                            <i class="fas fa-star filled text-primary me-1"></i>
+                                                            <i class="fas fa-star filled text-primary me-1"></i>
+                                                            <i class="fas fa-star filled text-primary me-1"></i>
+                                                            <i class="fas fa-star filled text-primary me-1"></i>
+                                                            <i class="fas fa-star filled text-primary"></i>
+                                                            <span class="ms-2">5 Star</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                                    <input class="form-check-input ms-0 mt-0" name="review2" type="checkbox" id="review2">
+                                                    <label class="form-check-label ms-2" for="review2">
+                                                        <span class="rating d-flex align-items-center">
+                                                            <i class="fas fa-star filled text-primary me-1"></i>
+                                                            <i class="fas fa-star filled text-primary me-1"></i>
+                                                            <i class="fas fa-star filled text-primary me-1"></i>
+                                                            <i class="fas fa-star filled text-primary"></i>
+                                                            <span class="ms-2">4 Star</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                                    <input class="form-check-input ms-0 mt-0" name="review3" type="checkbox" id="review3">
+                                                    <label class="form-check-label ms-2" for="review3">
+                                                        <span class="rating d-flex align-items-center">
+                                                            <i class="fas fa-star filled text-primary me-1"></i>
+                                                            <i class="fas fa-star filled text-primary me-1"></i>
+                                                            <i class="fas fa-star filled text-primary"></i>
+                                                            <span class="ms-2">3 Star</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check d-flex align-items-center ps-0 mb-2">
+                                                    <input class="form-check-input ms-0 mt-0" name="review4" type="checkbox" id="review4">
+                                                    <label class="form-check-label ms-2" for="review4">
+                                                        <span class="rating d-flex align-items-center">
+                                                            <i class="fas fa-star filled text-primary me-1"></i>
+                                                            <i class="fas fa-star filled text-primary"></i>
+                                                            <span class="ms-2">2 Star</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check d-flex align-items-center ps-0 mb-0">
+                                                    <input class="form-check-input ms-0 mt-0" name="review5" type="checkbox" id="review5">
+                                                    <label class="form-check-label ms-2" for="review5">
+                                                        <span class="rating d-flex align-items-center">
+                                                            <i class="fas fa-star filled text-primary"></i>
+                                                            <span class="ms-2">1 Star</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Sidebar -->   
+
+                <div class="col-xl-9 col-lg-8 ">
+                    <div class="theiaStickySidebar">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap ">
+                        <h6 class="mb-3">{{this.propertiesList.length}} item<span *ngIf="this.propertiesList.length > 1">s</span> Found on Your Search</h6>
+                        <div class="d-flex align-items-center flex-wrap">
+                        </div>
+                    </div>
+                    
+                    <div class="hotel-list">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12">
+                                <!-- Cruise List -->
+                                <div class="place-item mb-4" *ngFor="let property of propertiesList">
+                                    <ng-container *ngIf="property.property_variants && property.property_variants.length > 0">
+                                        <div class="place-img custom-item">
+                                            <owl-carousel-o class="img-slider image-slide nav-center" [options]="imageSlider">
+                                                <ng-template carouselSlide>
+                                                    <div class="slide-images">
+                                                        <a [routerLink]="routes.cruiseDetails" [queryParams]="propertyType === 'TRANSPORTATION' ? { id: property.id, distance: roadDistanceKm, } : { id: property.id }">
+                                                            <img [src]="property.image" onerror="this.onerror=null;this.src='assets/img/cruise/cruise-05.jpg';" class="img-fluid" alt="img">
+                                                        </a>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template carouselSlide>
+                                                    <div class="slide-images">
+                                                        <a [routerLink]="routes.cruiseDetails" [queryParams]="propertyType === 'TRANSPORTATION' ? { id: property.id, distance: roadDistanceKm } : { id: property.id }">
+                                                            <img src="assets/img/cruise/cruise-02.jpg" class="img-fluid" alt="img">
+                                                        </a>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template carouselSlide>
+                                                    <div class="slide-images">
+                                                        <a [routerLink]="routes.cruiseDetails" [queryParams]="propertyType === 'TRANSPORTATION' ? { id: property.id, distance: roadDistanceKm } : { id: property.id }">
+                                                            <img src="assets/img/cruise/cruise-04.jpg" class="img-fluid" alt="img">
+                                                        </a>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template carouselSlide>
+                                                    <div class="slide-images">
+                                                        <a [routerLink]="routes.cruiseDetails" [queryParams]="propertyType === 'TRANSPORTATION' ? { id: property.id, distance: roadDistanceKm } : { id: property.id }">
+                                                            <img src="assets/img/cruise/cruise-03.jpg" class="img-fluid" alt="img">
+                                                        </a>
+                                                    </div>
+                                                </ng-template>
+                                            </owl-carousel-o>
+                                        </div>
+                                        <div class="place-content">
+                                            <div class="d-flex justify-content-between align-items-center flex-wrap row-gap-2 mb-3">
+                                                <div>
+                                                    <h5 class="mb-1 text-truncate"><a [routerLink]="routes.cruiseDetails" [queryParams]="propertyType === 'TRANSPORTATION' ? { id: property.id, distance: roadDistanceKm } : { id: property.id }">{{property.name}}</a></h5>
+                                                    <p class="d-flex align-items-center fs-14"><i *ngIf="iconClass2" [class]="iconClass2" class="me-2"></i>{{property.cat_id.name | titlecase}}</p>
+                                                </div>
+                                                <!-- <div class="d-flex align-items-center">
+                                                    <a href="javascript:void(0);" class="d-flex align-items-center overflow-hidden border-end pe-2 me-2">
+                                                        <span class="avatar avatar-sm flex-shrink-0 me-2">
+                                                                <img src="assets/img/users/user-08.jpg" class="rounded-circle" alt="img">
+                                                            </span>
+                                                        <p class="fs-14 text-truncate">Beth Williams</p>
+                                                    </a>
+                                                    <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">4.9</span>
+                                                    <p class="fs-14 text-truncate">(400)</p>
+                                                </div> -->
+                                            </div>
+                                            <p class="fs-14 line-ellipsis mb-3">{{property.description}}</p>
+                                            <div class="d-flex align-items-center justify-content-between cruise-list-item border-top flex-wrap row-gap-2 pt-3 mb-3">
+                                                <p class="fs-14 mb-0"><i class="isax isax-calendar-2 text-gray-6 me-1"></i>Year : <span class="text-dark fw-medium">{{ property.property_variants[0].createdAt | date: 'yyyy' }}</span></p>
+                                                <p class="fs-14 mb-0"><i class="isax isax-user me-1"></i>Guests : <span class="text-dark fw-medium">{{property.property_variants[0].capacity || 'Not Disclosed'}}</span></p>
+                                                <p class="fs-14 mb-0"><i class="isax isax-location text-gray-6 me-1"></i>Location : <span class="text-dark fw-medium">{{ property.place || property.district }}</span></p>
+                                                <p class="fs-14"><i class="isax isax-flash-1 me-1"></i>Trade : <span class="text-dark fw-medium">{{property.trade_name}}</span></p>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between border-top pt-3">
+                                                <h6 class="d-flex align-items-center">
+                                                    <!-- <i class="isax isax-home-wifi ms-2 me-2"></i>
+                                                    <i class="isax isax-scissor me-2"></i>
+                                                    <i class="isax isax-profile-2user me-2"></i>
+                                                    <i class="isax isax-wind-2 me-2"></i>
+                                                    <a href="javascript:void(0);" class="fs-14 fw-normal text-default d-inline-block">+2</a> -->
+                                                </h6>
+                                                <h5 class="text-primary text-nowrap me-2">₹{{property.property_variants[0].rate || 0}} 
+                                                     <!-- <span class="fs-14 fw-normal text-default">/ day</span> -->
+                                                    </h5>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <!-- /Cruise List -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="text-center my-4" *ngIf="currentPage < totalPages">
+                        <button class="btn btn-primary" (click)="loadMore(propertyParams)" [disabled]="isLoading">
+                          <span *ngIf="!isLoading">Load More</span>
+                          <span *ngIf="isLoading">Loading...</span>
+                        </button>
+                      </div>
+                    <!-- <nav class="pagination-nav">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="javascript:void(0);" aria-label="Previous">
+                                    <span aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">4</a></li>
+                            <li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="javascript:void(0);" aria-label="Next">
+                                    <span aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav> -->
+                    <!-- /Pagination -->
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /Page Wrapper -->
+
+    <div *ngIf="isLoading" id="loader-overlay">
+        <div id="loader">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+            <circle fill="none" stroke-opacity="1" stroke="#FF156D" stroke-width=".5" cx="100" cy="100" r="0">
+              <animate attributeName="r" calcMode="spline" dur="2" values="1;80" keyTimes="0;1"
+                keySplines="0 .2 .5 1" repeatCount="indefinite"></animate>
+              <animate attributeName="stroke-width" calcMode="spline" dur="2" values="0;25" keyTimes="0;1"
+                keySplines="0 .2 .5 1" repeatCount="indefinite"></animate>
+              <animate attributeName="stroke-opacity" calcMode="spline" dur="2" values="1;0" keyTimes="0;1"
+                keySplines="0 .2 .5 1" repeatCount="indefinite"></animate>
+            </circle>
+          </svg>
+        </div>
+      </div>
+      

@@ -1,0 +1,492 @@
+<div class="main-header">
+    <!-- Header Topbar -->
+    <div class="header-topbar text-center bg-transparent">
+      <div class="container">
+        <div class="d-flex align-items-center justify-content-between flex-wrap">
+          <p class="d-flex align-items-center fw-medium fs-14 mb-2">
+            <i class="isax isax-call5 me-2"></i>Helpline: +91 9633926023
+          </p>
+           <p class="mb-2 me-3 d-flex align-items-center fw-medium fs-14">
+                <i class="isax isax-message-text-15 me-2"></i>Email :
+                mail&#64;ota24hours.com            </p>
+           
+          <div class="d-flex align-items-center">
+             <p class="d-flex align-items-center fw-medium fs-14 mb-2">
+            <i class="isax isax-call5 me-2"></i>Helpline: +91 7558877998
+          </p>
+            <div class="fav-dropdown mb-2">
+              <!-- <a [routerLink]="routes.wishlist" class="position-relative">
+                <i class="isax isax-heart"></i>
+                <span class="count-icon bg-secondary text-gray-9">0</span>
+              </a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Header Topbar -->
+  
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="offcanvas-info" [ngClass]="{ show: show }">
+          <div class="offcanvas-wrap">
+            <div class="offcanvas-detail">
+              <div class="offcanvas-head">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <a [routerLink]="userType === 'vendor' ? '/agent/agent-dashboard' : routes.index">
+                    <img style="height: 35px !important;" src="assets/img/logo-2.jpg" alt="logo-img" />
+                  </a>
+                  <div class="offcanvas-close" (click)="closeMenu()">
+                    <i class="ti ti-x"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="mobile-menu fix mb-3" [ngClass]="{ 'mean-container': isMobileMenu }">
+                <div class="mean-bar">
+                  <a href="#nav" class="meanmenu-reveal">
+                    <span><span><span></span></span></span>
+                  </a>
+                  <nav class="mean-nav">
+                    <ul class="main-nav" [ngClass]="{ active: isDropdownOpen }">
+                      <ng-container *ngFor="let mainMenus of header | slice:0:6; let i = index">
+                        <li *ngIf="mainMenus.separateRoute" class="has-submenu megamenu" [ngClass]="{ 'dropdown-opened': isDropdownOpen }">
+                          <a [routerLink]="mainMenus.route">{{ mainMenus.tittle }}</a>
+                        </li>
+                        <li *ngIf="!mainMenus.separateRoute" class="has-submenu mega-innermenu" [ngClass]="{ 'dropdown-opened': openDropdownIndex === i }">
+                          <ng-container *ngIf="mainMenus.twoTitle === false">
+                            <a [routerLink]="mainMenus.route" [queryParams]="{ mainCat: mainMenus.navLocation }">{{ mainMenus.tittle }}</a>
+                          </ng-container>
+                        </li>
+                      </ng-container>
+                      <li *ngIf="!isLoggedIn">
+                        <a href="javascript:void(0);" class="me-3" data-bs-toggle="modal" data-bs-target="#login-modal">Sign In</a>
+                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#login-modal-vendor">Become A Partner</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="offcanvas-overlay" [ngClass]="{ 'overlay-open': show }" (click)="closeMenu()"></div>
+        <div class="header-nav">
+          <div class="main-menu-wrapper">
+            <div class="navbar-logo">
+              <a [routerLink]="userType === 'vendor' ? '/agent/agent-dashboard' : routes.index">
+                <img style="height: 35px !important;" src="assets/img/logo-2.jpg" class="logo" alt="Logo" />
+              </a>
+            </div>
+            <nav id="mobile-menu">
+              <ul class="main-nav" [ngClass]="{ active: isHovered }">
+                <ng-container *ngFor="let mainMenus of header">
+                  <li *ngIf="mainMenus.separateRoute && userType !== 'vendor'" class="has-submenu megamenu" (mouseenter)="isHovered = true" (mouseleave)="isHovered = false">
+                    <a [routerLink]="mainMenus.route">{{ mainMenus.tittle }}</a>
+                  </li>
+                  <li *ngIf="!mainMenus.separateRoute && userType !== 'vendor'" class="has-submenu mega-innermenu" [class.active]="navLocation === mainMenus.navLocation">
+                    <ng-container *ngIf="mainMenus.twoTitle === false">
+                      <a [routerLink]="mainMenus.route" [queryParams]="{ mainCat: mainMenus.navLocation }">{{ mainMenus.tittle }}</a>
+                    </ng-container>
+                  </li>
+                </ng-container>
+              </ul>
+            </nav>
+            <div class="header-btn d-flex align-items-center justify-content-end" [ngClass]="{'w-75': userType === 'vendor'}">
+              <div class="me-3">
+                <a href="javascript:void(0);" id="dark-mode-toggle" class="theme-toggle" [ngClass]="{ activate: isdark }" (click)="darkMode(); settings.changeThemeColor('1')">
+                  <i class="isax isax-moon"></i>
+                </a>
+                <a href="javascript:void(0);" id="light-mode-toggle" class="theme-toggle" [ngClass]="{ activate: islight }" (click)="darkMode(); settings.changeThemeColor('2')">
+                  <i class="isax isax-sun-1"></i>
+                </a>
+              </div>
+              <div *ngIf="!isLoggedIn">
+                <a href="javascript:void(0);" class="btn btn-white me-3" data-bs-toggle="modal" data-bs-target="#login-modal">Sign In</a>
+                <a href="javascript:void(0);" class="btn btn-primary me-0" data-bs-toggle="modal" data-bs-target="#login-modal-vendor">Become A Partner</a>
+              </div>
+              <div class="dropdown profile-dropdown" *ngIf="isLoggedIn">
+                <a class="card border my-auto" href="javascript:void(0);" data-bs-toggle="dropdown">
+                  <div class="card-body py-0 px-1">
+                    <a href="javascript:void(0);" class="d-flex align-items-center">
+                      <span class="avatar avatar-lg me-2">
+                        <img [src]="userProfile?.profile_url || 'assets/img/default-user.svg'" alt="Img" class="img-fluid rounded-circle border border-white border-4" />
+                      </span>
+                      <div class="user-info text-start lh-sm py-1">
+                        <h6 class="fw-normal mb-0 pe-2" style="font-size: 16px;">{{userProfile?.name}}</h6>
+                        <small class="text-muted" style="font-size: 12px;">{{userProfile?.email}}</small>
+                      </div>
+                    </a>
+                  </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end p-3">
+                  <li><span class="dropdown-item rounded fw-medium p-2">Welcome {{userProfile?.name}}</span></li>
+                  <li><a class="dropdown-item rounded fw-medium p-2" [routerLink]="userType === 'vendor' ? routes.agentDashboard : routes.userDashboard">Dashboard</a></li>
+                  <li *ngIf="userType === 'vendor'"><a class="dropdown-item rounded fw-medium p-2" [routerLink]="'/agent/services'">Services</a></li>
+                  <li><a class="dropdown-item rounded fw-medium p-2" [routerLink]="userType === 'vendor' ? '/agent/booking' : routes.customerHotelBooking">My Booking</a></li>
+                  <li *ngIf="userType !== 'vendor'"><a class="dropdown-item rounded fw-medium p-2" [routerLink]="routes.myProfile">My Profile</a></li>
+                  <li><hr class="dropdown-divider my-2" /></li>
+                  <li *ngIf="userType !== 'vendor'"><a class="dropdown-item rounded fw-medium p-2" [routerLink]="routes.profileSettings">Settings</a></li>
+                  <li><a class="dropdown-item rounded fw-medium p-2" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#confirm-modal">Logout</a></li>
+                </ul>
+              </div>
+              <div class="header__hamburger d-xl-none my-auto">
+                <div class="sidebar-menu" (click)="addmenu()">
+                  <i class="isax isax-menu5"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- /Header -->
+    </div>
+
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="login-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center justify-content-end pb-0 border-0">
+            <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-x fs-20"></i></a>
+          </div>
+          <div class="modal-body p-4 pt-0">
+            <form [formGroup]="loginForm">
+              <div class="text-center mb-3">
+                <h5 class="mb-1">Sign In</h5>
+                <p>Sign in to your Account</p>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Phone Number</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-message"></i></span>
+                  <input type="tel" formControlName="phone" class="form-control form-control-lg" placeholder="Enter Phone" />
+                  <div *ngIf="loginForm.get('phone')?.touched && loginForm.get('phone')?.invalid" class="text-danger mt-1 fs-13">
+                    Phone number is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-2" *ngIf="otpGenerated">
+                <label class="form-label">OTP</label>
+                <div class="pass-group input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-lock"></i></span>
+                  <input formControlName="otp" class="pass-input form-control" placeholder="Enter OTP" />
+                  <div *ngIf="loginForm.get('otp')?.touched && loginForm.get('otp')?.invalid" class="text-danger mt-1 fs-13">
+                    OTP is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3 mb-3">
+                <a href="javascript:void(0);" class="link-primary fw-medium fs-14 mb-2" data-bs-toggle="modal" data-bs-target="#forgot-modal">Reset OTP</a>
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100" [disabled]="isSubmitting" *ngIf="!otpGenerated" (click)="loginVendor()">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  Login<i class="isax isax-arrow-right-3 ms-2"></i>
+                </button>
+                <button type="submit" class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100" [disabled]="isSubmitting" *ngIf="otpGenerated" (click)="verifyOtp()">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  Verify OTP<i class="isax isax-arrow-right-3 ms-2"></i>
+                </button>
+              </div>
+              <div class="login-or mb-3">
+                <span class="span-or">Or</span>
+              </div>
+              <div class="d-flex justify-content-center">
+                <p class="fs-14">
+                  Don't have an account? <a href="javascript:void(0);" class="link-primary fw-medium" data-bs-toggle="modal" data-bs-target="#register-modal">Sign up</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Login Modal -->
+  
+    <!-- Login Modal Vendor -->
+    <div class="modal fade" id="login-modal-vendor">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center justify-content-end pb-0 border-0">
+            <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-x fs-20"></i></a>
+          </div>
+          <div class="modal-body p-4 pt-0">
+            <form [formGroup]="loginForm">
+              <div class="text-center mb-3">
+                <h5 class="mb-1">Sign In</h5>
+                <p>Sign in to your partner Account</p>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Phone Number</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-message"></i></span>
+                  <input type="tel" formControlName="phone" class="form-control form-control-lg" placeholder="Enter Phone" />
+                  <div *ngIf="loginForm.get('phone')?.touched && loginForm.get('phone')?.invalid" class="text-danger mt-1 fs-13">
+                    Phone number is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-2" *ngIf="otpGenerated">
+                <label class="form-label">OTP</label>
+                <div class="pass-group input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-lock"></i></span>
+                  <input formControlName="otp" class="pass-input form-control" placeholder="Enter OTP" />
+                  <div *ngIf="loginForm.get('otp')?.touched && loginForm.get('otp')?.invalid" class="text-danger mt-1 fs-13">
+                    OTP is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3 mb-3">
+                <a href="javascript:void(0);" class="link-primary fw-medium fs-14 mb-2" data-bs-toggle="modal" data-bs-target="#forgot-modal">Reset OTP</a>
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100" [disabled]="isSubmitting" *ngIf="!otpGenerated" (click)="loginVendor()">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  Login<i class="isax isax-arrow-right-3 ms-2"></i>
+                </button>
+                <button type="submit" class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100" [disabled]="isSubmitting" *ngIf="otpGenerated" (click)="verifyOtp()">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  Verify OTP<i class="isax isax-arrow-right-3 ms-2"></i>
+                </button>
+              </div>
+              <div class="login-or mb-3">
+                <span class="span-or">Or</span>
+              </div>
+              <div class="d-flex justify-content-center">
+                <p class="fs-14">
+                  Don't have an account? <a href="javascript:void(0);" class="link-primary fw-medium" data-bs-toggle="modal" data-bs-target="#register-modal-vendor">Sign up</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Login Modal Vendor -->
+  
+    <!-- Register Modal -->
+    <div class="modal fade" id="register-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center justify-content-end pb-0 border-0">
+            <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-x fs-20"></i></a>
+          </div>
+          <div class="modal-body p-4 pt-0">
+            <form [formGroup]="createVendorForm">
+              <div class="text-center border-bottom mb-3">
+                <h5 class="mb-1">Sign Up</h5>
+                <p class="mb-3">Create your Account</p>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Name</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-user"></i></span>
+                  <input type="text" formControlName="name" class="form-control form-control-lg" placeholder="Enter Full Name" />
+                  <div *ngIf="createVendorForm.get('name')?.touched && createVendorForm.get('name')?.invalid" class="text-danger mt-1 fs-13">
+                    Name is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Email</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-message"></i></span>
+                  <input type="email" formControlName="email" class="form-control form-control-lg" placeholder="Enter Email" />
+                  <!-- <div *ngIf="createVendorForm.get('email')?.touched && createVendorForm.get('email')?.invalid" class="text-danger mt-1 fs-13">
+                    Valid email is required.
+                  </div> -->
+                </div>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Phone</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-message"></i></span>
+                  <input type="tel" formControlName="phone" class="form-control form-control-lg" placeholder="Enter Phone Number" />
+                  <div *ngIf="createVendorForm.get('phone')?.touched && createVendorForm.get('phone')?.invalid" class="text-danger mt-1 fs-13">
+                    Phone number is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-2" *ngIf="otpGeneratedSignup">
+                <label class="form-label">OTP</label>
+                <div class="pass-group input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-lock"></i></span>
+                  <input formControlName="otp" class="pass-input form-control" placeholder="Enter OTP" />
+                  <div *ngIf="createVendorForm.get('otp')?.touched && createVendorForm.get('otp')?.invalid" class="text-danger mt-1 fs-13">
+                    OTP is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100" [disabled]="isSubmitting" *ngIf="!otpGeneratedSignup" (click)="createUser()">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  Register<i class="isax isax-arrow-right-3 ms-2"></i>
+                </button>
+                <button type="submit" class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100" [disabled]="isSubmitting" *ngIf="otpGeneratedSignup" (click)="verifyOtpSignUp()">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  Verify OTP<i class="isax isax-arrow-right-3 ms-2"></i>
+                </button>
+              </div>
+              <div class="login-or mb-3">
+                <span class="span-or">Or</span>
+              </div>
+              <div class="d-flex justify-content-center">
+                <p class="fs-14">
+                  Already have an account? <a href="javascript:void(0);" class="link-primary fw-medium" data-bs-toggle="modal" data-bs-target="#login-modal">Sign In</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Register Modal -->
+  
+    <!-- Register Modal Vendor -->
+    <div class="modal fade" id="register-modal-vendor">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center justify-content-end pb-0 border-0">
+            <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-x fs-20"></i></a>
+          </div>
+          <div class="modal-body p-4 pt-0">
+            <form [formGroup]="createVendorForm">
+              <div class="text-center border-bottom mb-3">
+                <h5 class="mb-1">Sign Up</h5>
+                <p class="mb-3">Create your partner Account</p>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Name</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-user"></i></span>
+                  <input type="text" formControlName="name" class="form-control form-control-lg" placeholder="Enter Full Name" />
+                  <div *ngIf="createVendorForm.get('name')?.touched && createVendorForm.get('name')?.invalid" class="text-danger mt-1 fs-13">
+                    Name is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Email</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-message"></i></span>
+                  <input type="email" formControlName="email" class="form-control form-control-lg" placeholder="Enter Email" />
+                  <!-- <div *ngIf="createVendorForm.get('email')?.touched && createVendorForm.get('email')?.invalid" class="text-danger mt-1 fs-13">
+                    Valid email is required.
+                  </div> -->
+                </div>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">Phone</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-message"></i></span>
+                  <input type="tel" formControlName="phone" class="form-control form-control-lg" placeholder="Enter Phone Number" />
+                  <div *ngIf="createVendorForm.get('phone')?.touched && createVendorForm.get('phone')?.invalid" class="text-danger mt-1 fs-13">
+                    Phone number is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-2" *ngIf="otpGeneratedSignup">
+                <label class="form-label">OTP</label>
+                <div class="pass-group input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-lock"></i></span>
+                  <input formControlName="otp" class="pass-input form-control" placeholder="Enter OTP" />
+                  <div *ngIf="createVendorForm.get('otp')?.touched && createVendorForm.get('otp')?.invalid" class="text-danger mt-1 fs-13">
+                    OTP is required.
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100" [disabled]="isSubmitting" *ngIf="!otpGeneratedSignup" (click)="createVendor()">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  Register<i class="isax isax-arrow-right-3 ms-2"></i>
+                </button>
+                <button type="submit" class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100" [disabled]="isSubmitting" *ngIf="otpGeneratedSignup" (click)="verifyOtpSignUp()">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                  Verify OTP<i class="isax isax-arrow-right-3 ms-2"></i>
+                </button>
+              </div>
+              <div class="login-or mb-3">
+                <span class="span-or">Or</span>
+              </div>
+              <div class="d-flex justify-content-center">
+                <p class="fs-14">
+                  Already have an account? <a href="javascript:void(0);" class="link-primary fw-medium" data-bs-toggle="modal" data-bs-target="#login-modal-vendor">Sign In</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Register Modal Vendor -->
+  
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgot-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center justify-content-end pb-0 border-0">
+            <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-x fs-20"></i></a>
+          </div>
+          <div class="modal-body p-4 pt-0">
+            <form action="#">
+              <div class="text-center border-bottom mb-3">
+                <h5 class="mb-1">Forgot Password</h5>
+                <p>Reset Your DreamsTour Password</p>
+              </div>
+              <div class="mb-4">
+                <label class="form-label">Email</label>
+                <div class="input-icon">
+                  <span class="input-icon-addon"><i class="isax isax-message"></i></span>
+                  <input type="email" formControlName="email" class="form-control form-control-lg" placeholder="Enter Email" />
+                  <!-- <div *ngIf="forgotPasswordForm.get('email')?.touched && forgotPasswordForm.get('email')?.invalid" class="text-danger mt-1 fs-13">
+                    Valid email is required.
+                  </div> -->
+                </div>
+              </div>
+              <div class="mb-3">
+                <button
+              type="button"
+              class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-100"
+              data-bs-toggle="modal"
+              data-bs-target="#change-password"
+            >
+              Reset Password<i class="isax isax-arrow-right-3 ms-2"></i>
+            </button>
+              </div>
+              <div class="d-flex justify-content-center">
+                <p class="fs-14">
+                  Remember Password? <a href="javascript:void(0);" class="link-primary fw-medium" data-bs-toggle="modal" data-bs-target="#login-modal">Sign In</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Forgot Password Modal -->
+  
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirm-modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-flex align-items-center justify-content-end pb-0 border-0">
+            <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-x fs-20"></i></a>
+          </div>
+          <div class="modal-body p-4 pt-0">
+            <div class="text-center border-bottom mb-3">
+              <h5 class="mb-1">Are you sure?</h5>
+            </div>
+            <div class="mb-4">
+              <p>Are you sure you want to log out?</p>
+            </div>
+            <div class="mb-3 d-flex">
+              <button type="button" class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-75 me-2" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+              <button class="btn btn-xl btn-primary d-flex align-items-center justify-content-center w-75" (click)="logOut()">Confirm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Confirmation Modal -->

@@ -1,0 +1,72 @@
+.service-img {
+    width: 100%;
+    max-width: 1284px;
+    height: 400px;
+    overflow: hidden;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .service-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* cover = fill and crop */
+    border-radius: 8px; /* optional rounded corners */
+  }
+
+  .slider-nav-thumbnails {
+    white-space: nowrap;
+    overflow-x: auto;
+    gap: 12px; /* space between thumbnails */
+  }
+  
+  .slider-nav-thumbnails div[ngxSlickItem] {
+    flex: 0 0 auto; /* prevent shrinking and wrapping */
+    width: 120px !important;
+    height: 120px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .slider-nav-thumbnails img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 6px;
+  }
+  
+  
+  
+  @media (max-width: 768px) {
+    .service-img {
+      height: 300px;
+    }
+  
+    .slider-nav-thumbnails div[ngxSlickItem] {
+      width: 120px !important;
+      height: 120px;
+    }
+  }
+
+
+  .icon-badge {
+    background-color: #fceae8; /* light background */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  
+    img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+  }
+  

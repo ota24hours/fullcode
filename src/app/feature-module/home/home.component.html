@@ -1,0 +1,2271 @@
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="banner-slider banner-sec">
+        <owl-carousel-o [options]="bannerSlider">
+            <ng-template carouselSlide>
+                <div class="slider-img">
+                    <img src="assets/img/banner/banner-01.jpg" alt="Img" />
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="slider-img">
+                    <img src="assets/img/banner/banner-02.jpg" alt="Img" />
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="slider-img">
+                    <img src="assets/img/banner/banner-03.jpg" alt="Img" />
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="slider-img">
+                    <img src="assets/img/banner/banner-04.jpg" alt="Img" />
+                </div>
+            </ng-template>
+        </owl-carousel-o>
+    </div>
+
+    <div class="container">
+        <div class="hero-content">
+            <div class="row align-items-center">
+                <div class="col-md-12 mx-auto aos" data-aos="fade-up" data-aos-duration="2000">
+                    <div class="banner-content mx-auto">
+                        <h1 class="text-white display-5 mb-2">
+                            Get Closer to the Dream: <span>Your Tour</span> Essentials Await
+                        </h1>
+                        <h6 class="text-light mx-auto">
+                            Your ultimate destination for all things help you celebrate &
+                            remember tour experience.
+                        </h6>
+                    </div>
+                    <div class="banner-form card mb-0">
+                        <div class="card-header">
+                            <ul class="nav">
+                                <li>
+                                    <a href="javascript:void(0);" class="nav-link active" data-bs-toggle="tab"
+                                        data-bs-target="#backwater" (click)="resetItem()">
+                                        <i class="isax isax-ship5 me-2"></i>Boat Cruise
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#accomodations" (click)="resetItem()">
+                                        <i class="isax isax-buildings5 me-2"></i>Accomodations
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#transportation" (click)="resetItem()">
+                                        <i class="isax isax-car5 me-2"></i>Transportation
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#specialevents" (click)="resetItem()">
+                                        <i class="isax isax-camera5 me-2"></i>Special & Cultural Events
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade active show" id="backwater">
+                                        <form (ngSubmit)="onSubmit4('backwater')">
+                                            <div
+                                                class="d-flex align-items-center justify-content-between flex-wrap mb-2">
+                                                <h6 class="fw-medium fs-16 mb-2">
+                                                    Search For BackWater Journeys
+                                                </h6>
+                                            </div>
+                                            <div class="d-lg-flex">
+                                                <div class="d-flex form-info">
+                                                    <div class="form-item dropdown">
+                                                        <div data-bs-toggle="dropdown" data-bs-auto-close="outside" #dropdownToggle
+                                                            aria-expanded="false" role="menu">
+                                                            <label
+                                                                class="form-label fs-14 text-default mb-1">Boats</label>
+                                                            <input type="text" class="form-control" readonly
+                                                                [value]="(selecteItem ? selecteItem?.name : 'Select Boat') | titlecase" />
+                                                            <p class="fs-12 mb-0">select your boat</p>
+                                                        </div>
+                                                        <div class="dropdown-menu dropdown-md p-0">
+                                                            <ul *ngIf="subCatsByType['BACK_WATERS']">
+                                                                <li *ngFor="
+                                                            let sub of subCatsByType['BACK_WATERS']
+                                                        " class="border-bottom">
+                                                                    <a class="dropdown-item" href="javascript:void(0);" (click)="selectProperty(sub, dropdownToggle)">
+                                                                        <h6 class="fs-16 fw-medium">
+                                                                            {{ sub.name }}
+                                                                        </h6>
+                                                                        <p>{{ sub.name }}</p>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--Location-->
+                                                    <div class="form-item dropdown">
+                                                        <div >
+                                                            <label
+                                                                class="form-label fs-14 text-default mb-1">Location</label>
+                                                                <div class="search-wrapper position-relative">
+                                                                    <input
+                                                                      #searchBox
+                                                                      type="text"
+                                                                      class="form-control px-2 py-2 rounded"
+                                                                      [(ngModel)]="selectedLocationName"
+                                                                      [ngModelOptions]="{ standalone: true }"
+                                                                      placeholder="Search cities, landmarks, beaches..."
+                                                                      (input)="onInputChange($event)"
+                                                                    />
+                                                                    <ul *ngIf="suggestions.length > 0" class="list-group position-absolute shadow rounded mt-1 dropdown-menu dropdown-md p-0">
+                                                                        <li
+                                                                          *ngFor="let suggestion of suggestions"
+                                                                          class="list-group-item d-flex align-items-start cursor-pointer"
+                                                                          (click)="selectPlace(suggestion)"
+                                                                        >
+                                                                          <i class="bi bi-geo-alt me-2 fs-5 text-primary"></i>
+                                                                          <div>
+                                                                            <div class="fw-bold">{{ suggestion.name }}</div>
+                                                                            <small class="text-muted">{{ suggestion.formatted_address }}</small>
+                                                                          </div>
+                                                                        </li>
+                                                                      </ul>
+                                                                  </div>
+                                                            <p class="fs-12 mb-0">select location</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-item">
+                                                        <label class="form-label fs-14 text-default mb-1">Start Date</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control datetimepicker"
+                                                            bsDatepicker
+                                                            placeholder="21-10-2024"
+                                                            [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY' }"
+                                                            [(bsValue)]="startDate"
+                                                        />
+                                                        <p class="fs-12 mb-0">{{ startDate | date: 'EEEE' }}</p>
+                                                    </div>
+
+                                                    <div class="form-item">
+                                                        <label class="form-label fs-14 text-default mb-1">End Date</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control datetimepicker"
+                                                            bsDatepicker
+                                                            placeholder="21-10-2024"
+                                                            [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY' }"
+                                                            [(bsValue)]="endDate"
+                                                        />
+                                                        <p class="fs-12 mb-0">{{ endDate | date: 'EEEE' }}</p>
+                                                    </div>
+                                                    <div class="form-item dropdown">
+                                                        
+                                                         <div data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                                            aria-expanded="false" role="menu">
+                                                            <label class="form-label fs-14 text-default mb-1">Travellers
+                                                                & Cabin
+                                                            </label>
+                                                            <h5 class="mb-1">
+                                                                {{quantity}} <span class="fw-normal fs-14">Adult<span *ngIf="quantity > 1">s</span></span>&nbsp;&nbsp;&nbsp;
+                                                                <span *ngIf="childreCount > 0">{{childreCount}} <span class="fw-normal fs-14">Children<span *ngIf="childreCount > 1">s</span></span></span>
+                                                            </h5>
+                                                            <p class="fs-12 mb-0">{{quantity + childreCount}} Persons</p>
+                                                        </div>
+                                                        <div class="dropdown-menu dropdown-menu-end dropdown-xl">
+                                                            <h5 class="mb-3">Select Travelers & Class</h5>
+                                                            <div class="mb-3 border br-10 info-item pb-1">
+                                                                <h6 class="fs-16 fw-medium mb-2">Travellers</h6>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+                                                                            <label
+                                                                                class="form-label text-gray-9 mb-2">Adults
+                                                                                <span class="text-default fw-normal">(
+                                                                                    12+ Yrs )</span></label>
+                                                                            <div class="custom-increment w-100">
+                                                                                <div class="input-group d-flex justify-content-between">
+                                                                                    <span class="input-group-btn float-start">
+                                                                                        <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementQuantity()">
+                                                                                        <span><i class="isax isax-minus"></i></span>
+                                                                                    </button>
+                                                                                    </span>
+                                                                                    <input type="text" 
+                                                                                            name="quantity" 
+                                                                                            class="input-number" 
+                                                                                            [(ngModel)]="quantity" 
+                                                                                            (input)="validateQuantity($event)"
+                                                                                            pattern="[1-9][0-9]*"
+                                                                                            autocomplete="off">
+                                                                                    <span class="input-group-btn float-end">
+                                                                                        <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementQuantity()">
+                                                                                            <span><i class="isax isax-add"></i></span>
+                                                                                    </button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+                                                                            <label
+                                                                                class="form-label text-gray-9 mb-2">Childrens
+                                                                                <span class="text-default fw-normal">(
+                                                                                    2-12 Yrs )</span></label>
+                                                                            <div class="custom-increment w-100">
+                                                                                <div class="input-group d-flex justify-content-between">
+                                                                                    <span class="input-group-btn float-start">
+                                                                                        <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementChildreCount()">
+                                                                                        <span><i class="isax isax-minus"></i></span>
+                                                                                    </button>
+                                                                                    </span>
+                                                                                    <input type="text" 
+                                                                                            name="childreCount" 
+                                                                                            class="input-number" 
+                                                                                            [(ngModel)]="childreCount" 
+                                                                                            (input)="validateChildreCount($event)"
+                                                                                            pattern="[1-9][0-9]*"
+                                                                                            autocomplete="off">
+                                                                                    <span class="input-group-btn float-end">
+                                                                                        <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementChildreCount()">
+                                                                                            <span><i class="isax isax-add"></i></span>
+                                                                                    </button>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary search-btn rounded">
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="accomodations">
+                                        <form (ngSubmit)="onSubmit4('accomodations')">
+                                            <div
+                                                class="d-flex align-items-center justify-content-between flex-wrap mb-2">
+                                                <h6 class="fw-medium fs-16 mb-2">
+                                                    Book Hotel - Villas, Apartments & more.
+                                                </h6>
+                                            </div>
+                                            <div class="d-lg-flex">
+                                                <div class="d-flex form-info">
+                                                    <div class="form-item dropdown">
+                                                        <div data-bs-toggle="dropdown" data-bs-auto-close="outside" #dropdownToggle2
+                                                            aria-expanded="false" role="menu">
+                                                            <label class="form-label fs-14 text-default mb-1">Homestay,Resorts...etc
+                                                               </label>
+                                                            <input type="text" class="form-control" readonly
+                                                            [value]="(selecteItem ? selecteItem?.name : 'Select Room') | titlecase" />
+                                                            <p class="fs-12 mb-0">select your room</p>
+                                                        </div>
+                                                        <div class="dropdown-menu dropdown-md p-0">
+                                                          <ul *ngIf="subCatsByType['ACCOMODATION']">
+                                                                <li *ngFor="
+                                                            let sub of subCatsByType['ACCOMODATION']
+                                                        " class="border-bottom">
+                                                                    <a class="dropdown-item" href="javascript:void(0);" (click)="selectProperty(sub, dropdownToggle2)">
+                                                                        <h6 class="fs-16 fw-medium">
+                                                                            {{ sub.name }}
+                                                                        </h6>
+                                                                        <p>{{ sub.name }}</p>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item dropdown">
+                                                        <div >
+                                                            <label
+                                                                class="form-label fs-14 text-default mb-1">Location</label>
+                                                                <div class="search-wrapper position-relative">
+                                                                    <input
+                                                                      #searchBox
+                                                                      type="text"
+                                                                      class="form-control px-2 py-2 rounded"
+                                                                      [(ngModel)]="selectedLocationName"
+                                                                      [ngModelOptions]="{ standalone: true }"
+                                                                      placeholder="Search cities, landmarks, beaches..."
+                                                                      (input)="onInputChange($event)"
+                                                                    />
+                                                                    <ul *ngIf="suggestions.length > 0" class="list-group position-absolute shadow rounded mt-1 dropdown-menu dropdown-md p-0">
+                                                                        <li
+                                                                          *ngFor="let suggestion of suggestions"
+                                                                          class="list-group-item d-flex align-items-start cursor-pointer"
+                                                                          (click)="selectPlace(suggestion)"
+                                                                        >
+                                                                          <i class="bi bi-geo-alt me-2 fs-5 text-primary"></i>
+                                                                          <div>
+                                                                            <div class="fw-bold">{{ suggestion.name }}</div>
+                                                                            <small class="text-muted">{{ suggestion.formatted_address }}</small>
+                                                                          </div>
+                                                                        </li>
+                                                                      </ul>
+                                                                  </div>                                                                  
+                                                            <p class="fs-12 mb-0">select location</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label fs-14 text-default mb-1">Check In</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control datetimepicker"
+                                                            bsDatepicker
+                                                            placeholder="21-10-2024"
+                                                            [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY' }"
+                                                            [(bsValue)]="startDate"
+                                                        />
+                                                        <p class="fs-12 mb-0">{{ startDate | date: 'EEEE' }}</p>
+                                                    </div>
+
+                                                    <div class="form-item">
+                                                        <label class="form-label fs-14 text-default mb-1">Check Out</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control datetimepicker"
+                                                            bsDatepicker
+                                                            placeholder="21-10-2024"
+                                                            [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY' }"
+                                                            [(bsValue)]="endDate"
+                                                        />
+                                                        <p class="fs-12 mb-0">{{ endDate | date: 'EEEE' }}</p>
+                                                    </div>
+                                                    <div class="form-item dropdown">
+                                                        
+                                                        <div data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                                           aria-expanded="false" role="menu">
+                                                           <label class="form-label fs-14 text-default mb-1">Guests
+                                                           </label>
+                                                           <h5 class="mb-1">
+                                                               {{quantity}} <span class="fw-normal fs-14">Adult<span *ngIf="quantity > 1">s</span></span>&nbsp;&nbsp;&nbsp;
+                                                               <span *ngIf="childreCount > 0">{{childreCount}} <span class="fw-normal fs-14">Children<span *ngIf="childreCount > 1">s</span></span></span>
+                                                           </h5>
+                                                           <p class="fs-12 mb-0">{{quantity + childreCount}} Persons</p>
+                                                       </div>
+                                                       <div class="dropdown-menu dropdown-menu-end dropdown-xl">
+                                                           <h5 class="mb-3">Select Guests </h5>
+                                                           <div class="mb-3 border br-10 info-item pb-1">
+                                                               <h6 class="fs-16 fw-medium mb-2">Guests</h6>
+                                                               <div class="row">
+                                                                   <div class="col-md-6">
+                                                                       <div class="mb-3">
+                                                                           <label
+                                                                               class="form-label text-gray-9 mb-2">Adults
+                                                                               <span class="text-default fw-normal">(
+                                                                                   12+ Yrs )</span></label>
+                                                                           <div class="custom-increment w-100">
+                                                                               <div class="input-group d-flex justify-content-between">
+                                                                                   <span class="input-group-btn float-start">
+                                                                                       <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementQuantity()">
+                                                                                       <span><i class="isax isax-minus"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                                   <input type="text" 
+                                                                                           name="quantity" 
+                                                                                           class="input-number" 
+                                                                                           [(ngModel)]="quantity" 
+                                                                                           (input)="validateQuantity($event)"
+                                                                                           pattern="[1-9][0-9]*"
+                                                                                           autocomplete="off">
+                                                                                   <span class="input-group-btn float-end">
+                                                                                       <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementQuantity()">
+                                                                                           <span><i class="isax isax-add"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                               </div>
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                                   <div class="col-md-6">
+                                                                       <div class="mb-3">
+                                                                           <label
+                                                                               class="form-label text-gray-9 mb-2">Childrens
+                                                                               <span class="text-default fw-normal">(
+                                                                                   2-12 Yrs )</span></label>
+                                                                           <div class="custom-increment w-100">
+                                                                               <div class="input-group d-flex justify-content-between">
+                                                                                   <span class="input-group-btn float-start">
+                                                                                       <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementChildreCount()">
+                                                                                       <span><i class="isax isax-minus"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                                   <input type="text" 
+                                                                                           name="childreCount" 
+                                                                                           class="input-number" 
+                                                                                           [(ngModel)]="childreCount" 
+                                                                                           (input)="validateChildreCount($event)"
+                                                                                           pattern="[1-9][0-9]*"
+                                                                                           autocomplete="off">
+                                                                                   <span class="input-group-btn float-end">
+                                                                                       <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementChildreCount()">
+                                                                                           <span><i class="isax isax-add"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                               </div>
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       </div> 
+                                                   </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary search-btn rounded">
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="transportation">
+                                        <form (ngSubmit)="onSubmit3()">
+                                            <div
+                                                class="d-flex align-items-center justify-content-between flex-wrap mb-2">
+                                                <h6 class="fw-medium fs-16 mb-2">
+                                                    Search For travel assistance
+                                                </h6>
+                                            </div>
+                                            <div class="d-lg-flex">
+                                                <div class="d-flex form-info">
+                                                    <div class="form-item dropdown">
+                                                        <div data-bs-toggle="dropdown" data-bs-auto-close="outside" #dropdownToggle
+                                                            aria-expanded="false" role="menu">
+                                                            <label
+                                                                class="form-label fs-14 text-default mb-1">Transportation</label>
+                                                            <input type="text" class="form-control" readonly
+                                                                [value]="(selecteItem ? selecteItem?.name : 'Select Vehicle') | titlecase" />
+                                                            <p class="fs-12 mb-0">select your Vehicle</p>
+                                                        </div>
+                                                        <div class="dropdown-menu dropdown-md p-0">
+                                                            <ul *ngIf="subCatsByType['BACK_WATERS']">
+                                                                <li *ngFor="
+                                                            let sub of subCatsByType['TRANSPORTATION']
+                                                        " class="border-bottom">
+                                                                    <a class="dropdown-item" href="javascript:void(0);" (click)="selectProperty(sub, dropdownToggle)">
+                                                                        <h6 class="fs-16 fw-medium">
+                                                                            {{ sub.name }}
+                                                                        </h6>
+                                                                        <p>{{ sub.name }}</p>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item dropdown from-location" [ngStyle]="{
+                                                                                                                display: isChecked5 ? 'none' : 'block'
+                                                                                                            }">
+                                                        <div data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                                            aria-expanded="false" role="menu">
+                                                            <label
+                                                                class="form-label fs-14 text-default mb-1">From</label>
+                                                                <div class="search-wrapper position-relative">
+                                                                    <input
+                                                                      #searchBox
+                                                                      type="text"
+                                                                      class="form-control px-2 py-2 rounded"
+                                                                      [(ngModel)]="selectedLocationName2"
+                                                                      [ngModelOptions]="{ standalone: true }"
+                                                                      placeholder="Search cities, landmarks, beaches..."
+                                                                      (input)="onInputChange2($event)"
+                                                                    />
+                                                                    <ul *ngIf="suggestions2.length > 0" class="list-group position-absolute shadow rounded mt-1 dropdown-menu dropdown-md p-0">
+                                                                        <li
+                                                                          *ngFor="let suggestion of suggestions2"
+                                                                          class="list-group-item d-flex align-items-start cursor-pointer"
+                                                                          (click)="selectPlace2(suggestion)"
+                                                                        >
+                                                                          <i class="bi bi-geo-alt me-2 fs-5 text-primary"></i>
+                                                                          <div>
+                                                                            <div class="fw-bold">{{ suggestion.name }}</div>
+                                                                            <small class="text-muted">{{ suggestion.formatted_address }}</small>
+                                                                          </div>
+                                                                        </li>
+                                                                      </ul>
+                                                                  </div>                                                            
+                                                                  <p class="fs-12 mb-0">Select location</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item dropdown pickup-airport" [ngStyle]="{
+                                                                                                                display:
+                                                                                                                    toreset || isChecked4 || isChecked6
+                                                                                                                    ? 'none'
+                                                                                                                    : 'block'
+                                                                                                                }">
+                                                        <div data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                                            aria-expanded="false" role="menu">
+                                                            <label
+                                                                class="form-label fs-14 text-default mb-1">From</label>
+                                                            <input type="text" class="form-control" value="Newyork" />
+                                                            <p class="fs-12 mb-0">
+                                                                Ken International Airport
+                                                            </p>
+                                                        </div>
+                                                        <div class="dropdown-menu dropdown-md p-0">
+                                                            <div class="input-search p-3 border-bottom">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="Search for Airport" />
+                                                                    <span
+                                                                        class="input-group-text px-2 border-start-0"><i
+                                                                            class="isax isax-search-normal"></i></span>
+                                                                </div>
+                                                            </div>
+                                                            <ul>
+                                                                <li class="border-bottom">
+                                                                    <a class="dropdown-item" href="javascript:void(0);">
+                                                                        <h6 class="fs-16 fw-medium">
+                                                                            Hartsfield-Jackson Atlanta International
+                                                                        </h6>
+                                                                        <p>USA</p>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="border-bottom">
+                                                                    <a class="dropdown-item" href="javascript:void(0);">
+                                                                        <h6 class="fs-16 fw-medium">
+                                                                            Dallas/Fort Worth International
+                                                                        </h6>
+                                                                        <p>USA</p>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="border-bottom">
+                                                                    <a class="dropdown-item" href="javascript:void(0);">
+                                                                        <h6 class="fs-16 fw-medium">
+                                                                            London Heathrow
+                                                                        </h6>
+                                                                        <p>UK</p>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="border-bottom">
+                                                                    <a class="dropdown-item" href="javascript:void(0);">
+                                                                        <h6 class="fs-16 fw-medium">
+                                                                            Seoul Incheon
+                                                                        </h6>
+                                                                        <p>South Korea</p>
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="javascript:void(0);">
+                                                                        <h6 class="fs-16 fw-medium">
+                                                                            Singapore Changi International
+                                                                        </h6>
+                                                                        <p>Singapore</p>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item dropdown to-location ps-2 ps-sm-3" [ngStyle]="{
+                              display: isChecked6 ? 'none' : 'block'
+                            }">
+                                                        <div data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                                            aria-expanded="false" role="menu">
+                                                            <label class="form-label fs-14 text-default mb-1">To</label>
+                                                            <div class="search-wrapper position-relative">
+                                                                <input
+                                                                  #searchBox
+                                                                  type="text"
+                                                                  class="form-control px-2 py-2 rounded"
+                                                                  [(ngModel)]="selectedLocationName"
+                                                                  [ngModelOptions]="{ standalone: true }"
+                                                                  placeholder="Search cities, landmarks, beaches..."
+                                                                  (input)="onInputChange($event)"
+                                                                />
+                                                                <ul *ngIf="suggestions.length > 0" class="list-group position-absolute shadow rounded mt-1 dropdown-menu dropdown-md p-0">
+                                                                    <li
+                                                                      *ngFor="let suggestion of suggestions"
+                                                                      class="list-group-item d-flex align-items-start cursor-pointer"
+                                                                      (click)="selectPlace(suggestion)"
+                                                                    >
+                                                                      <i class="bi bi-geo-alt me-2 fs-5 text-primary"></i>
+                                                                      <div>
+                                                                        <div class="fw-bold">{{ suggestion.name }}</div>
+                                                                        <small class="text-muted">{{ suggestion.formatted_address }}</small>
+                                                                      </div>
+                                                                    </li>
+                                                                  </ul>
+                                                              </div>                                                            
+                                                              <p class="fs-12 mb-0">Select location</p>
+                                                            <span
+                                                                class="way-icon badge badge-primary rounded-pill translate-middle">
+                                                                <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label
+                                                            class="form-label fs-14 text-default mb-1">Departure</label>
+                                                            <input
+                                                            type="text"
+                                                            class="form-control datetimepicker"
+                                                            bsDatepicker
+                                                            placeholder="21-10-2024"
+                                                            [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY' }"
+                                                            [(bsValue)]="startDate"
+                                                        />
+                                                        <p class="fs-12 mb-0">{{ startDate | date: 'EEEE' }}</p>
+                                                    </div>
+                                                    <div class="form-item return-drop" [ngStyle]="{
+                              display: isChecked4 ? 'block' : 'none'
+                            }">
+                                                        <label class="form-label fs-14 text-default mb-1">Return</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control datetimepicker"
+                                                            bsDatepicker
+                                                            placeholder="21-10-2024"
+                                                            [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY' }"
+                                                            [(bsValue)]="startDate"
+                                                        />
+                                                        <p class="fs-12 mb-0">{{ startDate | date: 'EEEE' }}</p>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label fs-14 text-default mb-1">Pickup
+                                                            Time</label>
+                                                        <p-calendar inputId="calendar-timeonly" [(ngModel)]="time"
+                                                            name="time" [timeOnly]="true" [hourFormat]="'12'"
+                                                            placeholder="11:45 PM">
+                                                        </p-calendar>
+                                                        <p class="fs-12 mb-0">Select pickup time</p>
+                                                    </div>
+                                                    <div class="form-item dropdown">
+                                                        
+                                                        <div data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                                           aria-expanded="false" role="menu">
+                                                           <label class="form-label fs-14 text-default mb-1">Guests
+                                                           </label>
+                                                           <h5 class="mb-1">
+                                                               {{quantity}} <span class="fw-normal fs-14">Adult<span *ngIf="quantity > 1">s</span></span>&nbsp;&nbsp;&nbsp;
+                                                               <span *ngIf="childreCount > 0">{{childreCount}} <span class="fw-normal fs-14">Children<span *ngIf="childreCount > 1">s</span></span></span>
+                                                           </h5>
+                                                           <p class="fs-12 mb-0">{{quantity + childreCount}} Persons</p>
+                                                       </div>
+                                                       <div class="dropdown-menu dropdown-menu-end dropdown-xl">
+                                                           <h5 class="mb-3">Select travellers </h5>
+                                                           <div class="mb-3 border br-10 info-item pb-1">
+                                                               <h6 class="fs-16 fw-medium mb-2">Guests</h6>
+                                                               <div class="row">
+                                                                   <div class="col-md-6">
+                                                                       <div class="mb-3">
+                                                                           <label
+                                                                               class="form-label text-gray-9 mb-2">Adults
+                                                                               <span class="text-default fw-normal">(
+                                                                                   12+ Yrs )</span></label>
+                                                                           <div class="custom-increment w-100">
+                                                                               <div class="input-group d-flex justify-content-between">
+                                                                                   <span class="input-group-btn float-start">
+                                                                                       <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementQuantity()">
+                                                                                       <span><i class="isax isax-minus"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                                   <input type="text" 
+                                                                                           name="quantity" 
+                                                                                           class="input-number" 
+                                                                                           [(ngModel)]="quantity" 
+                                                                                           (input)="validateQuantity($event)"
+                                                                                           pattern="[1-9][0-9]*"
+                                                                                           autocomplete="off">
+                                                                                   <span class="input-group-btn float-end">
+                                                                                       <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementQuantity()">
+                                                                                           <span><i class="isax isax-add"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                               </div>
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                                   <div class="col-md-6">
+                                                                       <div class="mb-3">
+                                                                           <label
+                                                                               class="form-label text-gray-9 mb-2">Childrens
+                                                                               <span class="text-default fw-normal">(
+                                                                                   2-12 Yrs )</span></label>
+                                                                           <div class="custom-increment w-100">
+                                                                               <div class="input-group d-flex justify-content-between">
+                                                                                   <span class="input-group-btn float-start">
+                                                                                       <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementChildreCount()">
+                                                                                       <span><i class="isax isax-minus"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                                   <input type="text" 
+                                                                                           name="childreCount" 
+                                                                                           class="input-number" 
+                                                                                           [(ngModel)]="childreCount" 
+                                                                                           (input)="validateChildreCount($event)"
+                                                                                           pattern="[1-9][0-9]*"
+                                                                                           autocomplete="off">
+                                                                                   <span class="input-group-btn float-end">
+                                                                                       <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementChildreCount()">
+                                                                                           <span><i class="isax isax-add"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                               </div>
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       </div> 
+                                                   </div>
+                                                    <div class="form-item dropoff-time" [ngStyle]="{
+                              display: isChecked4 ? 'block' : 'none'
+                            }">
+                                                        <label class="form-label fs-14 text-default mb-1">Dropoff
+                                                            Time</label>
+                                                        <p-calendar inputId="calendar-timeonly" [(ngModel)]="time"
+                                                            name="time" [timeOnly]="true" [hourFormat]="'12'"
+                                                            placeholder="11:45 PM">
+                                                        </p-calendar>
+                                                    </div>
+                                                    <div class="form-item hourly-time" [ngStyle]="{
+                                                        display:
+                                                            toreset || isChecked4 || isChecked5
+                                                            ? 'none'
+                                                            : 'block'
+                                                        }">
+                                                        <label class="form-label fs-14 text-default mb-1">Hours</label>
+                                                        <h5>02 Hrs 10 Kms</h5>
+                                                    </div>
+                                                </div>
+                                                
+                                                <button type="submit" class="btn btn-primary search-btn rounded">
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="specialevents">
+                                        <form (ngSubmit)="onSubmit()">
+                                            <div
+                                                class="d-flex align-items-center justify-content-between flex-wrap mb-2">
+                                                <h6 class="fw-medium fs-16 mb-2">Search For Special Events</h6>
+                                            </div>
+                                            <div class="d-lg-flex">
+                                                <div class="d-flex form-info">
+                                                    <div class="form-item dropdown">
+                                                        <div data-bs-toggle="dropdown" data-bs-auto-close="outside" #dropdownToggle3
+                                                            aria-expanded="false" role="menu">
+                                                            <label
+                                                                class="form-label fs-14 text-default mb-1">Events</label>
+                                                            <input type="text" class="form-control" readonly
+                                                            [value]="(selecteItem ? selecteItem?.name : 'Select Boat') | titlecase" />
+                                                            <p class="fs-12 mb-0">Select Events</p>
+                                                        </div>
+                                                        <div class="dropdown-menu dropdown-md p-0">
+                                                       <ul *ngIf="subCatsByType['SPECIAL_EVENTS']">
+                                                                <li *ngFor="
+                                                            let sub of subCatsByType['SPECIAL_EVENTS']
+                                                        " class="border-bottom">
+                                                                    <a class="dropdown-item" href="javascript:void(0);" (click)="selectProperty(sub, dropdownToggle3)">
+                                                                        <h6 class="fs-16 fw-medium">
+                                                                            {{ sub.name }}
+                                                                        </h6>
+                                                                        <p>{{ sub.name }}</p>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-item">
+                                                        <label class="form-label fs-14 text-default mb-1">Start Date</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control datetimepicker"
+                                                            bsDatepicker
+                                                            placeholder="21-10-2024"
+                                                            [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY' }"
+                                                            [(bsValue)]="startDate"
+                                                        />
+                                                        <p class="fs-12 mb-0">{{ startDate | date: 'EEEE' }}</p>
+                                                    </div>
+
+                                                    <div class="form-item">
+                                                        <label class="form-label fs-14 text-default mb-1">End Date</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control datetimepicker"
+                                                            bsDatepicker
+                                                            placeholder="21-10-2024"
+                                                            [bsConfig]="{ adaptivePosition: true, dateInputFormat: 'DD-MM-YYYY' }"
+                                                            [(bsValue)]="endDate"
+                                                        />
+                                                        <p class="fs-12 mb-0">{{ endDate | date: 'EEEE' }}</p>
+                                                    </div>
+                                                    <div class="form-item dropdown">
+                                                        
+                                                        <div data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                                           aria-expanded="false" role="menu">
+                                                           <label class="form-label fs-14 text-default mb-1">Guests
+                                                           </label>
+                                                           <h5 class="mb-1">
+                                                               {{quantity}} <span class="fw-normal fs-14">Adult<span *ngIf="quantity > 1">s</span></span>&nbsp;&nbsp;&nbsp;
+                                                               <span *ngIf="childreCount > 0">{{childreCount}} <span class="fw-normal fs-14">Children<span *ngIf="childreCount > 1">s</span></span></span>
+                                                           </h5>
+                                                           <p class="fs-12 mb-0">{{quantity + childreCount}} Persons</p>
+                                                       </div>
+                                                       <div class="dropdown-menu dropdown-menu-end dropdown-xl">
+                                                           <h5 class="mb-3">Select Guests </h5>
+                                                           <div class="mb-3 border br-10 info-item pb-1">
+                                                               <h6 class="fs-16 fw-medium mb-2">Guests</h6>
+                                                               <div class="row">
+                                                                   <div class="col-md-6">
+                                                                       <div class="mb-3">
+                                                                           <label
+                                                                               class="form-label text-gray-9 mb-2">Adults
+                                                                               <span class="text-default fw-normal">(
+                                                                                   12+ Yrs )</span></label>
+                                                                           <div class="custom-increment w-100">
+                                                                               <div class="input-group d-flex justify-content-between">
+                                                                                   <span class="input-group-btn float-start">
+                                                                                       <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementQuantity()">
+                                                                                       <span><i class="isax isax-minus"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                                   <input type="text" 
+                                                                                           name="quantity" 
+                                                                                           class="input-number" 
+                                                                                           [(ngModel)]="quantity" 
+                                                                                           (input)="validateQuantity($event)"
+                                                                                           pattern="[1-9][0-9]*"
+                                                                                           autocomplete="off">
+                                                                                   <span class="input-group-btn float-end">
+                                                                                       <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementQuantity()">
+                                                                                           <span><i class="isax isax-add"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                               </div>
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                                   <div class="col-md-6">
+                                                                       <div class="mb-3">
+                                                                           <label
+                                                                               class="form-label text-gray-9 mb-2">Childrens
+                                                                               <span class="text-default fw-normal">(
+                                                                                   2-12 Yrs )</span></label>
+                                                                           <div class="custom-increment w-100">
+                                                                               <div class="input-group d-flex justify-content-between">
+                                                                                   <span class="input-group-btn float-start">
+                                                                                       <button type="button" class="quantity-left-minus btn btn-light btn-number"  (click)="decrementChildreCount()">
+                                                                                       <span><i class="isax isax-minus"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                                   <input type="text" 
+                                                                                           name="childreCount" 
+                                                                                           class="input-number" 
+                                                                                           [(ngModel)]="childreCount" 
+                                                                                           (input)="validateChildreCount($event)"
+                                                                                           pattern="[1-9][0-9]*"
+                                                                                           autocomplete="off">
+                                                                                   <span class="input-group-btn float-end">
+                                                                                       <button type="button" class="quantity-right-plus btn btn-light btn-number" (click)="incrementChildreCount()">
+                                                                                           <span><i class="isax isax-add"></i></span>
+                                                                                   </button>
+                                                                                   </span>
+                                                                               </div>
+                                                                           </div>
+                                                                       </div>
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       </div> 
+                                                   </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary search-btn rounded">
+                                                    Search
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /Hero Section -->
+
+<!-- Place Section -->
+<section class="section place-section bg-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-10 text-center aos" data-aos="fade-up" data-aos-duration="2000">
+                <div class="section-header mb-4 text-center">
+                    <h2 class="mb-2">
+                        Our
+                        <span class="text-primary text-decoration-underline">Trending</span>
+                        Places
+                    </h2>
+                    <p class="sub-title">
+                        Here are some famous tourist places around the world that are known
+                        for their historical significance, natural beauty, or cultural
+                        impact
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="place-nav">
+            <ul class="nav justify-content-center">
+        
+                <li>
+                    <a href="javascript:void(0);" class="nav-link active" data-bs-toggle="tab"
+                        data-bs-target="#Hotels-list" (click)="openTab1()">
+                        Accomodation
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="nav-link" data-bs-toggle="tab" data-bs-target="#Cars-list"
+                        (click)="openTab2()">
+                        Travel Assistance
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="nav-link" data-bs-toggle="tab" data-bs-target="#Cruise-list"
+                        (click)="openTab3()">
+                        Boat Cruise
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="nav-link" data-bs-toggle="tab" data-bs-target="#Tour-list"
+                        (click)="openTab4()">
+                        Special & Cultural Events
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade active show" id="Hotels-list">
+                <owl-carousel-o *ngIf="isTabed1" class="place-slider nav-center" [options]="placeSlider">
+                    <ng-container *ngFor="let sub of subCatsByType['ACCOMODATION']">
+                        <ng-template carouselSlide>
+                            <div class="place-item mb-4 border">
+                                <div class="place-img">
+                                    <owl-carousel-o class="img-slider image-slide nav-center" [options]="imageSlider">
+                                        <ng-template carouselSlide>
+                                            <div class="slide-images">
+                                                <a [routerLink]="routes.cruiseList" [queryParams]="{ mainCat: 'ACCOMODATION', subCat_id: sub.id, subCat: sub.name }">
+                                                    <img [src]="sub.img_url || 'assets/img/hotels/hotel-01.jpg'" onerror="this.onerror=null;this.src='assets/img/hotels/hotel-01.jpg'" class="img-fluid fixed-height-img" alt="img" />
+                                                </a>
+                                            </div>
+                                        </ng-template>
+                                    </owl-carousel-o>
+                                </div>
+                                <div class="place-content">
+                                    <h5 class="mb-1">
+                                        <a [routerLink]="routes.cruiseList" [queryParams]="{ mainCat: 'ACCOMODATION', subCat_id: sub.id, subCat: sub.name }">{{sub.name}}</a>
+                                    </h5>
+                                    <p class="d-flex align-items-center mb-2">
+                                        <i class="isax isax-buildings5 me-2"></i>{{sub.propertyType}}
+                                    </p>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                    
+                </owl-carousel-o>
+            </div> 
+            <!-- /Hotels List -->
+
+            <!-- Cars List -->
+             <div class="tab-pane fade" id="Cars-list">
+                <owl-carousel-o *ngIf="isTabed2" class="place-slider nav-center" [options]="placeSlider">
+                    <ng-container *ngFor="let sub of subCatsByType['TRANSPORTATION']">
+                        <ng-template carouselSlide>
+                            <div class="place-item mb-4 border">
+                                <div class="place-img">
+                                    <owl-carousel-o class="img-slider image-slide nav-center" [options]="imageSlider">
+                                        <ng-template carouselSlide>
+                                            <div class="slide-images">
+                                                <a [routerLink]="routes.cruiseList" [queryParams]="{ mainCat: 'TRANSPORTATION', subCat_id: sub.id, subCat: sub.name }">
+                                                    <img [src]="sub.img_url || 'assets/img/hotels/hotel-01.jpg'" onerror="this.onerror=null;this.src='assets/img/hotels/hotel-01.jpg'" class="img-fluid fixed-height-img" alt="img" />
+                                                </a>
+                                            </div>
+                                        </ng-template>
+                                    </owl-carousel-o>
+                                </div>
+                                <div class="place-content">
+                                    <h5 class="mb-1">
+                                        <a [routerLink]="routes.cruiseList" [queryParams]="{ mainCat: 'TRANSPORTATION', subCat_id: sub.id, subCat: sub.name }">{{sub.name}}</a>
+                                    </h5>
+                                    <p class="d-flex align-items-center mb-2">
+                                        <i class="isax isax-buildings5 me-2"></i>{{sub.propertyType}}
+                                    </p>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div> 
+            <!-- /Cars List -->
+
+            <!-- Cruise List -->
+             <div class="tab-pane fade" id="Cruise-list">
+                <owl-carousel-o *ngIf="isTabed3" class="place-slider nav-center" [options]="placeSlider">
+                    <ng-container *ngFor="let sub of subCatsByType['BACK_WATERS']">
+                        <ng-template carouselSlide>
+                            <div class="place-item mb-4 border">
+                                <div class="place-img">
+                                    <owl-carousel-o class="img-slider image-slide nav-center" [options]="imageSlider">
+                                        <ng-template carouselSlide>
+                                            <div class="slide-images">
+                                                <a [routerLink]="routes.cruiseList" [queryParams]="{ mainCat: 'BACK_WATERS', subCat_id: sub.id, subCat: sub.name }">
+                                                    <img [src]="sub.img_url || 'assets/img/hotels/hotel-01.jpg'" onerror="this.onerror=null;this.src='assets/img/hotels/hotel-01.jpg'" class="img-fluid fixed-height-img" alt="img" />
+                                                </a>
+                                            </div>
+                                        </ng-template>
+                                    </owl-carousel-o>
+                                </div>
+                                <div class="place-content">
+                                    <h5 class="mb-1">
+                                        <a [routerLink]="routes.cruiseList" [queryParams]="{ mainCat: 'BACK_WATERS', subCat_id: sub.id, subCat: sub.name }">{{sub.name}}</a>
+                                    </h5>
+                                    <p class="d-flex align-items-center mb-2">
+                                        <i class="isax isax-buildings5 me-2"></i>{{sub.propertyType}}
+                                    </p>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div> 
+            <!-- /Cruise List -->
+
+            <!-- Tour List -->
+             <div class="tab-pane fade" id="Tour-list">
+                <owl-carousel-o *ngIf="isTabed4" class="place-slider nav-center" [options]="placeSlider">
+                    <ng-container *ngFor="let sub of subCatsByType['SPECIAL_EVENTS']">
+                        <ng-template carouselSlide>
+                            <div class="place-item mb-4 border">
+                                <div class="place-img">
+                                    <owl-carousel-o class="img-slider image-slide nav-center" [options]="imageSlider">
+                                        <ng-template carouselSlide>
+                                            <div class="slide-images">
+                                                <a [routerLink]="routes.cruiseList" [queryParams]="{ mainCat: 'SPECIAL_EVENTS', subCat_id: sub.id, subCat: sub.name }">
+                                                    <img [src]="sub.img_url || 'assets/img/hotels/hotel-01.jpg'" onerror="this.onerror=null;this.src='assets/img/hotels/hotel-01.jpg'" class="img-fluid fixed-height-img" alt="img" />
+                                                </a>
+                                            </div>
+                                        </ng-template>
+                                    </owl-carousel-o>
+                                </div>
+                                <div class="place-content">
+                                    <h5 class="mb-1">
+                                        <a [routerLink]="routes.cruiseList" [queryParams]="{ mainCat: 'SPECIAL_EVENTS', subCat_id: sub.id, subCat: sub.name }">{{sub.name}}</a>
+                                    </h5>
+                                    <p class="d-flex align-items-center mb-2">
+                                        <i class="isax isax-buildings5 me-2"></i>{{sub.propertyType}}
+                                    </p>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div> 
+            <!-- /Tour List -->
+        </div>
+    </div>
+</section> 
+<!-- /Place Section -->
+
+<!-- Destination Section -->
+<section class="section destination-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-10 text-center aos" data-aos="fade-up" data-aos-duration="2000">
+                <div class="section-header text-center">
+                    <h2 class="mb-2">
+                        Search by
+                        <span class="text-primary text-decoration-underline">Destinations</span>
+                        <!-- Around the World -->
+                    </h2>
+                    <p class="sub-title">
+                        <!-- DreamsTour Marketplace is a platform designed to connect fans with
+                        exclusive experiences related to a specific tour -->
+                    </p>
+                </div>
+            </div>
+        </div>
+        <owl-carousel-o class="destination-slider nav-center" [options]="destinationSlider">
+            <ng-template carouselSlide>
+                <!-- Destination Item-->
+
+                <div class="destination-item mb-4 aos" data-aos="fade-up" data-aos-duration="2000">
+                    <img src="assets/img/destination/alappuzha.png" alt="img" />
+                    <div class="destination-info text-center">
+                        <div class="destination-content">
+                            <h5 class="mb-1 text-white">Alappuzha</h5>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="rating d-flex align-items-center me-2">
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled"></i>
+                                </div>
+                                <p class="fs-14 text-white">452 Reviews</p>
+                            </div>
+                        </div>
+                        <div class="destination-overlay bg-white mt-2">
+                            <div class="d-flex">
+                                <div class="col border-end">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-success">
+                                            <i class="isax isax-ship"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">206 Boats</h6>
+                                    </div>
+                                </div>
+                                <div class="col border-end">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-cyan">
+                                            <i class="isax isax-buildings"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">150 Hotels</h6>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-indigo">
+                                            <i class="isax isax-car"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">210 Cars</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Destination Item-->
+            </ng-template>
+            <ng-template carouselSlide>
+                <!-- Destination Item-->
+                <div class="destination-item mb-4 aos" data-aos="fade-up" data-aos-duration="2000">
+                    <img src="assets/img/destination/idukki.png" alt="img" />
+                    <div class="destination-info text-center">
+                        <div class="destination-content">
+                            <h5 class="mb-1 text-white">Idukki</h5>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="rating d-flex align-items-center me-2">
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled"></i>
+                                </div>
+                                <p class="fs-14 text-white">400 Reviews</p>
+                            </div>
+                        </div>
+                        <div class="destination-overlay bg-white mt-2">
+                            <div class="d-flex">
+                                <div class="col border-end">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-cyan">
+                                            <i class="isax isax-buildings"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">215 Hotels</h6>
+                                    </div>
+                                </div>
+                                <div class="col border-end">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-indigo">
+                                            <i class="isax isax-car"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">215 Cars</h6>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-success">
+                                            <i class="isax isax-ship"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">25 Boats</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <a [routerLink]="routes.destination" class="overlay-circle-link"><i
+                            class="isax isax-arrow-right-1"></i></a> -->
+                </div>
+                <!-- /Destination Item-->
+            </ng-template>
+            <ng-template carouselSlide>
+                <!-- Destination Item-->
+                <div class="destination-item mb-4 aos" data-aos="fade-up" data-aos-duration="2000">
+                    <img src="assets/img/destination/kottayam.png" alt="img" />
+                    <div class="destination-info text-center">
+                        <div class="destination-content">
+                            <h5 class="mb-1 text-white">Kottayam</h5>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="rating d-flex align-items-center me-2">
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled"></i>
+                                </div>
+                                <p class="fs-14 text-white">400 Reviews</p>
+                            </div>
+                        </div>
+                        <div class="destination-overlay bg-white mt-2">
+                            <div class="d-flex">
+                                <div class="col border-end">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-cyan">
+                                            <i class="isax isax-buildings"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">150 Hotels</h6>
+                                    </div>
+                                </div>
+                                <div class="col border-end">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-indigo">
+                                            <i class="isax isax-car"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">185 cars</h6>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-success">
+                                            <i class="isax isax-ship"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">106 Boats</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <a [routerLink]="routes.destination" class="overlay-circle-link"><i
+                            class="isax isax-arrow-right-1"></i></a> -->
+                </div>
+                <!-- /Destination Item-->
+            </ng-template>
+            <ng-template carouselSlide>
+                <!-- Destination Item-->
+                <div class="destination-item mb-4 aos" data-aos="fade-up" data-aos-duration="2000">
+                    <img src="assets/img/destination/ernakulam.png" alt="img" />
+                    <div class="destination-info text-center">
+                        <div class="destination-content">
+                            <h5 class="mb-1 text-white">Ernakulam</h5>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="rating d-flex align-items-center me-2">
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled"></i>
+                                </div>
+                                <p class="fs-14 text-white">422 Reviews</p>
+                            </div>
+                        </div>
+                        <div class="destination-overlay bg-white mt-2">
+                            <div class="d-flex">
+                                <div class="col border-end">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-cyan">
+                                            <i class="isax isax-buildings"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">350 Hotels</h6>
+                                    </div>
+                                </div>
+                                <div class="col border-end">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-indigo">
+                                            <i class="isax isax-car"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">250 Cars</h6>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-success">
+                                            <i class="isax isax-ship"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">100 Boats</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <a [routerLink]="routes.destination" class="overlay-circle-link"><i
+                            class="isax isax-arrow-right-1"></i></a> -->
+                </div>
+                <!-- /Destination Item-->
+            </ng-template>
+            <ng-template carouselSlide>
+                <!-- Destination Item-->
+                <div class="destination-item mb-4 aos" data-aos="fade-up" data-aos-duration="2000">
+                    <img src="assets/img/destination/pathanamthitta.png" alt="img" />
+                    <div class="destination-info text-center">
+                        <div class="destination-content">
+                            <h5 class="mb-1 text-white">Pathanamthitta</h5>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="rating d-flex align-items-center me-2">
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled me-1"></i>
+                                    <i class="fa-solid fa-star filled"></i>
+                                </div>
+                                <p class="fs-14 text-white">370 Reviews</p>
+                            </div>
+                        </div>
+                        <div class="destination-overlay bg-white mt-2">
+                            <div class="d-flex">
+                                <div class="col border-end">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-indigo">
+                                            <i class="isax isax-car"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">100 Cars</h6>
+                                    </div>
+                                </div>
+                                <div class="col border-end">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-cyan">
+                                            <i class="isax isax-buildings"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">150 Hotels</h6>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="count-info text-center">
+                                        <span class="d-block mb-1 text-success">
+                                            <i class="isax isax-ship"></i>
+                                        </span>
+                                        <h6 class="fs-13 fw-medium">06 Boats</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <a [routerLink]="routes.destination" class="overlay-circle-link"><i
+                            class="isax isax-arrow-right-1"></i></a> -->
+                </div>
+                <!-- /Destination Item-->
+            </ng-template>
+        </owl-carousel-o>
+        <div class="text-center view-all aos">
+            <!-- <a [routerLink]="routes.destination" class="btn btn-dark d-inline-flex align-items-center">View All
+                Locations<i class="isax isax-arrow-right-3 ms-2"></i></a> -->
+        </div>
+    </div>
+</section>
+<!-- /Destination Section -->
+
+<!-- Benefit Section -->
+<!-- <section class="section benefit-section bg-light-300">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center aos" data-aos="fade-up" data-aos-duration="2000">
+                <div class="section-header text-center">
+                    <h2 class="mb-2">
+                        Our
+                        <span class="text-primary text-decoration-underline">Benefits</span>
+                        & Key Advantages
+                    </h2>
+                    <p class="sub-title">
+                        DreamsTour, a tour operator specializing in dream destinations,
+                        offers a variety of benefits for travelers.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-sm-6 col-lg-3 d-flex">
+                <div class="card benefit-card mb-0 flex-fill aos" data-aos="fade-up" data-aos-duration="2000">
+                    <div class="card-body text-center">
+                        <div class="benefit-icon mb-2 bg-secondary text-gray-9 mx-auto">
+                            <i class="isax isax-lock-1"></i>
+                        </div>
+                        <h5 class="mb-2">VIP Packages</h5>
+                        <p class="mb-0">
+                            Include premium seating, meet-and-greet experiences, backstage
+                            tours.
+                        </p>
+                        <span class="icon-view text-secondary"><i class="isax isax-lock-1"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 d-flex">
+                <div class="card benefit-card mb-0 flex-fill aos" data-aos="fade-up" data-aos-duration="2000">
+                    <div class="card-body text-center">
+                        <div class="benefit-icon mb-2 bg-orange text-white mx-auto">
+                            <i class="isax isax-magicpen"></i>
+                        </div>
+                        <h5 class="mb-2">Concert Tickets</h5>
+                        <p class="mb-0">
+                            A centralized place to buy tickets for various dates of the tour
+                        </p>
+                        <span class="icon-view text-orange"><i class="isax isax-magicpen"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 d-flex">
+                <div class="card benefit-card mb-0 flex-fill aos" data-aos="fade-up" data-aos-duration="2000">
+                    <div class="card-body text-center">
+                        <div class="benefit-icon mb-2 bg-purple text-white mx-auto">
+                            <i class="isax isax-receipt-add"></i>
+                        </div>
+                        <h5 class="mb-2">Travel Packages</h5>
+                        <p class="mb-0">
+                            Bundles that include concert tickets, accommodations
+                        </p>
+                        <span class="icon-view text-purple"><i class="isax isax-receipt-add"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3 d-flex">
+                <div class="card benefit-card mb-0 flex-fill aos" data-aos="fade-up" data-aos-duration="2000">
+                    <div class="card-body text-center">
+                        <div class="benefit-icon mb-2 bg-teal text-white mx-auto">
+                            <i class="isax isax-location-tick"></i>
+                        </div>
+                        <h5 class="mb-2">Best Price Guarantee</h5>
+                        <p class="mb-0">Such as private rehearsals, soundcheck access,</p>
+                        <span class="icon-view text-teal"><i class="isax isax-location-tick"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- /Benefit Section -->
+
+
+
+<!-- About Section -->
+<!-- <section class="section about-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="about-image mb-4 mb-lg-0">
+                    <div class="about-listing">
+                        <i class="isax isax-calendar-add text-white mb-2"></i>
+                        <h6 class="fs-16 mb-3 text-white">All Listings</h6>
+                        <div class="listing-img">
+                            <div>
+                                <img src="assets/img/icons/listing.svg" alt="icon" />
+                            </div>
+                            <a [routerLink]="routes.addHotel" class="btn btn-warning text-gray-9">Add You Listings</a>
+                        </div>
+                    </div>
+                    <div class="about-img">
+                        <img src="assets/img/about.png" alt="about" />
+                    </div>
+                    <div class="about-progress d-inline-flex align-items-center">
+                        <img src="assets/img/icons/progress-icon.svg" alt="icon" />
+                        <div class="ms-2">
+                            <p class="fs-10 mb-1">Today’s Earnings</p>
+                            <h6 class="fs-13">$2500</h6>
+                        </div>
+                        <a [routerLink]="routes.wallet" class="btn btn-teal btn-sm fw-normal ms-4">Withdraw</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-content">
+                    <h6 class="text-primary fs-14 fw-medium mb-2">About DreamsTour</h6>
+                    <h2 class="display-6 mb-2">
+                        Explore Beyond the Horizon: Discover the World’s Wonders
+                    </h2>
+                    <p class="mb-4">
+                        We pride themselves on offering personalized services for high-end
+                        clientele, with a commitment to crafting unique and unforgettable
+                        travel experiences​
+                    </p>
+                    <div class="d-flex align-items-center mb-4">
+                        <span class="avatar avatar-xl bg-primary rounded-circle flex-shrink-0 me-3">
+                            <i class="isax isax-map5 fs-24"></i>
+                        </span>
+                        <p>
+                            Clients navigate their journeys, whether for travel or educational
+                            purposes, primarily in Canada, the U.S., and the U.K
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="avatar avatar-xl bg-secondary rounded-circle flex-shrink-0 me-3">
+                            <i class="isax isax-trade5 fs-24 text-gray-9"></i>
+                        </span>
+                        <p>
+                            Provides a range of services from immigration advice to
+                            study-abroad support and vacation planning.
+                        </p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center flex-wrap about-btn gap-2">
+                    <a [routerLink]="routes.aboutUs" class="btn btn-white d-flex align-items-center">Learn More<i
+                            class="isax isax-arrow-circle-right ms-2"></i></a>
+                    <div class="avatar-list-stacked avatar-group-md me-2">
+                        <span class="avatar avatar-rounded">
+                            <img class="border border-white" src="assets/img/users/user-01.jpg" alt="img" />
+                        </span>
+                        <span class="avatar avatar-rounded">
+                            <img class="border border-white" src="assets/img/users/user-04.jpg" alt="img" />
+                        </span>
+                        <span class="avatar avatar-rounded">
+                            <img src="assets/img/users/user-05.jpg" alt="img" />
+                        </span>
+                        <span class="avatar avatar-rounded">
+                            <img src="assets/img/users/user-06.jpg" alt="img" />
+                        </span>
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center">
+                            <div class="rating d-flex align-items-center me-2">
+                                <i class="fa-solid fa-star filled me-1"></i>
+                                <i class="fa-solid fa-star filled me-1"></i>
+                                <i class="fa-solid fa-star filled me-1"></i>
+                                <i class="fa-solid fa-star filled me-1"></i>
+                                <i class="fa-solid fa-star filled me-1"></i>
+                                <span class="text-gray-9 fs-14">5.0</span>
+                            </div>
+                        </div>
+                        <p class="fs-14">2K+ Reviews</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="counter-wrap">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="counter-item mb-4">
+                                <h6 class="mb-1 d-flex align-items-center justify-content-center text-teal">
+                                    <i class="isax isax-global5 me-2"></i>Destinations Worldwide
+                                </h6>
+                                <h3 class="display-6">
+                                    <span class="counter" [countUp]="50"
+                                        [options]="{ enableScrollSpy: true }">50</span>+
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="counter-item mb-4">
+                                <h6 class="mb-1 d-flex align-items-center justify-content-center text-purple">
+                                    <i class="isax isax-calendar-2 me-2"></i>Booking Completed
+                                </h6>
+                                <h3 class="display-6">
+                                    <span class="counter" [countUp]="7000"
+                                        [options]="{ enableScrollSpy: true }">7000</span>+
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="counter-item mb-4">
+                                <h6 class="mb-1 d-flex align-items-center justify-content-center text-pink">
+                                    <i class="isax isax-tag-user5 me-2"></i>Client Globally
+                                </h6>
+                                <h3 class="display-6">
+                                    <span class="counter" [countUp]="100"
+                                        [options]="{ enableScrollSpy: true }">100</span>+
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="counter-item mb-4">
+                                <h6 class="mb-1 d-flex align-items-center justify-content-center text-info">
+                                    <i class="isax isax-status-up5 me-2"></i>Providers Registered
+                                </h6>
+                                <h3 class="display-6">
+                                    <span class="counter" [countUp]="89"
+                                        [options]="{ enableScrollSpy: true }">89</span>+
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about-bg">
+            <img src="assets/img/bg/about-bg.png" alt="img" class="about-bg-01" />
+            <img src="assets/img/bg/about-bg-01.svg" alt="img" class="about-bg-02" />
+        </div>
+    </div>
+</section> -->
+<!-- /About Section -->
+
+<!-- Experts Section -->
+<!-- <section class="section experts-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-10 text-center aos" data-aos="fade-up" data-aos-duration="2000">
+                <div class="section-header text-center">
+                    <h2 class="mb-2">
+                        Our
+                        <span class="text-primary text-decoration-underline">Popular</span>
+                        Experts
+                    </h2>
+                    <p class="sub-title">
+                        Here are some famous tourist places around the world that are known
+                        for their historical significance,natural beauty, or cultural
+                        impact:
+                    </p>
+                </div>
+            </div>
+        </div>
+        <owl-carousel-o class="experts-slider nav-center" [options]="expertSlider">
+            <ng-template carouselSlide>
+                <div class="expert-item mb-4">
+                    <a href="javascript:void(0);" class="expert-img">
+                        <div class="bg-purple-100 position-relative">
+                            <img src="assets/img/expert/expert-01.png" alt="img" />
+                            <span class="bg-info circle-shape"></span>
+                        </div>
+                    </a>
+                    <div class="expert-content">
+                        <div class="d-flex align-items-center mb-1">
+                            <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>
+                            <p>(499 Reviews)</p>
+                        </div>
+                        <h5 class="mb-1">
+                            <a href="javascript:void(0);">Damien Martien</a>
+                        </h5>
+                        <p class="d-flex align-items-center">
+                            <img src="assets/img/flags/brazil.svg" alt="img" class="me-2" />Brazil, Rio
+                        </p>
+                        <div class="d-flex border-top mt-3 pt-3">
+                            <div class="flex-fill">
+                                <p class="mb-1">Total Listings</p>
+                                <h6>14</h6>
+                            </div>
+                            <div class="flex-fill">
+                                <p class="mb-1">Starts From</p>
+                                <h6>$452</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template carouselSlide>
+                <div class="expert-item mb-4">
+                    <a href="javascript:void(0);" class="expert-img">
+                        <div class="bg-orange-100 position-relative">
+                            <img src="assets/img/expert/expert-02.png" alt="img" />
+                            <span class="bg-orange circle-shape"></span>
+                        </div>
+                    </a>
+                    <div class="expert-content">
+                        <div class="d-flex align-items-center mb-1">
+                            <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">4.9</span>
+                            <p>(315 Reviews)</p>
+                        </div>
+                        <h5 class="mb-1"><a href="javascript:void(0);">Connie Allen</a></h5>
+                        <p class="d-flex align-items-center">
+                            <img src="assets/img/flags/japan.svg" alt="img" class="me-2" />Tokyo, Japan
+                        </p>
+                        <div class="d-flex border-top mt-3 pt-3">
+                            <div class="flex-fill">
+                                <p class="mb-1">Total Listings</p>
+                                <h6>21</h6>
+                            </div>
+                            <div class="flex-fill">
+                                <p class="mb-1">Starts From</p>
+                                <h6>$689</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template carouselSlide>
+                <div class="expert-item mb-4">
+                    <a href="javascript:void(0);" class="expert-img">
+                        <div class="bg-pink-100 position-relative">
+                            <img src="assets/img/expert/expert-03.png" alt="img" />
+                            <span class="bg-pink circle-shape"></span>
+                        </div>
+                    </a>
+                    <div class="expert-content">
+                        <div class="d-flex align-items-center mb-1">
+                            <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">4.7</span>
+                            <p>(220 Reviews)</p>
+                        </div>
+                        <h5 class="mb-1"><a href="javascript:void(0);">Ida Olsen</a></h5>
+                        <p class="d-flex align-items-center">
+                            <img src="assets/img/flags/africa.svg" alt="img" class="me-2" />Cape Town, South Africa
+                        </p>
+                        <div class="d-flex border-top mt-3 pt-3">
+                            <div class="flex-fill">
+                                <p class="mb-1">Total Listings</p>
+                                <h6>15</h6>
+                            </div>
+                            <div class="flex-fill">
+                                <p class="mb-1">Starts From</p>
+                                <h6>$230</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template carouselSlide>
+                <div class="expert-item mb-4">
+                    <a href="javascript:void(0);" class="expert-img">
+                        <div class="bg-teal-100 position-relative">
+                            <img src="assets/img/expert/expert-04.png" alt="img" />
+                            <span class="bg-teal circle-shape"></span>
+                        </div>
+                    </a>
+                    <div class="expert-content">
+                        <div class="d-flex align-items-center mb-1">
+                            <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>
+                            <p>(180 Reviews)</p>
+                        </div>
+                        <h5 class="mb-1">
+                            <a href="javascript:void(0);">Damien Martien</a>
+                        </h5>
+                        <p class="d-flex align-items-center">
+                            <img src="assets/img/flags/australia.svg" alt="img" class="me-2" />Sydney, Australia
+                        </p>
+                        <div class="d-flex border-top mt-3 pt-3">
+                            <div class="flex-fill">
+                                <p class="mb-1">Total Listings</p>
+                                <h6>15</h6>
+                            </div>
+                            <div class="flex-fill">
+                                <p class="mb-1">Starts From</p>
+                                <h6>$563</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template carouselSlide>
+                <div class="expert-item mb-4">
+                    <a href="javascript:void(0);" class="expert-img">
+                        <div class="bg-purple-100 position-relative">
+                            <img src="assets/img/expert/expert-05.png" alt="img" />
+                            <span class="bg-purple circle-shape"></span>
+                        </div>
+                    </a>
+                    <div class="expert-content">
+                        <div class="d-flex align-items-center mb-1">
+                            <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">4.9</span>
+                            <p>(160 Reviews)</p>
+                        </div>
+                        <h5 class="mb-1">
+                            <a href="javascript:void(0);">Catalina Schmeling</a>
+                        </h5>
+                        <p class="d-flex align-items-center">
+                            <img src="assets/img/flags/norway.svg" alt="img" class="me-2" />Oslo, Norway
+                        </p>
+                        <div class="d-flex border-top mt-3 pt-3">
+                            <div class="flex-fill">
+                                <p class="mb-1">Total Listings</p>
+                                <h6>17</h6>
+                            </div>
+                            <div class="flex-fill">
+                                <p class="mb-1">Starts From</p>
+                                <h6>$550</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </owl-carousel-o>
+        <div class="text-center view-all aos">
+            <a [routerLink]="routes.team" class="btn btn-dark">View All Experts<i
+                    class="isax isax-arrow-right-3 ms-2"></i></a>
+        </div>
+    </div>
+</section> -->
+<!-- /Experts Section -->
+
+<!-- Video Section -->
+<!-- <div class="video-wrap">
+    <lightgallery [settings]="settings" [onInit]="onInit" size="1400-933">
+        <a class="video-btn video-effect" src="https://youtu.be/NSAOrGb9orM">
+            <i class="isax isax-play5"></i>
+        </a>
+    </lightgallery>
+</div> -->
+<!-- /Video Section -->
+
+<!-- Client Section -->
+<!-- <section class="section client-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 text-center aos" data-aos="fade-up" data-aos-duration="2000">
+                <h6 class="fs-16 fw-medium mb-4">
+                    Trusted By 40+ Clients Around the Globe
+                </h6>
+            </div>
+        </div>
+        <owl-carousel-o class="client-slider" [options]="clientSlider">
+            <ng-template carouselSlide>
+                <div class="client-img">
+                    <img src="assets/img/clients/client-01.svg" alt="img" />
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="client-img">
+                    <img src="assets/img/clients/client-02.svg" alt="img" />
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="client-img">
+                    <img src="assets/img/clients/client-03.svg" alt="img" />
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="client-img">
+                    <img src="assets/img/clients/client-04.svg" alt="img" />
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="client-img">
+                    <img src="assets/img/clients/client-05.svg" alt="img" />
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="client-img">
+                    <img src="assets/img/clients/client-06.svg" alt="img" />
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="client-img">
+                    <img src="assets/img/clients/client-07.svg" alt="img" />
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div class="client-img">
+                    <img src="assets/img/clients/client-04.svg" alt="img" />
+                </div>
+            </ng-template>
+        </owl-carousel-o>
+    </div>
+</section> -->
+<!-- /Client Section -->
+
+<!-- Testimonial Section -->
+<!-- <section class="section testimonial-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-10 text-center aos" data-aos="fade-up" data-aos-duration="2000">
+                <div class="section-header text-center">
+                    <h2 class="mb-2">
+                        What’s Our
+                        <span class="text-primary text-decoration-underline">User</span>
+                        Says
+                    </h2>
+                    <p class="sub-title">
+                        DreamsTour, a tour operator specializing in dream destinations,
+                        offers a variety of benefits for travelers.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="owl-carousel testimonial-slider">
+            
+            <div class="card border-white aos" data-aos="fade-up" data-aos-duration="2000">
+                <div class="card-body">
+                    <h6 class="mb-4">Great Hospitalization</h6>
+                    <p class="mb-4">
+                        Dream Tours is the only way to go. We had the time of our life on
+                        our trip to the Ark. The customer service was wonderful & the staff
+                        was very helpful.
+                    </p>
+                    <div class="border-top pt-4 d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <a href="javascript:void(0);" class="avatar avatar-md flex-shrink-0">
+                                <img src="assets/img/users/user-01.jpg" class="rounded-circle" alt="img" />
+                            </a>
+                            <div class="ms-2">
+                                <h6 class="fs-16 fw-medium">
+                                    <a href="javascript:void(0);">Andrew Fetcher</a>
+                                </h6>
+                                <p>Newyork, United States</p>
+                            </div>
+                        </div>
+                        <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card border-white aos" data-aos="fade-up" data-aos-duration="2000">
+                <div class="card-body">
+                    <h6 class="mb-4">Hidden Treasure</h6>
+                    <p class="mb-4">
+                        I went on the Gone with the Wind tour, and it was my first multi-day
+                        bus tour. The experience was terrific, thanks to the friendly tour
+                        guides.
+                    </p>
+                    <div class="border-top pt-4 d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <a href="javascript:void(0);" class="avatar avatar-md flex-shrink-0">
+                                <img src="assets/img/users/user-02.jpg" class="rounded-circle" alt="img" />
+                            </a>
+                            <div class="ms-2">
+                                <h6 class="fs-16 fw-medium">
+                                    <a href="javascript:void(0);">Bryan Bradfield</a>
+                                </h6>
+                                <p>Cape Town, South Africa</p>
+                            </div>
+                        </div>
+                        <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card border-white aos" data-aos="fade-up" data-aos-duration="2000">
+                <div class="card-body">
+                    <h6 class="mb-4">Easy to Find your Leisuere Place</h6>
+                    <p class="mb-4">
+                        Thanks for arranging a smooth travel experience for us. Our cab
+                        driver was polite, timely, and helpful. The team ensured making it a
+                        stress-free trip.
+                    </p>
+                    <div class="border-top pt-4 d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <a href="javascript:void(0);" class="avatar avatar-md flex-shrink-0">
+                                <img src="assets/img/users/user-03.jpg" class="rounded-circle" alt="img" />
+                            </a>
+                            <div class="ms-2">
+                                <h6 class="fs-16 fw-medium">
+                                    <a href="javascript:void(0);">Prajakta Sasane</a>
+                                </h6>
+                                <p>Paris, France</p>
+                            </div>
+                        </div>
+                        <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card border-white aos" data-aos="fade-up" data-aos-duration="2000">
+                <div class="card-body">
+                    <h6 class="mb-4">Great Service</h6>
+                    <p class="mb-4">
+                        We had a fantastic time as a family. There were activities for every
+                        age group, and the kids loved the kids’ club, fun activities, good
+                        customer service.
+                    </p>
+                    <div class="border-top pt-4 d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <span class="avatar avatar-md flex-shrink-0">
+                                <img src="assets/img/users/user-05.jpg" class="rounded-circle" alt="img" />
+                            </span>
+                            <div class="ms-2">
+                                <h6 class="fs-16 fw-medium">James Andrew</h6>
+                                <p>Newyork, United States</p>
+                            </div>
+                        </div>
+                        <span class="badge badge-warning badge-xs text-gray-9 fs-13 fw-medium me-2">5.0</span>
+                    </div>
+                </div>
+            </div>        </div>
+    </div>
+    <div class="testimonial-bg">
+        <img src="assets/img/bg/testimonial-bg-01.svg" alt="img" />
+    </div>
+</section> -->
+<!-- /Testimonial Section -->
+
+<!-- Update Section -->
+<!-- <section class="update-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="update-sec">
+                    <div class="section-header text-center">
+                        <h2 class="mb-1">Stay Updated</h2>
+                        <p class="sub-title">
+                            Signup for New Offers & Updates from DreamsTour
+                        </p>
+                    </div>
+                    <div class="input-group justify-content-center mx-auto">
+                        <span class="input-group-text px-1"><i class="isax isax-message-favorite5"></i></span>
+                        <input type="email" class="form-control" placeholder="Enter Email Address" />
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </div>
+                    <div class="update-bg">
+                        <img src="assets/img/bg/update-bg.png" alt="img" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- /Update Section -->
+
+<!-- FAQ Section -->
+<!-- <section class="faq-section section">
+    <div class="container">
+        <div class="faq-sec">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-10 text-center aos" data-aos="fade-up" data-aos-duration="2000">
+                    <div class="section-header text-center">
+                        <h2 class="mb-2">
+                            Frequently Asked
+                            <span class="text-primary text-decoration-underline">Questions</span>
+                        </h2>
+                        <p class="sub-title">
+                            DreamsTour, a tour operator specializing in dream destinations,
+                            offers a variety of benefits for travelers.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="accordion accordion-flush" id="accordionFaq">
+                        <div class="accordion-item show mb-3 pb-3 aos" data-aos="fade-up" data-aos-duration="2000">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-collapseOne" aria-expanded="false"
+                                    aria-controls="faq-collapseOne">
+                                    What types of tours do you offer?
+                                </button>
+                            </h2>
+                            <div id="faq-collapseOne" class="accordion-collapse collapse show"
+                                data-bs-parent="#accordionFaq">
+                                <div class="accordion-body">
+                                    <p class="mb-0">
+                                        We offer a wide range of tours, including cultural,
+                                        adventure, luxury, and customized itineraries.
+                                    </p>
+                                    <p>
+                                        Popular destinations include Europe, Africa (e.g., Morocco),
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-3 pb-3 aos" data-aos="fade-up" data-aos-duration="2000">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-collapsetwo" aria-expanded="false"
+                                    aria-controls="faq-collapsetwo">
+                                    Are the tours customizable?
+                                </button>
+                            </h2>
+                            <div id="faq-collapsetwo" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFaq">
+                                <div class="accordion-body">
+                                    <p>
+                                        We offer a wide range of tours, including cultural,
+                                        adventure, luxury, and customized itineraries.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-3 pb-3 aos" data-aos="fade-up" data-aos-duration="2000">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-collapsthree" aria-expanded="false"
+                                    aria-controls="faq-collapsthree">
+                                    What safety measures do you follow?
+                                </button>
+                            </h2>
+                            <div id="faq-collapsthree" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFaq">
+                                <div class="accordion-body">
+                                    <p>
+                                        We offer a wide range of tours, including cultural,
+                                        adventure, luxury, and customized itineraries.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-3 pb-3 aos" data-aos="fade-up" data-aos-duration="2000">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-collapsefour" aria-expanded="false"
+                                    aria-controls="faq-collapsefour">
+                                    How far in advance should I book?
+                                </button>
+                            </h2>
+                            <div id="faq-collapsefour" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFaq">
+                                <div class="accordion-body">
+                                    <p>
+                                        We offer a wide range of tours, including cultural,
+                                        adventure, luxury, and customized itineraries.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item aos" data-aos="fade-up" data-aos-duration="2000">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#faq-collapsefive" aria-expanded="false"
+                                    aria-controls="faq-collapsefive">
+                                    What is your cancellation policy?
+                                </button>
+                            </h2>
+                            <div id="faq-collapsefive" class="accordion-collapse collapse"
+                                data-bs-parent="#accordionFaq">
+                                <div class="accordion-body">
+                                    <p>
+                                        We offer a wide range of tours, including cultural,
+                                        adventure, luxury, and customized itineraries.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- /FAQ Section -->
+
+<!-- Blog Section -->
+<!-- <section class="section blog-section pt-0">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-10 text-center aos" data-aos="fade-up" data-aos-duration="2000">
+                <div class="section-header text-center">
+                    <h2 class="mb-2">
+                        Recent
+                        <span class="text-primary text-decoration-underline">Articles</span>
+                    </h2>
+                    <p class="sub-title">
+                        DreamsTour offers various blog resources that cater to travel
+                        enthusiasts, with a focus on adventure, gear reviews, and travel
+                        tips.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-item mb-4 aos" data-aos="fade-up" data-aos-duration="2000">
+                    <a [routerLink]="routes.blogDetails" class="blog-img">
+                        <img src="assets/img/blog/blog-01.jpg" alt="img" />
+                    </a>
+                    <span class="badge bg-primary fs-13 fw-medium">Travel</span>
+                    <div class="blog-info text-center">
+                        <div class="d-inline-flex align-items-center justify-content-center">
+                            <div class="d-inline-flex align-items-center border-end pe-3 me-3 mb-2">
+                                <a href="javascript:void(0);" class="d-flex align-items-center">
+                                    <span class="avatar avatar-sm flex-shrink-0 me-2">
+                                        <img src="assets/img/users/user-01.jpg"
+                                            class="rounded-circle border border-white" alt="img" />
+                                    </span>
+                                    <p>Bryan Bradfield</p>
+                                </a>
+                            </div>
+                            <p class="d-inline-flex align-items-center text-white mb-2">
+                                <i class="isax isax-calendar-2 me-2"></i>14 May 2025
+                            </p>
+                        </div>
+                        <h5>
+                            <a [routerLink]="routes.blogDetails">Top 10 Hidden Gems places in Central Europe in 2025</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-item mb-4 aos" data-aos="fade-up" data-aos-duration="2000">
+                    <a [routerLink]="routes.blogDetails" class="blog-img">
+                        <img src="assets/img/blog/blog-02.jpg" alt="img" />
+                    </a>
+                    <span class="badge bg-primary fs-13 fw-medium">Guide</span>
+                    <div class="blog-info text-center">
+                        <div class="d-inline-flex align-items-center justify-content-center">
+                            <div class="d-inline-flex align-items-center border-end pe-3 me-3 mb-2">
+                                <a href="javascript:void(0);" class="d-flex align-items-center">
+                                    <span class="avatar avatar-sm flex-shrink-0 me-2">
+                                        <img src="assets/img/users/user-02.jpg"
+                                            class="rounded-circle border border-white" alt="img" />
+                                    </span>
+                                    <p>Michell West</p>
+                                </a>
+                            </div>
+                            <p class="d-inline-flex align-items-center text-white mb-2">
+                                <i class="isax isax-calendar-2 me-2"></i>12 May 2025
+                            </p>
+                        </div>
+                        <h5>
+                            <a [routerLink]="routes.blogDetails">Exploring the World: Your Ultimate Dream Tour
+                                Itinerary</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-item mb-4 aos" data-aos="fade-up" data-aos-duration="2000">
+                    <a [routerLink]="routes.blogDetails" class="blog-img">
+                        <img src="assets/img/blog/blog-03.jpg" alt="img" />
+                    </a>
+                    <span class="badge bg-primary fs-13 fw-medium">Rental</span>
+                    <div class="blog-info text-center">
+                        <div class="d-inline-flex align-items-center justify-content-center">
+                            <div class="d-inline-flex align-items-center border-end pe-3 me-3 mb-2">
+                                <a href="javascript:void(0);" class="d-flex align-items-center">
+                                    <span class="avatar avatar-sm flex-shrink-0 me-2">
+                                        <img src="assets/img/users/user-03.jpg"
+                                            class="rounded-circle border border-white" alt="img" />
+                                    </span>
+                                    <p>Patricia Hasbro</p>
+                                </a>
+                            </div>
+                            <p class="d-inline-flex align-items-center text-white mb-2">
+                                <i class="isax isax-calendar-2 me-2"></i>14 May 2025
+                            </p>
+                        </div>
+                        <h5>
+                            <a [routerLink]="routes.blogDetails">New York City, USA - The City That Never Sleeps</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center view-all aos">
+            <a [routerLink]="routes.blogGrid" class="btn btn-dark d-inline-flex align-items-center">View All Articles<i
+                    class="isax isax-arrow-right-3 ms-2"></i></a>
+        </div>
+    </div>
+</section> -->
+<!-- /Blog Section -->
+
+<!-- Support Section -->
+<!-- <section class="support-section bg-primary">
+    <div class="horizontal-slide d-flex" data-direction="left" data-speed="slow">
+        <div class="slide-list d-flex">
+            <div class="support-item">
+                <h5>Personalized Itineraries</h5>
+            </div>
+            <div class="support-item">
+                <h5>Comprehensive Planning</h5>
+            </div>
+            <div class="support-item">
+                <h5>Expert Guidance</h5>
+            </div>
+            <div class="support-item">
+                <h5>Local Experience</h5>
+            </div>
+            <div class="support-item">
+                <h5>Customer Support</h5>
+            </div>
+            <div class="support-item">
+                <h5>Sustainability Efforts</h5>
+            </div>
+            <div class="support-item">
+                <h5>Multiple Regions</h5>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- /Support Section -->
+
+
+<ng-template #noResults>
+    <li class="text-center text-muted p-2">No matching items found.</li>
+</ng-template>

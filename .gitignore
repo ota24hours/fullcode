@@ -1,17 +1,37 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+############################
 # Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+############################
+dist/
+tmp/
+out-tsc/
+bazel-out/
+.next/
+out/
+build/
+coverage/
 
+############################
 # Node
-/node_modules
-npm-debug.log
-yarn-error.log
+############################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
 
+############################
+# Environment files
+############################
+.env
+.env.local
+.env.*.local
+
+############################
 # IDEs and editors
+############################
 .idea/
 .project
 .classpath
@@ -28,15 +48,26 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
+############################
+# PHP / Backend
+############################
+vendor/
+composer.lock
+storage/
+*.log
 
+############################
+# Miscellaneous
+############################
+.angular/cache
+.sass-cache/
+connect.lock
+libpeerconnection.log
+testem.log
+typings/
+
+############################
 # System files
+############################
 .DS_Store
 Thumbs.db
